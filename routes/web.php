@@ -56,6 +56,19 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
+        // Roomページ
+        Route::resource('room', 'RoomController', ['only' => 'index']);
+
+        // scheduleページ
+        Route::resource('schedule', 'ScheduleController');
+
+
+        Route::get('schedule/source/{id?}', 'ScheduleController@source');
+     //   Route::post('schedule/source/{id?}', 'ScheduleController@source');
+
+    //    Route::get('/home', 'HomeController@index')->name('home');
+
+
     });
 });
 
@@ -71,10 +84,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     // ログイン認証後
     Route::middleware('auth:admin')->group(function () {
-
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
+        // Roomページ
+        Route::resource('room', 'RoomController', ['only' => 'index']);
     });
 
 });

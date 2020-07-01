@@ -13,6 +13,22 @@ try {
     require('bootstrap');
 } catch (e) {}
 
+
+/**
+ * Import moment js
+ */
+import moment from 'moment';
+window.moment = moment;
+
+require('tempusdominus-bootstrap-4');
+$('.datetimepicker').datetimepicker({
+  icons: {
+    // Font Awesome 5には「fa-clock-o」がなくなっているので指定する
+    time: 'far fa-clock'
+  },
+  format: 'YYYY-MM-DD'
+});
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
