@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-
 use App\Models\Schedule;
-
 use Auth;
 
 class ScheduleController extends Controller

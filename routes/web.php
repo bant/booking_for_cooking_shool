@@ -57,7 +57,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
         // Roomページ
-        Route::resource('room', 'RoomController', ['only' => 'index']);
+        Route::resource('room', 'RoomController');
 
         // scheduleページ
         Route::resource('schedule', 'ScheduleController');

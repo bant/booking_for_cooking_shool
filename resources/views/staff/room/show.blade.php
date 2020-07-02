@@ -8,7 +8,7 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生の教室の詳細</div>
+                <div class="card-header"><i class="fas fa-plus"></i> {{ Auth::user()->name }}先生の教室情報</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -17,8 +17,22 @@
                         </div>
                     @endif
 
-                    @if(isset($room))
- 
+                    {{--成功時のメッセージ--}}
+                    @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    {{-- エラーメッセージ --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        </div>
+                    @endif
+
+
                     <div class="form-group">
                         <label for="name-field">教室名</label>
                         <input class="form-control" type="text" name="name" id="name-field" value="{{$room->name}}"  readonly/>
@@ -31,16 +45,6 @@
                         <label for="description-field">詳細</label>
                         <textarea name="description" id="description-field" class="form-control" rows="3"  readonly>{{$room->description}}</textarea>
                     </div>
-
-                    <div class="well well-sm">
-                            <a class="btn btn-primary" href="/staff/room/{{$room->id}}/edit"><i class="fas fa-edit"></i> 編集</a>
-                        </div>
-        
-
-                    @else
-                        <h3 class="text-center alert alert-info">教室が未登録です。</h3>
-                        <a href="/staff/room/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックして教室を登録してください。
-                    @endif
                 </div>
             </div>
         </div>

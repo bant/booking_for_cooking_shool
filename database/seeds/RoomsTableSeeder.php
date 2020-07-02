@@ -16,8 +16,6 @@ class RoomsTableSeeder extends Seeder
             'owner_id'          => 1,
             'address'           => '大阪市',
             'description'       => '家庭料理中心',
-            'price'             => 3000,
-            'image'             => '',
         ]);
     }
 }

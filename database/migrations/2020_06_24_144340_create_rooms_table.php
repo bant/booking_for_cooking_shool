@@ -16,12 +16,12 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('owner_id')->unique();  
             $table->foreign('owner_id')->references('id')->on('staff');
             $table->string('address');
             $table->string('description');
-            $table->decimal('price', 10, 2);
-            $table->string('image');
+//            $table->decimal('price', 10, 2);
+//            $table->string('image');
             $table->timestamps();
         });
     }
