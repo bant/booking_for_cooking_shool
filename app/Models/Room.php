@@ -17,7 +17,6 @@ class Room extends Model
   // 「１対１」→ メソッド名は単数形
   Public function owner()
   {
-    // Profileモデルのデータを引っ張てくる
-    return $this->hasOne('App\Models\Staff','id','owner_id');
+    return $this->belongsTo('App\Models\Staff');
   }
 }

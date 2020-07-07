@@ -33,8 +33,11 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     // ログイン認証後
     Route::middleware('auth:user')->group(function () {
 
-        // TOPページ
-        Route::resource('home', 'HomeController', ['only' => 'index']);
+    // TOPページ
+    Route::resource('home', 'HomeController', ['only' => 'index']);
+
+    // Roomページ
+    Route::resource('reservation', 'ReservationController', ['only' => 'index']);
 
     });
 });
@@ -61,14 +64,9 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         // scheduleページ
         Route::resource('schedule', 'ScheduleController');
-
-
-        Route::get('schedule/source/{id?}', 'ScheduleController@source');
-     //   Route::post('schedule/source/{id?}', 'ScheduleController@source');
-
-    //    Route::get('/home', 'HomeController@index')->name('home');
-
-
+        Route::get('inquiry/{id?}/get', 'InquiryController@get');
+        Route::post('inquiry/store', 'InquiryController@store');
+        Route::post('inquiry/update', 'InquiryController@update');
     });
 });
 
@@ -85,10 +83,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // ログイン認証後
     Route::middleware('auth:admin')->group(function () {
         // TOPページ
-        Route::resource('home', 'HomeController', ['only' => 'index']);
+       Route::resource('home', 'HomeController', ['only' => 'index']);
 
         // Roomページ
         Route::resource('room', 'RoomController', ['only' => 'index']);
+
     });
 
 });

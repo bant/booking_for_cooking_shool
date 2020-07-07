@@ -15,11 +15,13 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
+//            $table->unsignedBigInteger('identifier')->unique(); 
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('staff');
             $table->boolean('is_zoom')->nullable();
             $table->string('title');
             $table->string('description');
+            $table->unsignedInteger('capacity'); 
             $table->dateTime('start');
             $table->dateTime('end');
             $table->timestamps();

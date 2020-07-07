@@ -3,12 +3,17 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+      <div class="col-md-2">
         <!-- left menu -->
         @include('layouts.staff.menu')
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><i class="fas fa-plus"></i> {{ Auth::user()->name }}先生のスケジュール</div>
+                <div class="card-header"><i class="fas fa-plus"></i> {{ Auth::user()->name }}先生のスケジュール
+            
+
+                
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -66,11 +71,12 @@
                       @endforeach
                       </tbody>
                       </table>
+                      <a class="btn btn-primary" href="{{ route('staff.schedule.create') }}"><i class="fas fa-edit"></i> 追加</a>
 
                     @else
-                      <h3 class="text-center alert alert-info">Empty!</h3>
+                        <h3 class="text-center alert alert-info">スケジュールが未登録です。</h3>
+                        <a href="/staff/schedule/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてスケジュールを登録してください。
                     @endif
-            
                     </div>
                 </div>
             </div>

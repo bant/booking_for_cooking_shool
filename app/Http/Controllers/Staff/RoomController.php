@@ -19,6 +19,7 @@ class RoomController extends Controller
     {
         $staff = Auth::user();
         $room = Room::where('owner_id', $staff->id)->first();
+//        dd($room->owner->email);
         return view('staff.room.index', compact('room'));
     }
 

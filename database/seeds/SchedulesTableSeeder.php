@@ -13,11 +13,12 @@ class SchedulesTableSeeder extends Seeder
     {
         DB::table('schedules')->insert([
             'owner_id'          => 1,
+            'capacity'        => 4,
             'is_zoom'           => 0,
             'title'             => 'テスト教室',
             'description'       => 'テスト教室の詳細',
-            'start'             => '2020-06-26T10:00:00',
-            'end'               => '2020-06-26T12:00:00',
+            'start'             => '2020-06-26 10:00',
+            'end'               => '2020-06-26 12:00',
         ]);
     }
 }

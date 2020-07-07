@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use Auth;
 
+use App\Http\Requests\StoreSchedule;
+
 class ScheduleController extends Controller
 {
     /**
@@ -18,6 +20,9 @@ class ScheduleController extends Controller
     {
         $staff = Auth::user();
         $schedules = Schedule::where('owner_id', $staff->id)->get();
+//        $schedule = Schedule::where('owner_id', $staff->id)->first();
+//        dd($schedule->staff->name);
+
         return view('staff.schedule.index', compact('schedules'));
     }
 
@@ -37,7 +42,7 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSchedule $request)
     {
         $staff = Auth::user();
 
@@ -45,11 +50,13 @@ class ScheduleController extends Controller
         $schedule->owner_id = $staff->id;
         $schedule->title = $request->title;
         $schedule->description = $request->description;
+        $schedule->capacity = $request->capacity;
         $schedule->start = str_replace('T', ' ', $request->start);
         $schedule->end = str_replace('T', ' ', $request->end);
       
         $schedule->save();
 
+//        return view('staff.home');
         return redirect()->route('staff.schedule.index')->with('message', 'Schedule created successfully.');
     }
 
@@ -84,7 +91,7 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreSchedule $request, $id)
     {
         $staff = Auth::user();
         $update = [
@@ -96,7 +103,9 @@ class ScheduleController extends Controller
         ];
 
         Schedule::where('id', $id)->update($update);
-        return back()->with('success', '編集完了しました');
+//        return back()->with('success', '編集完了しました');
+        return view('staff.home');
+//        return redirect()->route('staff.home')->with('message', 'Schedule deleted successfully.');
     }
 
     /**
@@ -121,16 +130,8 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function source($id)
+    public function calender()
     {
-        $data = [];
-
-        $schedules = Schedule::where('owner_id', $id)->get();
-
-        foreach($schedules as $schedule) {
-            $ev = ['id'=>$schedule->id, 'owner_id'=>$schedule->owner_id, 'title'=>$schedule->title, 'start'=>$schedule->start, 'end'=>$schedule->end, 'color'=>'lightpink'];
-            array_push($data,$ev);
-        }
-        echo json_encode($data);
+        return view('staff.schedule.calender');
     }
 }

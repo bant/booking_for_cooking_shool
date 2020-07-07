@@ -36,4 +36,13 @@ class Staff extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * ユーザーに関連する教室レコードを取得
+     */
+    public function room()
+    {
+        return $this->hasOne('App\Models\Room','id','owner_id');
+    }
 }

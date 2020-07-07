@@ -49,4 +49,11 @@ class Schedule extends Model
 //    protected $casts = [
 //        'email_verified_at' => 'datetime',
 //    ];
+
+    // 「１対１」→ メソッド名は単数形
+    Public function staff()
+    {
+        // Profileモデルのデータを引っ張てくる
+        return $this->hasMany('App\Models\Staff','id','owner_id');
+    }
 }

@@ -3,12 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+      <div class="col-md-2">
         <!-- left menu -->
         @include('layouts.staff.menu')
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><i class="fas fa-pen"></i> {{ Auth::user()->name }}先生の教室の編集</div>
+            <div class="card">
+                <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生の教室の詳細</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -19,7 +21,7 @@
 
                     {{--成功時のメッセージ--}}
                     @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
+                      <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
                     {{-- エラーメッセージ --}}
                     @if ($errors->any())
@@ -31,7 +33,6 @@
                         </ul>
                         </div>
                     @endif
-
 
                     <form action="{{ route('staff.room.update', $room->id) }}" method="POST">
                         @csrf
@@ -55,7 +56,9 @@
                             <a class="btn btn-link pull-right" href="{{ route('staff.room.index') }}"><i class="fas fa-backward"></i> 詳細へ戻る</a>
                         </div>
                     </form>
-                <div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
