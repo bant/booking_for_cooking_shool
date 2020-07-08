@@ -38,7 +38,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
     // Roomページ
     Route::resource('reservation', 'ReservationController', ['only' => 'index']);
-
+    
     });
 });
 
@@ -62,8 +62,15 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         // Roomページ
         Route::resource('room', 'RoomController');
 
+        // Roomページ
+        Route::resource('course', 'CourseController');
+
         // scheduleページ
         Route::resource('schedule', 'ScheduleController');
+
+//        Route::get('schedule/calender', 'ScheduleController@calender');
+
+
         Route::get('inquiry/{id?}/get', 'InquiryController@get');
         Route::post('inquiry/store', 'InquiryController@store');
         Route::post('inquiry/update', 'InquiryController@update');

@@ -12,9 +12,9 @@ class StaffTableSeeder extends Seeder
     public function run()
     {
         DB::table('staff')->insert([
-            'name'              => 'staff',
-            'email'             => 'staff@test.com',
-            'password'          => Hash::make('staff'),
+            'name'              => 'ばんと',
+            'email'             => 'bant62@gmail.com',
+            'password'          => Hash::make('osame123'),
             'remember_token'    => Str::random(10),
         ]);
     }

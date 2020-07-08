@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Staff;
 
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Schedule;
+use App\Models\Course;
 use Auth;
 
-class InquiryController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,9 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        //
+        $staff = Auth::user();
+        $courses = Course::where('owner_id', $staff->id)->get();
+        return view('staff.course.index', compact('courses'));
     }
 
     /**
@@ -27,7 +28,7 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff.course.create');
     }
 
     /**
@@ -38,7 +39,8 @@ class InquiryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Course::create($request->all());
+        return redirect()->route('staff.course.index')->with('success', '新規登録完了しました');
     }
 
     /**
@@ -84,26 +86,5 @@ class InquiryController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-        /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function get(Request $request, $id)
-    {
-        $data = [];
-        $schedules = Schedule::where('owner_id',$id)
-                                ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
-                                ->get();
-        foreach($schedules as $schedule) {
-            $ev = ['id'=>$schedule->id, 'title'=>$schedule->course->name, 
-            'start'=>str_replace(' ', 'T', $schedule->start), 'end'=>str_replace(' ', 'T', $schedule->end), 'color'=>'lightpink', 'owner_id'=>$schedule->owner_id, 'identifier'=>$schedule->identifier];
-            array_push($data,$ev);
-        }
-
-        return response()->json($data);
     }
 }

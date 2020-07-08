@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-
     protected $fillable = [
         'user_id',
         'schedule_id'
@@ -19,6 +18,6 @@ class Reservation extends Model
 
     Public function schedules()
     {
-        return $this->hasMany('App\Models\Schedule');
+        return $this->hasMany('App\Models\Schedule','id','schedule_id');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Course;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,12 @@ class HomeController extends Controller
     */
     public function index()
     {
-        return view('staff.home');
+
+        $staff = Auth::user();
+        $courses = Course::where('owner_id', $staff->id)->get(['id','name']);
+
+        return view('staff.home', compact('courses'));
+//        return view('staff.home');
     }
 
 }

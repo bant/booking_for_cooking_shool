@@ -138,8 +138,11 @@ class InquiryController extends Controller
                                 ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                                 ->get();
 
+
         foreach($schedules as $schedule) {
-            $ev = ['id'=>$schedule->id, 'title'=>$schedule->title, 'start'=>str_replace(' ', 'T', $schedule->start), 'end'=>str_replace(' ', 'T', $schedule->end), 'color'=>'lightpink', 'owner_id'=>$schedule->owner_id, 'identifier'=>$schedule->identifier];
+            $title = $schedule->course->name .":残".$schedule->capacity;
+            $ev = ['id'=>$schedule->id, 'title'=>$title, 
+            'start'=>str_replace(' ', 'T', $schedule->start), 'end'=>str_replace(' ', 'T', $schedule->end), 'color'=>'lightpink', 'owner_id'=>$schedule->owner_id, 'identifier'=>$schedule->identifier];
             array_push($data,$ev);
         }
 

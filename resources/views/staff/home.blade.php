@@ -5,7 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-2">
             <!-- left menu -->
-            @include('layouts.staff.menu')
+            <div class="card">
+                <div class="card-header"><i class="fas fa-th-list"></i></i> メニュー</div>
+                    <div class="card-body">
+                        <div class="panel panel-default">
+                            <ul class="nav nav-pills nav-stacked" style="display:block;">
+                                <li><i class="fas fa-user-alt"></i> <a href="room">プロフィール</a></li>
+                                <li><i class="fas fa-user-alt"></i> <a href="room">教室情報</a></li>
+                                <li><i class="fas fa-calendar"></i> <a href="schedule">スケジュール</a></li>
+                                <li><i class="fas fa-calendar"></i> <a href="schedule">予約</a></li>
+                            </ul>
+     
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-md-10">
                 <div class="card">
@@ -19,7 +36,10 @@
 
                         <div id='calendar'></div>
                         <div style='clear:both'></div>
+                    <br/>
+                        <a href="/staff/schedule/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 新規登録</button></a>
                     </div>
+
                 </div><!-- end card-body -->
             </div><!-- end card -->
         </div>
@@ -35,8 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
    var containerEl = document.getElementById('external-events');
    var calendarEl = document.getElementById('calendar');
    var checkbox = document.getElementById('drop-remove');
+
    // initialize the external events
-//    new Draggable(containerEl, {
+//   new Draggable(containerEl, {
 //        itemSelector: '.fc-event',
 //            eventData: function(eventEl) {
 //                return {
@@ -44,6 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
 //                };
 //            }
 //    });
+
+    const date = new UltraDate();
     // initialize the calendar
     var calendar = new Calendar(calendarEl, {
         plugins: [ 'interaction', 'dayGrid', 'timeGrid','list' ],
@@ -52,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
-        allDaySlot: false,
+        allDaySlot: true,
         forceEventDuration : true,
         eventColor: 'lavender',
         defaultTimedEventDuration: '01:00',
@@ -73,6 +96,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 list: 'リスト'
             },
         events:'/staff/inquiry/{{ Auth::user()->id }}/get',
+
+        dayRender: function(info) {
+            date.setFullYear(
+                info.date.getFullYear(),
+                info.date.getMonth(),
+                info.date.getDate()
+            );
+            const holiday = date.getHoliday();
+            if (holiday !== "") {
+                info.el.insertAdjacentHTML("afterbegin", "<div class=\"holiday-name\">" + holiday + "</div>");
+                info.el.classList.add("fc-hol")
+            }
+        },
 
         select: function (info) {
             // カレンダーセルクリック、範囲指定された時のコールバック
@@ -95,9 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'post',
                 data: {
                     'title' : info.event.title,
-//                    'identifier': info.event.extendedProps.identifier,
                     'owner_id': '{{ Auth::user()->id }}',
-//                    'description': ' ',
                     'start': start,
                     'end': end
                 },
@@ -139,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 json = JSON.parse(data);
                 if ( json['result'] == 'success' ) {
                     // サーバサイドにて設定された背景色に変更
-//                    displayMessage("Updated Successfully");
                     info.event.setProp('color',json['color']);
                 }
             })

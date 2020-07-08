@@ -24,9 +24,8 @@ class StoreSchedule extends FormRequest
     public function rules()
     {
         return [
-            'title'    => 'required|string', // 必須
+            'course_id'  => 'required', // 必須, 整数型
             'capacity'  => 'required|integer', // 必須, 整数型
-            'description'  => 'required|string', //必須, 文字列
 //            'is_zoom' => 'required|boolean', // 必須
             'start' => 'required|date', // 必須
             'end' => 'required|date', // 必須
@@ -37,9 +36,8 @@ class StoreSchedule extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'タイトルを入力して下さい。',
+            'course_id.required' => 'コースを選択してください。',
             'capacity.required' => '定員を入力して下さい。',
-            'description.required' => '詳細を入力して下さい。',
             'start.required' => '開始時間を入力して下さい。',
             'end.required' => '終了時間を入力して下さい。',
         ];

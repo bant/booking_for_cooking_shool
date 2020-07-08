@@ -13,7 +13,7 @@ class SchedulesTableSeeder extends Seeder
     {
         DB::table('schedules')->insert([
             'owner_id'          => 1,
-            'capacity'        => 4,
+            'capacity'          => 4,
             'is_zoom'           => 0,
             'title'             => 'テスト教室',
             'description'       => 'テスト教室の詳細',

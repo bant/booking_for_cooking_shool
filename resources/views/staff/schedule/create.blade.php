@@ -36,14 +36,13 @@
                     <form action="{{ route('staff.schedule.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="title-field">タイトル</label>
-                            <input class="form-control" type="text" name="title" id="title-field" value="{{old('title')}}" />
+                            <label for="title-field">コース</label>
+                            <select type="text" class="form-control" name="course_id">                          
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                            @endforeach
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="description-field">詳細</label>
-                            <textarea name="description" id="description-field" class="form-control" rows="3">{{old('description')}}</textarea>
-                        </div>
-
                         <div class="form-group">
                             <label for="capacity-field">定員</label>
                             <input class="form-control" type="number" name="capacity" id="capacity-field"  min="1" max="10" value="{{old('capacity')}}" />

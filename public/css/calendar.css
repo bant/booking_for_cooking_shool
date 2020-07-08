@@ -1,0 +1,12 @@
+td.fc-sat {
+    background-color: #eaf4ff;
+}
+td.fc-sun, td.fc-hol {
+    background-color: #ffeaea;
+}
+ 
+.holiday-name {
+    width: 90px;
+    font-size: 13px;
+    color: red;
+}

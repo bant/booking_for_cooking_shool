@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
-class Schedule extends Model
+class Course extends Model
 {
-    use Notifiable;
+//    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +14,7 @@ class Schedule extends Model
      * @var array
      */
     protected $fillable = [
-        'owner_id', 'course_id', 'is_zoom', 'start', 'end',
+        'name', 'owner_id', 'price',
     ];
 
     /**
@@ -39,14 +38,6 @@ class Schedule extends Model
 
     Public function staff()
     {
-        // Profileモデルのデータを引っ張てくる
         return $this->hasMany('App\Models\Staff','id','owner_id');
     }
-
-    Public function course()
-    {
-        return $this->belongsTo('App\Models\Course','course_id','id');
-    }
- 
-
 }

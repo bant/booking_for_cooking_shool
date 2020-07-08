@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\Course;
 use Auth;
 
 use App\Http\Requests\StoreSchedule;
@@ -20,8 +21,6 @@ class ScheduleController extends Controller
     {
         $staff = Auth::user();
         $schedules = Schedule::where('owner_id', $staff->id)->get();
-//        $schedule = Schedule::where('owner_id', $staff->id)->first();
-//        dd($schedule->staff->name);
 
         return view('staff.schedule.index', compact('schedules'));
     }
@@ -33,7 +32,9 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view('staff.schedule.create');
+        $staff = Auth::user();
+        $courses = Course::where('owner_id', $staff->id)->get(['id','name']);
+        return view('staff.schedule.create', compact('courses'));
     }
 
     /**
@@ -48,8 +49,7 @@ class ScheduleController extends Controller
 
         $schedule = new Schedule;
         $schedule->owner_id = $staff->id;
-        $schedule->title = $request->title;
-        $schedule->description = $request->description;
+        $schedule->course_id = $request->course_id;
         $schedule->capacity = $request->capacity;
         $schedule->start = str_replace('T', ' ', $request->start);
         $schedule->end = str_replace('T', ' ', $request->end);
@@ -80,8 +80,10 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
+        $staff = Auth::user();
         $schedule = Schedule::find($id);
-        return view('staff.schedule.edit', compact('schedule'));
+        $courses = Course::where('owner_id', $staff->id)->get(['id','name']);
+        return view('staff.schedule.edit', compact('schedule','courses'));
     }
 
     /**
@@ -96,16 +98,14 @@ class ScheduleController extends Controller
         $staff = Auth::user();
         $update = [
             'owner_id'      => $staff->id,
-            'title'         => $request->title,
-            'description'   => $request->description,
+            'course_id'     => $request->course_id,
+            'capacity'      => $request->capacity,
             'start'         => str_replace('T', ' ', $request->start),
             'end'           => str_replace('T', ' ', $request->end),
         ];
 
         Schedule::where('id', $id)->update($update);
-//        return back()->with('success', '編集完了しました');
-        return view('staff.home');
-//        return redirect()->route('staff.home')->with('message', 'Schedule deleted successfully.');
+        return back()->with('success', '編集完了しました');
     }
 
     /**
@@ -116,22 +116,7 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-     //   $schedule->delete();
-
         Schedule::where('id', $id)->delete();
-    //    return redirect()->route('book.index')->with('success', '削除完了しました');
-
         return redirect()->route('staff.schedule.index')->with('message', 'Schedule deleted successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function calender()
-    {
-        return view('staff.schedule.calender');
     }
 }
