@@ -11,6 +11,16 @@ use App\Http\Requests\StoreRoom;
 class RoomController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:staff');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -18,7 +28,7 @@ class RoomController extends Controller
     public function index()
     {
         $staff = Auth::user();
-        $room = Room::where('owner_id', $staff->id)->first();
+        $room = Room::where('staff_id', $staff->id)->first();
 //        dd($room->owner->email);
         return view('staff.room.index', compact('room'));
     }

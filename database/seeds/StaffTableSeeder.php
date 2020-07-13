@@ -11,11 +11,32 @@ class StaffTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('staff')->insert([
-            'name'              => 'ばんと',
-            'email'             => 'bant62@gmail.com',
-            'password'          => Hash::make('osame123'),
-            'remember_token'    => Str::random(10),
-        ]);
+        DB::table('staff')->insert(
+            [
+                'name'              => '先生1号',
+                'email'             => 'one@staff.com',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'is_zoom'           => true,
+            ]
+        );
+        DB::table('staff')->insert(
+            [
+                'name'              => '先生2号',
+                'email'             => 'two@staff.com',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'is_zoom'           => false,
+            ]
+        );
+        DB::table('staff')->insert(
+            [
+                'name'              => '先生3号',
+                'email'             => 'tree@staff.com',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'is_zoom'           => true,
+            ]
+        );
     }
 }

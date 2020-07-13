@@ -32,13 +32,20 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
     // ログイン認証後
     Route::middleware('auth:user')->group(function () {
+        // TOPページ
+        Route::resource('home', 'HomeController', ['only' => 'index']);
 
-    // TOPページ
-    Route::resource('home', 'HomeController', ['only' => 'index']);
+//        Route::resource('profile', 'ProfileController');
 
-    // Roomページ
-    Route::resource('reservation', 'ReservationController', ['only' => 'index']);
-    
+        Route::get('classroom_reservation', 'ClassRoomReservationController@index');
+        Route::get('classroom_reservation/{id?}/calendar', 'ClassRoomReservationController@calendar');
+        Route::get('classroom_reservation/create/{id?}', 'ClassRoomReservationController@create');  
+        Route::post('classroom_reservation/store', 'ClassRoomReservationController@store');   
+
+        Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
+
+        Route::get('reservation/{id?}/create', 'ReservationController@create');
+        Route::resource('reservation', 'ReservationController');
     });
 });
 
@@ -55,25 +62,26 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
     // ログイン認証後
     Route::middleware('auth:staff')->group(function () {
-
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
+        // プロフィール
+   //     Route::resource('profile', 'ProfileController');
+
+
         // Roomページ
         Route::resource('room', 'RoomController');
-
         // Roomページ
         Route::resource('course', 'CourseController');
-
         // scheduleページ
         Route::resource('schedule', 'ScheduleController');
 
-//        Route::get('schedule/calender', 'ScheduleController@calender');
-
-
         Route::get('inquiry/{id?}/get', 'InquiryController@get');
+        Route::post('inquiry/destroy', 'InquiryController@destroy');
         Route::post('inquiry/store', 'InquiryController@store');
         Route::post('inquiry/update', 'InquiryController@update');
+
+        Route::get('reservation/{id?}/show', 'InquiryController@show');
     });
 });
 

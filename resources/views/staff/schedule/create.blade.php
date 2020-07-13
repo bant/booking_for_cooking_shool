@@ -1,5 +1,13 @@
 @extends('layouts.staff.app')
 
+@section('style')
+<style>
+    input[type=radio] {
+       display: none; /* ラジオボタンを非表示にする */
+  }
+</style>
+@section('style')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -52,14 +60,26 @@
                             <label for="start-field">開始日時</label>
                             <input type="datetime-local" name="start"  id="start-field" value="{{old('start')}}"/>
                         </div>
-
                         <div class="form-group">
                             <label for="end-field">終了日時</label>
                             <input type="datetime-local" name="end"  id="end-field"  value="{{old('end')}}"/>
                         </div>
 
-                        <input type="checkbox" name="is_zoom" {{ old('is_zoom') || !$errors->any() ? 'checked' : '' }}><label for="is_zoom"> ZOOM</label>
- 
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label class="form-label" for="form-field">教室/ZOOM</label>
+                            </div>
+                            <div class="col-sm-10 btn-group" data-toggle="buttons">
+        
+                                <label class="btn btn-outline-secondary active" style="width:50%">
+                                    <input type="radio" name="is_zoom" value="0" checked="checked"> 教室
+                                </label>
+                                <label class="btn btn-outline-secondary" style="width:50%">
+                                     <input type="radio" name="is_zoom" value="1"> ZOOM
+                                </label>
+                                   
+                            </div>
+                        </div>
 
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 新規登録</button>

@@ -43,6 +43,7 @@ class Staff extends Authenticatable
      */
     public function room()
     {
-        return $this->hasOne('App\Models\Room','id','owner_id');
+   //     return $this->belongsTo('App\Models\Room','id','staff_id');
+       return $this->hasOne('App\Models\Room','staff_id', 'id');
     }
 }

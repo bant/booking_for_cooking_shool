@@ -16,8 +16,8 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
 //            $table->unsignedBigInteger('identifier')->unique(); 
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('staff');
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff');
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses');
             $table->boolean('is_zoom')->nullable();

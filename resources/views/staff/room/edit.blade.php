@@ -37,7 +37,7 @@
                     <form action="{{ route('staff.room.update', $room->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <input class="form-control" type="hidden" name="owner_id" id="owner_id-field" value="{{ Auth::user()->id }}" />
+                        <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
                         <div class="form-group">
                             <label for="name-field">教室名</label>
                             <input class="form-control" type="text" name="name" id="name-field" value="{{$room->name}}" />

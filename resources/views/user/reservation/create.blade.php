@@ -3,14 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-2">
+    <div class="col-md-2">
         <!-- left menu -->
-        @include('layouts.staff.menu')
+        @include('layouts.user.menu')
 
         <div class="col-md-8">
             <div class="card">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生のコース詳細</div>
+                <div class="card-header"><i class="fas fa-plus"></i> 予約を追加</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -21,7 +20,7 @@
 
                     {{--成功時のメッセージ--}}
                     @if (session('success'))
-                      <div class="alert alert-success">{{ session('success') }}</div>
+                    <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
                     {{-- エラーメッセージ --}}
                     @if ($errors->any())
@@ -34,22 +33,27 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('staff.course.store') }}" method="POST">
+                    <form action="{{ route('user.reservation.store') }}" method="POST">
                         @csrf
-                        <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
                         <div class="form-group">
-                            <label for="name-field">コース名</label>
-                            <input class="form-control" type="text" name="name" id="name-field" value="{{old('name')}}" />
+                            <label for="capacity-field"></label>
+                            スケジュールID:{{$schedule->id}}<br/>
+                            先生:{{$schedule->course->staff->name}}<br/>
+                            場所:{{$schedule->course->staff->room->name}}<br/>
+                            コース名:{{$schedule->course->name }}<br/>
+                            開始日時:{{$schedule->start}}<br/>
+                           終了日時:{{$schedule->end}}
+                           
                         </div>
-                        <div class="form-group">
-                            <label for="price-field">単価</label>
-                            <input class="form-control" type="text" name="price" id="price-field" value="{{old('price')}}" />
-                        </div>
+ 
+                        <input type="hidden" name="schedule_id" value="{{$schedule->id}}">
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 新規登録</button>
-                            <a class="btn btn-link pull-right" href="{{ route('staff.course.index') }}"><i class="fas fa-backward"></i> 戻る</a>
+                            <a class="btn btn-link pull-right" href="/user/ClassroomSchedule/calendar/{{$schedule->staff_id}}"><i class="fas fa-backward"></i> カレンダーに戻る</a>
                         </div>
                     </form>
+                 
+
 
                     </div>
                 </div>

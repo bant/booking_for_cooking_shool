@@ -13,16 +13,33 @@ use App\Http\Requests\StoreSchedule;
 class ScheduleController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:staff');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        /*
         $staff = Auth::user();
-        $schedules = Schedule::where('owner_id', $staff->id)->get();
+        $schedules = Schedule::where('staff_id', $staff->id)->get();
 
         return view('staff.schedule.index', compact('schedules'));
+        */
+
+        $staff = Auth::user();
+        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
+
+        return view('staff.schedule.calendar', compact('courses'));
     }
 
     /**
@@ -33,7 +50,7 @@ class ScheduleController extends Controller
     public function create()
     {
         $staff = Auth::user();
-        $courses = Course::where('owner_id', $staff->id)->get(['id','name']);
+        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
         return view('staff.schedule.create', compact('courses'));
     }
 
@@ -48,12 +65,13 @@ class ScheduleController extends Controller
         $staff = Auth::user();
 
         $schedule = new Schedule;
-        $schedule->owner_id = $staff->id;
+        $schedule->staff_id = $staff->id;
         $schedule->course_id = $request->course_id;
         $schedule->capacity = $request->capacity;
         $schedule->start = str_replace('T', ' ', $request->start);
         $schedule->end = str_replace('T', ' ', $request->end);
-      
+        $schedule->is_zoom = $request->is_zoom;
+
         $schedule->save();
 
 //        return view('staff.home');
@@ -82,7 +100,7 @@ class ScheduleController extends Controller
     {
         $staff = Auth::user();
         $schedule = Schedule::find($id);
-        $courses = Course::where('owner_id', $staff->id)->get(['id','name']);
+        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
         return view('staff.schedule.edit', compact('schedule','courses'));
     }
 
@@ -97,9 +115,10 @@ class ScheduleController extends Controller
     {
         $staff = Auth::user();
         $update = [
-            'owner_id'      => $staff->id,
+            'staff_id'      => $staff->id,
             'course_id'     => $request->course_id,
             'capacity'      => $request->capacity,
+            'is_zoom'       => $request->is_zoom,
             'start'         => str_replace('T', ' ', $request->start),
             'end'           => str_replace('T', ' ', $request->end),
         ];
@@ -119,4 +138,13 @@ class ScheduleController extends Controller
         Schedule::where('id', $id)->delete();
         return redirect()->route('staff.schedule.index')->with('message', 'Schedule deleted successfully.');
     }
+
+    public function calendar()
+    {
+        $staff = Auth::user();
+        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
+
+        return view('staff.schedule.calendar', compact('courses'));
+    }
+
 }

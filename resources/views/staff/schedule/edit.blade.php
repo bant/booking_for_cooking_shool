@@ -1,5 +1,13 @@
 @extends('layouts.staff.app')
 
+@section('style')
+<style>
+    input[type=radio] {
+       display: none; /* ラジオボタンを非表示にする */
+  }
+</style>
+@section('style')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -64,8 +72,29 @@
                             <input class="form-control" type="datetime-local" name="end"  id="end-field"  value="{{ str_replace(' ', 'T', old('end', $schedule->end)) }}" />
                         </div>
 
-
-
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label class="form-label" for="form-field">教室/ZOOM</label>
+                            </div>
+                            <div class="col-sm-10 btn-group" data-toggle="buttons">
+   
+                            @if (old('is_zoom',$schedule->is_zoom) == 0)
+                                <label class="btn btn-outline-secondary active" style="width:50%">
+                                    <input type="radio" name="is_zoom" value="0" checked="checked"> 教室
+                                </label>
+                                <label class="btn btn-outline-secondary" style="width:50%">
+                                     <input type="radio" name="is_zoom" value="1"> ZOOM
+                                </label>
+                            @else
+                                <label class="btn btn-outline-secondary active" style="width:50%">
+                                    <input type="radio" name="is_zoom" value="0"> 教室
+                                </label>
+                                <label class="btn btn-outline-secondary" style="width:50%">
+                                     <input type="radio" name="is_zoom" value="1" checked="checked"> ZOOM
+                                </label>
+                            @endif                            
+                            </div>
+                        </div>
 
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary">Save</button>

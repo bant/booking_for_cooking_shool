@@ -11,11 +11,32 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name'              => 'ばんと',
-            'email'             => 'bant62@gmail.com',
-            'password'          => Hash::make('osame123'),
-            'remember_token'    => Str::random(10),
-        ]);
+        DB::table('users')->insert(
+            [
+                'name'              => '生徒1号',
+                'email'             => 'one@user.com',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'point'             => 1000000
+            ]
+        );
+        DB::table('users')->insert(
+            [
+                'name'              => '生徒2号',
+                'email'             => 'two@user.com',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'point'             => 0
+            ]
+        );
+        DB::table('users')->insert(
+            [
+                'name'              => '生徒3号',
+                'email'             => 'tree@user.com',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'point'             => 50000
+            ]
+        );
     }
 }

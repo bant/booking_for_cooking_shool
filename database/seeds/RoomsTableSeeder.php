@@ -13,7 +13,7 @@ class RoomsTableSeeder extends Seeder
     {
         DB::table('rooms')->insert([
             'name'              => 'ばんとの教室',
-            'owner_id'          => 1,
+            'staff_id'          => 1,
             'address'           => '大阪市',
             'description'       => '家庭料理中心',
         ]);

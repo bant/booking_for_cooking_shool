@@ -15,7 +15,7 @@ class Schedule extends Model
      * @var array
      */
     protected $fillable = [
-        'owner_id', 'course_id', 'is_zoom', 'start', 'end',
+        'staff_id', 'course_id', 'is_zoom', 'start', 'end',
     ];
 
     /**
@@ -24,7 +24,7 @@ class Schedule extends Model
      * @var array
      */
     protected $hidden = [
-        'owner_id',
+        'staff_id',
     ];
 
     /**
@@ -40,7 +40,8 @@ class Schedule extends Model
     Public function staff()
     {
         // Profileモデルのデータを引っ張てくる
-        return $this->hasMany('App\Models\Staff','id','owner_id');
+//        return $this->hasMany('App\Models\Staff','id','staff_id');
+        return $this->belongsTo('App\Models\Staff','staff_id','id');
     }
 
     Public function course()

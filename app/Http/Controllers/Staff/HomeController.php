@@ -28,10 +28,9 @@ class HomeController extends Controller
     {
 
         $staff = Auth::user();
-        $courses = Course::where('owner_id', $staff->id)->get(['id','name']);
+        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
 
         return view('staff.home', compact('courses'));
-//        return view('staff.home');
     }
 
 }

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Course;
+use App\Models\Staff;
 use Auth;
 
-class CourseController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,9 +27,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $staff = Auth::user();
-        $courses = Course::where('staff_id', $staff->id)->get();
-        return view('staff.course.index', compact('courses'));
+//        $staff = Auth::user();
+        $staff = Staff::find(Auth::user()->id);
+        return view('staff.profile.index', compact('profile'));
     }
 
     /**
@@ -39,7 +39,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('staff.course.create');
+        //
     }
 
     /**
@@ -50,8 +50,8 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        Course::create($request->all());
-        return redirect()->route('staff.course.index')->with('success', '新規登録完了しました');
+        Room::create($request->all());
+        return redirect()->route('staff.profile.index')->with('success', '新規登録完了しました');
     }
 
     /**

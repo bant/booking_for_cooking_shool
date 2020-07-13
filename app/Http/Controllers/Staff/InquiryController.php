@@ -13,6 +13,17 @@ use Log;
 class InquiryController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:staff');
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,10 +52,10 @@ class InquiryController extends Controller
     public function store(Request $request)
     {
         $schedule = new Schedule;
-        $schedule->owner_id = $request->owner_id;
+        $schedule->staff_id = $request->staff_id;
         $schedule->title = $request->title;
         $schedule->description = ' ';
-        $schedule->is_zoom  = false;
+        $schedule->is_zoom  = $request->is_zoom;
         $schedule->start = $request->start;
         $schedule->end = $request->end;
       
@@ -90,28 +101,8 @@ class InquiryController extends Controller
         ];
 
         Schedule::where('id', $request->id)->update($update);
-        echo json_encode(array('result'=>'success','color'=>'yellow'));
-/*
-        $schedule = Schedule::firstOrNew(['identifier'=>$request->identifier]);
-
-        $schedule->title = $request->title;
-        $schedule->owner_id = $request->owner_id;
-        $schedule->identifier = $request->identifier;
-        $schedule->description = ' ';
-        $schedule->start = date('Y-m-d H:i',strtotime(strstr($request->start,'GMT',true)));
-        $schedule->end = date('Y-m-d H:i',strtotime(strstr($request->end,'GMT',true)));
-
-      
-        DB::transaction(function() use ($schedule) {
-            try {
-                $schedule->save();
-            } catch (\Exception $e) {
-                // エラー処理
-            }
-        });
-        
-        echo json_encode(array('result'=>'success','color'=>'yellow'));
-*/
+        return response()->json(['result'=>'success','color'=>'yellow']);
+//        echo json_encode(array('result'=>'success','color'=>'yellow'));
     }
 
     /**
@@ -120,9 +111,10 @@ class InquiryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Schedule::where('id', $request->id)->delete();
+        echo json_encode(array('result'=>'success'));
     }
 
     /**
@@ -134,16 +126,46 @@ class InquiryController extends Controller
     public function get(Request $request, $id)
     {
         $data = [];
-        $schedules = Schedule::where('owner_id',$id)
+        $schedules = Schedule::where('staff_id',$id)
                                 ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                                 ->get();
 
 
         foreach($schedules as $schedule) {
             $title = $schedule->course->name .":残".$schedule->capacity;
-            $ev = ['id'=>$schedule->id, 'title'=>$title, 
-            'start'=>str_replace(' ', 'T', $schedule->start), 'end'=>str_replace(' ', 'T', $schedule->end), 'color'=>'lightpink', 'owner_id'=>$schedule->owner_id, 'identifier'=>$schedule->identifier];
-            array_push($data,$ev);
+            if ($schedule->is_zoom == true) 
+            {
+                $ev = [
+                    'id'        => $schedule->id, 
+                    'title'     => $title, 
+                    'start'     => str_replace(' ', 'T', $schedule->start), 
+                    'end'       => str_replace(' ', 'T', $schedule->end), 
+                    'color'     => 'lightpink', 
+                    'extendedProps' => [
+                        'schedule_id'   => $schedule->id,
+                        'staff_id'      => $schedule->staff_id, 
+                        'identifier'    => $schedule->identifier
+                    ]
+                ];
+            }
+            else
+            {
+                $ev = [
+                    'id'        => $schedule->id, 
+                    'title'     => $title, 
+                    'start'     => str_replace(' ', 'T', $schedule->start), 
+                    'end'       => str_replace(' ', 'T', $schedule->end), 
+                    'color'     => 'lightblue', 
+                    'staff_id'  => $schedule->staff_id, 
+                    'identifier'=> $schedule->identifier,
+                    'extendedProps' => [
+                        'staff_id'  => $schedule->staff_id, 
+                        'identifier'=> $schedule->identifier
+                    ] 
+                ];
+            }
+
+            array_push($data, $ev);
         }
 
         return response()->json($data);

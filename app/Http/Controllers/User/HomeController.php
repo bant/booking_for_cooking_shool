@@ -30,31 +30,30 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-            ->join('staff', 'schedules.owner_id', '=', 'staff.id')
-            ->where('user_id','=',$user->id)
+        $rooms = Room::all();
+
+        $classroom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+            ->join('courses', 'schedules.course_id', '=', 'courses.id')
+            ->where('reservations.user_id','=',$user->id)
+            ->where('schedules.is_zoom', '=', false)
+            ->orderBy('schedules.start')
+            ->get();
+//            ->get( ['schedules.id as schedules_id'] );
+
+//        dd($classroom_reservations);
+
+        $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+            ->where('reservations.user_id','=',$user->id)
+            ->where('schedules.is_zoom', '=', true)
             ->orderBy('schedules.start')
             ->get();
 
-/*
-
-["staff.name as owner_name"]
-
-        $reservations = Reservation::with('schedules')
-                ->where('user_id', '=', $user->id)
-   
-                ->get();
-*/
-  //      dd($reservations->each->schedules);
-
-        $rooms = Room::all();
-
-        foreach ($rooms as $room) {
-            dd($room->name);
-        }
-
-//        return view('user.home')->with('reservations', $reservations);
-
-        return view('user.home')->with(["reservations" => $reservations, "rooms" => $rooms ]);
+        return view('user.home')->with([
+                    'rooms'                     => $rooms,
+                    'classroom_reservations'    => $classroom_reservations, 
+                    'zoom_reservations'         => $zoom_reservations 
+                ]);
     }
 }

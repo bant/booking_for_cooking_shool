@@ -14,7 +14,7 @@ class Course extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'owner_id', 'price',
+        'name', 'staff_id', 'price',
     ];
 
     /**
@@ -23,7 +23,7 @@ class Course extends Model
      * @var array
      */
     protected $hidden = [
-        'owner_id',
+        'staff_id',
     ];
 
     /**
@@ -31,13 +31,9 @@ class Course extends Model
      *
      * @var array
      */
-//    protected $casts = [
-//        'email_verified_at' => 'datetime',
-//    ];
-
 
     Public function staff()
     {
-        return $this->hasMany('App\Models\Staff','id','owner_id');
+        return $this->belongsTo('App\Models\Staff','staff_id','id');
     }
 }
