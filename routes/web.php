@@ -37,10 +37,17 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
 //        Route::resource('profile', 'ProfileController');
 
+        // 教室予約関係
         Route::get('classroom_reservation', 'ClassRoomReservationController@index');
         Route::get('classroom_reservation/{id?}/calendar', 'ClassRoomReservationController@calendar');
         Route::get('classroom_reservation/create/{id?}', 'ClassRoomReservationController@create');  
-        Route::post('classroom_reservation/store', 'ClassRoomReservationController@store');   
+        Route::post('classroom_reservation/store', 'ClassRoomReservationController@store');
+
+        // ZOOM予約関係
+        Route::get('zoom_reservation', 'ZoomReservationController@index');
+        Route::get('zoom_reservation/{id?}/calendar', 'ZoomReservationController@calendar');
+        Route::get('zoom_reservation/create/{id?}', 'ZoomReservationController@create');  
+        Route::post('zoom_reservation/store', 'ZoomReservationController@store');
 
         Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
 

@@ -48,7 +48,7 @@
                         <tr>
                           <td class="text-center"><strong>{{$course->id}}</strong></td>
                           <td>{{$course->name}}</td>
-                          <td>{{$course->price}}</td>
+                          <td>{{number_format($course->price)}}円</td>
                           <td class="text-right">
                             <a class="btn btn-sm btn-warning" href="{{ route('staff.course.edit', $course->id) }}"><i class="fas fa-edit"></i> 編集</a>
                             <form action="{{ route('staff.course.destroy', $course->id) }}" method="POST" style="display: inline;"
