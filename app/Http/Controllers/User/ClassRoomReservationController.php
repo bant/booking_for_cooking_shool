@@ -127,7 +127,11 @@ class ClassRoomReservationController extends Controller
             ];
             User::where('id', $user->id)->update($update);
         }
-        return  redirect("/user/ClassroomSchedule/calendar/$schedule->staff_id");
+
+        /* 定員を減らす */
+        Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
+
+        return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar");
     }
 
     /**
