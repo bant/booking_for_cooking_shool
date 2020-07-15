@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-return [
+$conf = [
 
     /*
     |--------------------------------------------------------------------------
@@ -197,3 +197,26 @@ return [
     'same_site' => null,
 
 ];
+
+
+// 管理画面のセッションクッキーを変更する
+$uri = isset($SERVER['REQUEST_URI']) ? $SERVER['REQUEST_URI'] : '';
+if (strpos($uri, '/admin/') === 0 || $uri === '/admin') {
+    $conf['cookie'] = env(
+        'SESSIONCOOKIE_ADMIN',
+        str_slug(env('APPNAME', 'laravel'), '_').'_admin_session'
+    );
+}
+else if (strpos($uri, '/staff/') === 0 || $uri === '/staff') {
+    $conf['cookie'] = env(
+        'SESSIONCOOKIE_STAFF',
+        str_slug(env('APPNAME', 'laravel'), '_').'_staff_session'
+    );
+}
+else if (strpos($uri, '/user/') === 0 || $uri === '/user') {
+    $conf['cookie'] = env(
+        'SESSIONCOOKIE_USER',
+        str_slug(env('APPNAME', 'laravel'), '_').'_user_session'
+    );
+}
+return $conf;
