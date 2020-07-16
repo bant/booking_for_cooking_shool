@@ -62,7 +62,7 @@
                             <form action="/user/classroom_reservation/{{$reservation->id}}/destroy" method="POST" style="display: inline;"
                                 onsubmit="return confirm('予約を取り消しても良いですか?');">
                                 @csrf
-                                <input type="hidden" name="_method" value="DELETE">
+                                @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
                             </form>
                           </td>
@@ -70,8 +70,6 @@
                       @endforeach
                       </tbody>
                       </table>
-   
-
                     @else
                         <h3 class="text-center alert alert-info">予約はありません。</h3>
                     @endif

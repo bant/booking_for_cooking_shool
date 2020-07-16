@@ -13,7 +13,7 @@ use App\Models\Book;
 use App\Models\User;
 use Auth;
 
-class ClassRoomReservationController extends Controller
+class ZoomReservationController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,11 +32,9 @@ class ClassRoomReservationController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-
-        /*教室情報を */
-        $rooms = Room::all();
-        return view('user.classroom_reservation.index')->with(["rooms" => $rooms]);
+        // zoom教室を持っている先生を列挙
+        $staff = Staff::where('is_zoom',true)->get();
+        return view('user.zoom_reservation.index')->with(["staff" => $staff]);
     }
 
     /**
@@ -55,7 +53,7 @@ class ClassRoomReservationController extends Controller
         ->join('courses', 'schedules.course_id', '=', 'courses.id')
         ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
         ->where('reservations.user_id','=',$user->id)
-        ->where('schedules.is_zoom','=',false)
+        ->where('schedules.is_zoom','=',true)
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
@@ -67,7 +65,7 @@ class ClassRoomReservationController extends Controller
                 'schedules.start as start'
             ]);
    
-        return view('user.classroom_reservation.calendar')->with(["staff" => $staff, 'reservations'=> $reservations]);
+        return view('user.zoom_reservation.calendar')->with(["staff" => $staff, 'reservations'=> $reservations]);
     }
 
 
@@ -79,7 +77,7 @@ class ClassRoomReservationController extends Controller
     public function create($id)
     {
         $schedule = Schedule::find($id);
-        return view('user.classroom_reservation.create')->with(["schedule" => $schedule]);
+        return view('user.zoom_reservation.create')->with(["schedule" => $schedule]);
     }
 
     /**
@@ -99,7 +97,7 @@ class ClassRoomReservationController extends Controller
 
         if ($reservations->count())
         {
-            return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar")->with('status', '既に予約しています');
+            return  redirect("/user/zoom_reservation/$schedule->staff_id/calendar")->with('status', '既に予約しています');
         }
         else 
         {
@@ -139,7 +137,7 @@ class ClassRoomReservationController extends Controller
             /* 定員を減らす */
             Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
 
-            return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar")->with('status', '予約しました');
+            return  redirect("/user/zoom_reservation/$schedule->staff_id/calendar")->with('status', '予約しました');
         }
     }
 
@@ -200,6 +198,6 @@ class ClassRoomReservationController extends Controller
         /* 予約を削除(訂正)する */
         Reservation::find($id)->delete();
     
-        return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar")->with('status', '削除しました');
+        return  redirect("/user/zoom_reservation/$schedule->staff_id/calendar")->with('status', '削除しました');
     }
 }

@@ -8,35 +8,9 @@
             @include('layouts.staff.menu')
 
             <div class="col-md-10">
-
-              @if ($room_count == 0 or $course_count == 0)
-                <!-- 教室の予約の始まり -->
+                <!-- 先生の教室の予約の始まり -->
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}初期設定のご案内</div>
-                    <div class="card-body">
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                        @endif
-
-                        @if($room_count == 0)
-                           <h3 class="text-center alert alert-info">教室情報が登録されていません。</h3>
-                        @endif
-
-
-                        @if($course_count == 0)
-                           <h3 class="text-center alert alert-info">コースが設定されてません。</h3>
-                        @endif
-                    </div>
-                </div>
-
-
-
-              @else
-                <!-- 教室の予約の始まり -->
-                <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}先生の教室予約一覧</div>
+                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}先生のこれからの教室の予約一覧</div>
                     <div class="card-body">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -74,12 +48,12 @@
                         @endif
                     </div>
                 </div>
-                <!-- 教室の予約の終わり -->
+                <!-- 先生の教室の予約の終わり -->
    
                 <br/>
-                <!-- ZOOM予約の始まり -->
+                <!-- 生徒さん様の予約リスト用スロット始まり -->
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}先生のZOOM予約一覧</div>
+                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
                     <div class="card-body">
                     @if($zoom_reservations->count())
                     <h3 class="my-3 ml-3">ZOOM教室の予約一覧</h3>
@@ -114,9 +88,9 @@
                     </div>
 
                 </div>
-                <!-- ZOOM予約の終わり -->
+                 <!-- 生徒さん様の予約リスト用スロット終わり -->
             </div><!-- end card -->
-            @endif
+          
         </div>
     </div>
 </div>

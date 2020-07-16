@@ -8,7 +8,7 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><i class="fas fa-plus"></i> {{ Auth::user()->name }}先生の教室情報</div>
+                <div class="card-header"><i class="fas fa-plus"></i> {{ Auth::user()->name }}先生のZOOM教室情報</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -35,15 +35,11 @@
 
                     <div class="form-group">
                         <label for="name-field">教室名</label>
-                        <input class="form-control" type="text" name="name" id="name-field" value="{{$room->name}}"  readonly/>
-                    </div>
-                    <div class="form-group">
-                        <label for="address-field">住所</label>
-                        <textarea name="address" id="address-field" class="form-control" rows="3"  readonly>{{$room->address}}</textarea>
+                        <input class="form-control" type="text" name="name" id="name-field" value="{{$zoom->name}}"  readonly/>
                     </div>
                     <div class="form-group">
                         <label for="description-field">詳細</label>
-                        <textarea name="description" id="description-field" class="form-control" rows="3"  readonly>{{$room->description}}</textarea>
+                        <textarea name="description" id="description-field" class="form-control" rows="3"  readonly>{{$zoom->description}}</textarea>
                     </div>
                 </div>
             </div>

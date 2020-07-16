@@ -57,8 +57,8 @@
                             <a class="btn btn-sm btn-warning" href="{{ route('staff.schedule.edit', $schedule->id) }}"><i class="fas fa-edit"></i> 編集</a>
                             <form action="{{ route('staff.schedule.destroy', $schedule->id) }}" method="POST" style="display: inline;"
                                 onsubmit="return confirm('削除しても良いですか?');">
-                                {{csrf_field()}}
-                                <input type="hidden" name="_method" value="DELETE">
+                                @csrf
+                                @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> 削除</button>
                             </form>
                           </td>

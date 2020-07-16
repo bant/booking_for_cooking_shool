@@ -5,25 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-2">
             <!-- left menu -->
-            <div class="card">
-                <div class="card-header"><i class="fas fa-th-list"></i></i> メニュー</div>
-                    <div class="card-body">
-                        <div class="panel panel-default">
-                            <ul class="nav nav-pills nav-stacked" style="display:block;">
-                                <li><i class="fas fa-user-alt"></i> <a href="room">プロフィール</a></li>
-                                <li><i class="fas fa-user-alt"></i> <a href="room">教室情報</a></li>
-                                <li><i class="fas fa-calendar"></i> <a href="schedule">スケジュール</a></li>
-                                <li><i class="fas fa-calendar"></i> <a href="schedule">予約</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('layouts.user.menu')
 
             <div class="col-md-10">
                 <!-- 先生のカレンダ用スロット始まり -->
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->room->name }}(主催:{{$staff->name}}先生)のスケジュール</div>
+                    <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->room->name }}のカレンダ</div>
                     <div class="card-body">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -36,20 +23,22 @@
                     </div>
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
+   
                 <br/>
                 <!-- 生徒さん様の予約リスト用スロット始まり -->
                 <div class="card">
                     <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
                     <div class="card-body">
-
-
-                    @if($courses->count())
+                      @if($reservations->count())
                       <table class="table table-sm table-striped">
                       <thead>
                         <tr>
                           <th class="text-center">#</th>
-                          <th>名称</th>
-                          <th>単価</th>
+                          <th>コース名</th>
+                          <th>教室</th>
+                          <th>先生</th>
+                          <th>価格</th>
+                          <th>開始時間</th>
                           <th class="text-right">オプション</th>
                         </tr>
                       </thead>
@@ -57,23 +46,31 @@
                       <tbody>
                       @foreach($reservations as $reservation)
                         <tr>
-                          <td class="text-center"><strong>{{$reservation->id}}</strong></td>
-                          <td>{{$reservation->name}}</td>
-                          <td>{{$reservation->price}}</td>
+                            <td>
+                            @if($reservation->is_pointpay)
+                                確
+                            @else
+                                仮
+                            @endif
+                            </td>
+                          <td>{{$reservation->course_name}}</td>
+                          <td>{{$reservation->room_name}}</td>
+                          <td>{{$reservation->staff_name}}</td>
+                          <td>{{ number_format($reservation->course_price) }}円</td>
+                          <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
                           <td class="text-right">
-                            <a class="btn btn-sm btn-warning" href="{{ route('staff.course.edit', $course->id) }}"><i class="fas fa-edit"></i> 編集</a>
-                            <form action="{{ route('staff.course.destroy', $course->id) }}" method="POST" style="display: inline;"
-                                onsubmit="return confirm('削除しても良いですか?');">
-                                {{csrf_field()}}
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> 削除</button>
+                            <form action="/user/classroom_reservation/{{$reservation->id}}/destroy" method="POST" style="display: inline;"
+                                onsubmit="return confirm('予約を取り消しても良いですか?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
                             </form>
                           </td>
                         </tr>
                       @endforeach
                       </tbody>
                       </table>
-                      <a class="btn btn-primary" href="{{ route('staff.course.create') }}"><i class="fas fa-edit"></i> 追加</a>
+   
 
                     @else
                         <h3 class="text-center alert alert-info">予約はありません。</h3>
@@ -83,10 +80,8 @@
 
                 </div>
                  <!-- 生徒さん様の予約リスト用スロット終わり -->
-
             </div><!-- end card -->
-
-            
+          
         </div>
     </div>
 </div>
@@ -140,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 day:  '日',
                 list: 'リスト'
             },
-        events:'/user/inquiry/{{ $staff->id }}/getClassrommSchedule',
+        events:'/user/inquiry/{{ $staff->id }}/getZoomSchedule',
 
         dayRender: function(info) {
             date.setFullYear(

@@ -47,7 +47,7 @@
             <form action="" method="POST" style="display: inline;"
               onsubmit="return confirm('Delete? Are you sure?');">
               @csrf
-              <input type="hidden" name="_method" value="DELETE">
+              @method('DELETE')
               <button type="submit" class="btn btn-sm btn-danger">
                 <i class="fas fa-trash"></i> Delete
               </button>

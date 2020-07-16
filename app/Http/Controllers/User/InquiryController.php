@@ -127,7 +127,7 @@ class InquiryController extends Controller
                     'end'       =>str_replace(' ', 'T', $schedule->end), 
                     'color'     =>'lightpink', 
                     'identifier'=>$schedule->identifier,
-                    'url'       => '/user/reservation?schedule_id=schedule->id?user_id=$request->user_id'
+                    'url'       => '/user/zoom_reservation/create/'.$schedule->id,
                 ];
             }
             else
