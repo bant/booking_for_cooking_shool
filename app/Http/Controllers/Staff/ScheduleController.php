@@ -8,6 +8,8 @@ use App\Models\Schedule;
 use App\Models\Course;
 use Auth;
 
+use Carbon\Carbon;
+
 use App\Http\Requests\StoreSchedule;
 
 class ScheduleController extends Controller
@@ -29,13 +31,6 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        /*
-        $staff = Auth::user();
-        $schedules = Schedule::where('staff_id', $staff->id)->get();
-
-        return view('staff.schedule.index', compact('schedules'));
-        */
-
         $staff = Auth::user();
         $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
 
@@ -69,13 +64,14 @@ class ScheduleController extends Controller
         $schedule->course_id = $request->course_id;
         $schedule->capacity = $request->capacity;
         $schedule->start = str_replace('T', ' ', $request->start);
-        $schedule->end = str_replace('T', ' ', $request->end);
+        $dt = new Carbon($schedule->start);
+        $schedule->end = $dt->addHours(1)->toDateTimeString();
+//        $schedule->end = str_replace('T', ' ', $request->end);
         $schedule->is_zoom = $request->is_zoom;
 
         $schedule->save();
 
-//        return view('staff.home');
-        return redirect()->route('staff.schedule.index')->with('message', 'Schedule created successfully.');
+        return redirect()->route('staff.schedule.index')->with('status', 'スケジュールを登録しました');
     }
 
     /**
@@ -146,5 +142,4 @@ class ScheduleController extends Controller
 
         return view('staff.schedule.calendar', compact('courses'));
     }
-
 }

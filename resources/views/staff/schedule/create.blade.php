@@ -60,10 +60,6 @@
                             <label for="start-field">開始日時</label>
                             <input type="datetime-local" name="start"  id="start-field" value="{{old('start')}}"/>
                         </div>
-                        <div class="form-group">
-                            <label for="end-field">終了日時</label>
-                            <input type="datetime-local" name="end"  id="end-field"  value="{{old('end')}}"/>
-                        </div>
 
                         <div class="form-group row">
                             <div class="col-sm-2">
@@ -86,9 +82,6 @@
                             <a class="btn btn-link pull-right" href="{{ route('staff.schedule.index') }}"><i class="fas fa-backward"></i> 戻る</a>
                         </div>
                     </form>
-                 
-
-
                     </div>
                 </div>
             </div>

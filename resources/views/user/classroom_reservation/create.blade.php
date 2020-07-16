@@ -1,4 +1,4 @@
-@extends('layouts.staff.app')
+@extends('layouts.user.app')
 
 @section('content')
 <div class="container">
@@ -46,6 +46,8 @@
                         <dd class="col-md-10">{{ $schedule->course->name }}</dd>
                         <dt class="col-md-2">価格</dt>
                         <dd class="col-md-10">{{  number_format($schedule->course->price) }}円</dd>
+                        <dt class="col-md-2">残り席数</dt>
+                        <dd class="col-md-10">{{ $schedule->capacity}}</dd>
                         <dt class="col-md-2">開始日時</dt>
                         <dd class="col-md-10">{{ date('Y年m月d日 H時i分',  strtotime($schedule->start)) }}</dd>
                         <dt class="col-md-2">終了日時</dt>

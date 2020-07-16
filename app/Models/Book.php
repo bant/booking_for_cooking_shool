@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
     use Notifiable;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +19,7 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'staff_id', 'reservation_id', 'point',
+        'reservation_id', 'point',
     ];
 
 }

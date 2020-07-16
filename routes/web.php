@@ -14,11 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-/*
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-*/
 
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
@@ -35,19 +30,20 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
-//        Route::resource('profile', 'ProfileController');
-
         // 教室予約関係
         Route::get('classroom_reservation', 'ClassRoomReservationController@index');
         Route::get('classroom_reservation/{id?}/calendar', 'ClassRoomReservationController@calendar');
         Route::get('classroom_reservation/create/{id?}', 'ClassRoomReservationController@create');  
         Route::post('classroom_reservation/store', 'ClassRoomReservationController@store');
+        Route::post('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy');
+        Route::delete('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy');
 
         // ZOOM予約関係
         Route::get('zoom_reservation', 'ZoomReservationController@index');
         Route::get('zoom_reservation/{id?}/calendar', 'ZoomReservationController@calendar');
         Route::get('zoom_reservation/create/{id?}', 'ZoomReservationController@create');  
         Route::post('zoom_reservation/store', 'ZoomReservationController@store');
+        Route::get('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy');  
 
         Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
 

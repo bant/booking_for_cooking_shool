@@ -97,8 +97,8 @@
                         </div>
 
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <a class="btn btn-link pull-right" href="{{ route('staff.schedule.index') }}"><i class="fas fa-backward"></i> Back</a>
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <a class="btn btn-link pull-right" href="{{ route('staff.schedule.index') }}"><i class="fas fa-backward"></i> 戻る</a>
                         </div>
                     </form>
                     </div>

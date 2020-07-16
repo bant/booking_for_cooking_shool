@@ -29,8 +29,6 @@
                 <div class="card">
                     <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
                     <div class="card-body">
-
-
                       @if($reservations->count())
                       <table class="table table-sm table-striped">
                       <thead>
@@ -48,14 +46,25 @@
                       <tbody>
                       @foreach($reservations as $reservation)
                         <tr>
-                            <td></td>
+                            <td>
+                            @if($reservation->is_pointpay)
+                                確
+                            @else
+                                仮
+                            @endif
+                            </td>
                           <td>{{$reservation->course_name}}</td>
                           <td>{{$reservation->room_name}}</td>
                           <td>{{$reservation->staff_name}}</td>
                           <td>{{ number_format($reservation->course_price) }}円</td>
-                          <td>{{$reservation->start}}</td>
+                          <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
                           <td class="text-right">
-
+                            <form action="/user/classroom_reservation/{{$reservation->id}}/destroy" method="POST" style="display: inline;"
+                                onsubmit="return confirm('予約を取り消しても良いですか?');">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                            </form>
                           </td>
                         </tr>
                       @endforeach
@@ -112,8 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
         defaultTimedEventDuration: '01:00',
  //       defaultView: 'timeGridWeek',
         slotDuration: '00:30:00',
-        minTime : '10:00',
-        maxTime : '22:10',
+        minTime : '9:00',
+        maxTime : '22:00',
         locale : 'ja',
         editable: false,
         selectable: true,

@@ -39,8 +39,6 @@ class Schedule extends Model
 
     Public function staff()
     {
-        // Profileモデルのデータを引っ張てくる
-//        return $this->hasMany('App\Models\Staff','id','staff_id');
         return $this->belongsTo('App\Models\Staff','staff_id','id');
     }
 
@@ -49,5 +47,4 @@ class Schedule extends Model
         return $this->belongsTo('App\Models\Course','course_id','id');
     }
  
-
 }

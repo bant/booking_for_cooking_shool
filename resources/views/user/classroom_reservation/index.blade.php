@@ -1,9 +1,6 @@
 @extends('layouts.user.app')
 
 @section('content')
-{{  number_format( Auth::user()->point) }}p
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-2">

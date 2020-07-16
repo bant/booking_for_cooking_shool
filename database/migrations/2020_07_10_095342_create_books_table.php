@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->integer('point');           // 先生側から見ての金額
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

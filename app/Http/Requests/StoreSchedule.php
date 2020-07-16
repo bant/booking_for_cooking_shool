@@ -28,7 +28,7 @@ class StoreSchedule extends FormRequest
             'capacity'  => 'required|integer', // 必須, 整数型
 //            'is_zoom' => 'required|boolean', // 必須
             'start' => 'required|date', // 必須
-            'end' => 'required|date', // 必須
+//            'end' => 'required|date', // 必須
         ];
     }
 
@@ -39,7 +39,7 @@ class StoreSchedule extends FormRequest
             'course_id.required' => 'コースを選択してください。',
             'capacity.required' => '定員を入力して下さい。',
             'start.required' => '開始時間を入力して下さい。',
-            'end.required' => '終了時間を入力して下さい。',
+//            'end.required' => '終了時間を入力して下さい。',
         ];
     }
    

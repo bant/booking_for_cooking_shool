@@ -58,6 +58,8 @@ class ClassRoomReservationController extends Controller
         ->where('schedules.is_zoom','=',0)
         ->orderBy('schedules.start')
         ->get( [
+                'reservations.id as id',
+                'reservations.is_pointpay as is_pointpay',
                'rooms.name as room_name',
                 'courses.name as course_name',
                 'staff.name as staff_name',
@@ -92,46 +94,53 @@ class ClassRoomReservationController extends Controller
 
         $reservations = Reservation::where('user_id','=',$user->id)
             ->where('schedule_id','=',$request->schedule_id)->get();
-
         $schedule = Schedule::find($request->schedule_id);
 
 
-        // 生徒さんのポイント
-        $point  = $user->point;
-        $price = Course::find($schedule->course->staff->id)->price;
+        if ($reservations->count())
+        {
+            return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar")->with('status', '既に予約しています');
+        }
+        else 
+        {
 
-        $reservation = new Reservation();
-        $reservation->user_id = $user->id;
-        $reservation->schedule_id = $request->schedule_id;
+            // 生徒さんのポイント
+            $point  = $user->point;
+            $price = Course::find($schedule->course->staff->id)->price;
+
+            $reservation = new Reservation();
+            $reservation->user_id = $user->id;
+            $reservation->schedule_id = $request->schedule_id;
    
-        if ($point > $price)
-        {
-            $reservation->is_pointpay = true;
-        }
-        else
-        {
-            $reservation->is_pointpay = false;
-        }
-        $reservation->save();
+            if ($point > $price)
+            {
+                $reservation->is_pointpay = true;
 
-        /* ポイントの移動 */
-        if ($point > $price)
-        {
+                $update = [
+                    'point' => $point - $price,
+                ];
+                User::where('id', $user->id)->update($update);
+
+                $book_price = $price;
+            }
+            else
+            {
+                $reservation->is_pointpay = false;
+                $book_price = 0;
+            }
+            $reservation->save();
+
+            /* 帳簿につける */
             $book = new Book();
             $book->reservation_id = $reservation->id;
-            $book->point = $price;
+            $book->point = $book_price;
             $book->save();
 
-            $update = [
-                'point' => $point - $price,
-            ];
-            User::where('id', $user->id)->update($update);
+            /* 定員を減らす */
+            Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
+
+            return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar")->with('status', '予約しました');
         }
-
-        /* 定員を減らす */
-        Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
-
-        return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar");
     }
 
     /**
@@ -176,6 +185,21 @@ class ClassRoomReservationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $reservation = Reservation::find($id)->first();
+        $schedule = Schedule::find($reservation->schedule_id)->first();
+        $book = Book::where('reservation_id', $id)->first();
+        
+
+        /* 定員を増を元に戻す */
+        Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity + 1]);
+        /* ポイントを戻す */
+        User::where('id', $user->id)->update(['point' => $user->point + $book->point]);
+        /* 帳簿を削除(訂正)する */
+        Book::where('reservation_id', $id)->delete();
+        /* 予約を削除(訂正)する */
+        Reservation::find($id)->delete();
+    
+        return  redirect("/user/classroom_reservation/$schedule->staff_id/calendar")->with('status', '削除しました');
     }
 }
