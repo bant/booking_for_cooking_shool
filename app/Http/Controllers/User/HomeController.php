@@ -39,9 +39,6 @@ class HomeController extends Controller
             ->where('schedules.is_zoom', '=', false)
             ->orderBy('schedules.start')
             ->get();
-//            ->get( ['schedules.id as schedules_id'] );
-
-//        dd($classroom_reservations);
 
         $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')

@@ -65,6 +65,7 @@ class HomeController extends Controller
             ->orderBy('schedules.start')
             ->get( [
                 'reservations.id as id',
+                'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',
                 'courses.name as course_name',

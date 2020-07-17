@@ -60,10 +60,14 @@
                         <tbody>
                           @foreach($class_reservations as $class_reservation)
                           <tr>
-                            <td class="text-center"><strong>{{$class_reservation->id}}</strong></td>
+                            @if ($class_reservation->is_pointpay)
+                              <td class="text-center text-white bg-success"><strong>確</strong></td>
+                            @else
+                              <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                            @endif
                             <td>{{$class_reservation->course_name}}</td>
                             <td>{{$class_reservation->user_name}}</td>
-                            <td>{{$class_reservation->start}}</td>
+                            <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
                             <td class="text-right">メール送信</td>
                           </tr>
                           @endforeach
@@ -97,10 +101,14 @@
                       <tbody>
                       @foreach($zoom_reservations as $zoom_reservation)
                         <tr>
-                          <td class="text-center"><strong>{{$zoom_reservation->id}}</strong></td>
+                          @if ($zoom_reservation->is_pointpay)
+                            <td class="text-center text-white bg-success"><strong>確</strong></td>
+                          @else
+                            <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                          @endif
                           <td>{{$zoom_reservation->course_name}}</td>
                           <td>{{$zoom_reservation->user_name}}</td>
-                          <td>{{$zoom_reservation->start}}</td>
+                          <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
                           <td class="text-right">メール送信
 
                           </td>
