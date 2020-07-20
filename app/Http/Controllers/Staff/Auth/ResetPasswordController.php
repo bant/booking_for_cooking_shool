@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\Staff\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -26,29 +26,25 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::USER_HOME;
+    protected $redirectTo = RouteServiceProvider::STAFF_HOME;
 
     public function __construct()
     {
-        $this->middleware('guest:user');
+        $this->middleware('guest:staff');
     }
 
     public function showResetForm(Request $request, $token = null)
     {
-        
-        return view('user.auth.passwords.reset')->with(['token' => $token, 'email' => $request->email]);
+        return view('staff.auth.passwords.reset')->with(['token' => $token, 'email' => $request->email]);
     }
 
     protected function guard()
     {
-        return Auth::guard('user');
+        return Auth::guard('staff');
     }
 
     public function broker()
     {
-        return Password::broker('users');
+        return Password::broker('staff');
     }
-
-
-
 }

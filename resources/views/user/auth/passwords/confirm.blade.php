@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user.app')
 
 @section('content')
 <div class="container">
@@ -10,7 +10,7 @@
                 <div class="card-body">
                     {{ __('Please confirm your password before continuing.') }}
 
-                    <form method="POST" action="{{ route('password.confirm') }}">
+                    <form method="POST" action="{{ route('user.password.confirm') }}">
                         @csrf
 
                         <div class="form-group row">

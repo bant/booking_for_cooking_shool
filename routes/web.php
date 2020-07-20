@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+Route::post('user/password/email', 'User\Auth\ForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
+Route::get('user/password/reset', 'User\Auth\ForgotPasswordController@showLinkRequestForm')->name('user.password.request');
+Route::post('user/password/reset', 'User\Auth\ResetPasswordController@reset')->name('user.password.update');
+Route::get('user/password/reset/{token}', 'User\Auth\ResetPasswordController@showResetForm')->name('user.password.reset');
+*/
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
@@ -22,7 +28,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Auth::routes([
         'register' => true,
         'confirm'  => false,
-        'reset'    => false
+        'reset'    => true,
+        'verify'  => true
     ]);
 
     // ログイン認証後
@@ -49,6 +56,13 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
         Route::get('reservation/{id?}/create', 'ReservationController@create');
         Route::resource('reservation', 'ReservationController');
+
+/*
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+*/
     });
 });
 
@@ -60,7 +74,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
     Auth::routes([
         'register' => false,
         'confirm'  => false,
-        'reset'    => false
+        'reset'    => true
     ]);
 
     // ログイン認証後
@@ -86,6 +100,14 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::post('inquiry/update', 'InquiryController@update');
 
         Route::get('reservation/{id?}/show', 'InquiryController@show');
+
+        /*
+
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('staff.password.email');
+        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('staff.password.request');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('staff.password.update');
+        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('staff.password.reset');
+*/
     });
 });
 
@@ -96,7 +118,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Auth::routes([
         'register' => false,
         'confirm'  => false,
-        'reset'    => false
+        'reset'    => true
     ]);
 
     // ログイン認証後
@@ -107,6 +129,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         // Roomページ
         Route::resource('room', 'RoomController', ['only' => 'index']);
 
+/*
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('admin.password.update');
+        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('admin.password.reset');
+*/
     });
 
 });
