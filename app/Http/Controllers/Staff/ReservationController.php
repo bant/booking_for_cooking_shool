@@ -11,6 +11,7 @@ use Auth;
 use App\Http\Requests\StoreZoom;
 use App\Models\Course;
 
+use App\Exports\Export;
 use Carbon\Carbon;
 
 class ReservationController extends Controller
@@ -108,27 +109,6 @@ class ReservationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -167,7 +147,6 @@ class ReservationController extends Controller
         $next_first_month_day = Carbon::createFromTimestamp(strtotime($id)) 
                                 ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString();
 
-//        dd( $now_last_month_day);
         $class_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
         ->join('staff', 'schedules.staff_id', '=', 'staff.id')
         ->join('users', 'reservations.user_id', '=', 'users.id')
@@ -179,6 +158,7 @@ class ReservationController extends Controller
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
+                'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',
                 'courses.name as course_name',
@@ -216,36 +196,79 @@ class ReservationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 帳票のエクスポート
      */
-    public function edit($id)
+    public function export_class($id)
     {
-        //
+        $staff = Auth::user();
+
+        $now_first_month_day = Carbon::createFromTimestamp(strtotime($id)) 
+                                ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+        $now_last_month_day = Carbon::createFromTimestamp(strtotime($id)) 
+                                ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+
+        $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+        ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+        ->join('users', 'reservations.user_id', '=', 'users.id')
+        ->join('courses', 'schedules.course_id', '=', 'courses.id')
+        ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+        ->where('schedules.staff_id','=',$staff->id)
+        ->where('schedules.is_zoom','=',false)
+        ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
+        ->orderBy('schedules.start')
+        ->get( [
+                'reservations.id as id',
+                'reservations.is_pointpay as is_pointpay',
+                'users.id as user_id',
+                'users.name as user_name',
+                'courses.name as course_name',
+                'courses.price as course_price',
+                'schedules.start as start'
+            ]); 
+
+
+        $view = \view('staff.reservation.export_class')->with(['reservations' => $reservations]);
+     
+        $export_name = date('Y-m', strtotime($id)) . "_reservation_class.xlsx";
+        return \Excel::download(new Export($view), $export_name);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 帳票のエクスポート
      */
-    public function update(Request $request, $id)
+    public function export_zoom($id)
     {
-        //
+        $staff = Auth::user();
+
+        $now_first_month_day = Carbon::createFromTimestamp(strtotime($id)) 
+                                ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+        $now_last_month_day = Carbon::createFromTimestamp(strtotime($id)) 
+                                ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+
+        $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+        ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+        ->join('users', 'reservations.user_id', '=', 'users.id')
+        ->join('courses', 'schedules.course_id', '=', 'courses.id')
+        ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+        ->where('schedules.staff_id','=',$staff->id)
+        ->where('schedules.is_zoom','=',true)
+        ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
+        ->orderBy('schedules.start')
+        ->get( [
+                'reservations.id as id',
+                'reservations.is_pointpay as is_pointpay',
+                'users.id as user_id',
+                'users.name as user_name',
+                'courses.name as course_name',
+                'courses.price as course_price',
+                'schedules.start as start'
+            ]); 
+
+
+        $view = \view('staff.reservation.export_zoom')->with(['reservations' => $reservations]);
+     
+        $export_name = date('Y-m', strtotime($id)) . "_reservation_zooms.xlsx";
+        return \Excel::download(new Export($view), $export_name);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -47,6 +47,7 @@
                           @endforeach
                         </tbody>
                         </table>
+                        <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.export_class', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
                         @else
                           <h3 class="text-center alert alert-info">教室の予約はありません。</h3>
                         @endif
@@ -87,7 +88,10 @@
                           <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
                           <td class="text-right">メール送信
                           </td>
-                        </tr>
+                         </tr>
+ 
+                         <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.export_zoom', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
+
                       @endforeach
                       </tbody>
                       </table>
@@ -96,6 +100,8 @@
                     @endif
                     <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"><i class="fas fa-edit"></i> <<前月</a>
                     <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"><i class="fas fa-edit"></i> >>次月</a>
+
+ 
                   </div>
                 </div>
                  <!-- 生徒さん様の予約リスト用スロット終わり -->

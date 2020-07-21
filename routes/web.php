@@ -84,7 +84,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         // Roomページ
         Route::resource('room', 'RoomController');
-        // Roomページ
+        // Zoomページ
         Route::resource('zoom', 'ZoomController');
         // courseページ
         Route::resource('course', 'CourseController');
@@ -92,7 +92,9 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::resource('schedule', 'ScheduleController');
 
         // reservationページ
-        Route::resource('reservation', 'ReservationController');
+        Route::resource('reservation', 'ReservationController', ['only' => ['index', 'show']]);
+        Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
+        Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');
 
         Route::get('inquiry/{id?}/get', 'InquiryController@get');
         Route::post('inquiry/destroy', 'InquiryController@destroy');
