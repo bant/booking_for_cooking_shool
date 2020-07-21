@@ -10,7 +10,7 @@
             <div class="col-md-10">
                 <!-- 先生の教室の予約の始まり -->
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}先生のこれからの教室の予約一覧</div>
+                    <div class="card-header"><i class="fas fa-id-card"></i> {{date('Y年m月', strtotime($now_first_month_day)) }}の教室予約一覧</div>
                     <div class="card-body">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -50,6 +50,8 @@
                         @else
                           <h3 class="text-center alert alert-info">教室の予約はありません。</h3>
                         @endif
+                        <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"><i class="fas fa-edit"></i> <<前月</a>
+                        <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"><i class="fas fa-edit"></i> >>次月</a>
                     </div>
                 </div>
                 <!-- 先生の教室の予約の終わり -->
@@ -57,7 +59,7 @@
                 <br/>
                 <!-- 生徒さん様の予約リスト用スロット始まり -->
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
+                    <div class="card-header"><i class="fas fa-id-card"></i> {{date('Y年m月', strtotime($now_first_month_day)) }}のZOOM教室予約一覧</div>
                     <div class="card-body">
                     @if($zoom_reservations->count())
                     <h3 class="my-3 ml-3">ZOOM教室の予約一覧</h3>
@@ -84,7 +86,6 @@
                           <td>{{$zoom_reservation->user_name}}</td>
                           <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
                           <td class="text-right">メール送信
-
                           </td>
                         </tr>
                       @endforeach
@@ -93,12 +94,13 @@
                     @else
                         <h3 class="text-center alert alert-info">ZOOMの予約はありません。</h3>
                     @endif
-                    </div>
-
+                    <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"><i class="fas fa-edit"></i> <<前月</a>
+                    <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"><i class="fas fa-edit"></i> >>次月</a>
+                  </div>
                 </div>
                  <!-- 生徒さん様の予約リスト用スロット終わり -->
             </div><!-- end card -->
-          
+       
         </div>
     </div>
 </div>
