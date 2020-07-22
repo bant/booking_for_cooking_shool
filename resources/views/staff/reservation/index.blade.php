@@ -27,6 +27,7 @@
                             <th>タイトル</th>
                             <th>生徒</th>
                             <th>日時</th>
+                            <th>状態</th>
                             <th class="text-right">オプション</th>
                           </tr>
                         </thead>
@@ -42,17 +43,19 @@
                             <td>{{$class_reservation->course_name}}</td>
                             <td>{{$class_reservation->user_name}}</td>
                             <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
+                            <td>未</td>
                             <td class="text-right">メール送信</td>
                           </tr>
                           @endforeach
                         </tbody>
                         </table>
-                        <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.export_class', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
+                        <a class="float-left btn btn-sm btn-warning" href="{{ route('staff.reservation.export_class', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
                         @else
                           <h3 class="text-center alert alert-info">教室の予約はありません。</h3>
                         @endif
-                        <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"><i class="fas fa-edit"></i> <<前月</a>
-                        <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"><i class="fas fa-edit"></i> >>次月</a>
+                        <a class="float-right btn btn-sm btn-primary" href="{{ route('staff.reservation.show', $next_first_month_day) }}"> 次月 >></a>
+                        <a class="float-right btn btn-sm btn-primary" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"> << 前月</a>
+
                     </div>
                 </div>
                 <!-- 先生の教室の予約の終わり -->

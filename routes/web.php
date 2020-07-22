@@ -38,31 +38,24 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
         // 教室予約関係
-        Route::get('classroom_reservation', 'ClassRoomReservationController@index');
-        Route::get('classroom_reservation/{id?}/calendar', 'ClassRoomReservationController@calendar');
-        Route::get('classroom_reservation/create/{id?}', 'ClassRoomReservationController@create');  
-        Route::post('classroom_reservation/store', 'ClassRoomReservationController@store');
-        Route::post('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy');
-        Route::delete('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy');
+        Route::get('classroom_reservation', 'ClassRoomReservationController@index')->name('classroom_reservation.index');
+        Route::get('classroom_reservation/{id?}/calendar', 'ClassRoomReservationController@calendar')->name('classroom_reservation.calendar');
+        Route::get('classroom_reservation/create/{id?}', 'ClassRoomReservationController@create')->name('classroom_reservation.create');  
+        Route::post('classroom_reservation/store', 'ClassRoomReservationController@store')->name('classroom_reservation.store');
+        Route::post('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
+        Route::delete('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
 
         // ZOOM予約関係
-        Route::get('zoom_reservation', 'ZoomReservationController@index');
-        Route::get('zoom_reservation/{id?}/calendar', 'ZoomReservationController@calendar');
-        Route::get('zoom_reservation/create/{id?}', 'ZoomReservationController@create');  
-        Route::post('zoom_reservation/store', 'ZoomReservationController@store');
-        Route::get('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy');  
+        Route::get('zoom_reservation', 'ZoomReservationController@index')->name('zoom_reservation.index');
+        Route::get('zoom_reservation/{id?}/calendar', 'ZoomReservationController@calendar')->name('zoom_reservation.calendar');
+        Route::get('zoom_reservation/create/{id?}', 'ZoomReservationController@create')->name('zoom_reservation.create');  
+        Route::post('zoom_reservation/store', 'ZoomReservationController@store')->name('zoom_reservation.store');
+        Route::post('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
+        Route::delete('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
+    
 
         Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
-
-        Route::get('reservation/{id?}/create', 'ReservationController@create');
-        Route::resource('reservation', 'ReservationController');
-
-/*
-        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-*/
+        Route::get('inquiry/{id?}/getZommSchedule', 'InquiryController@getZommSchedule');
     });
 });
 

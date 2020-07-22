@@ -14,7 +14,7 @@ class StaffTableSeeder extends Seeder
         DB::table('staff')->insert(
             [
                 'name'              => '先生1号',
-                'email'             => 'one@staff.com',
+                'email'             => 'staff1@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => true,
