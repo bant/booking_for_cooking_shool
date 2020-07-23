@@ -12,9 +12,10 @@ class RoomsTableSeeder extends Seeder
     public function run()
     {
         DB::table('rooms')->insert([
-            'name'              => 'ばんとの教室',
+            'name'              => '東淀川教室',
             'staff_id'          => 1,
-            'address'           => '大阪市',
+            'address'           => '大阪市東淀川',
+            'tel'               => '06-9999-9999',
             'description'       => '家庭料理中心',
         ]);
     }

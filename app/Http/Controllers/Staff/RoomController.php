@@ -52,7 +52,7 @@ class RoomController extends Controller
     public function store(StoreRoom $request)
     {
         Room::create($request->all());
-        return redirect()->route('staff.room.index')->with('success', '新規登録完了しました');
+        return redirect()->route('staff.room.index')->with('success', '登録完了しました');
     }
 
     /**
@@ -90,7 +90,8 @@ class RoomController extends Controller
     {
         $update = [
             'name' => $request->name,
-            'address' => $request->address,            
+            'address' => $request->address,    
+            'tel' => $request->tel,          
             'description' => $request->description
         ];
         Room::where('id', $id)->update($update);

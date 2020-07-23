@@ -15,11 +15,12 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->unsignedBigInteger('staff_id')->unique();  
+            $table->string('name')->comment('教室名称');
+            $table->unsignedBigInteger('staff_id')->unique()->comment('スタッフID');  
             $table->foreign('staff_id')->references('id')->on('staff');
-            $table->string('address');
-            $table->string('description');
+            $table->string('address')->comment('住所');
+            $table->string('tel')->comment('電話番号');
+            $table->string('description')->comment('詳細D');
             $table->timestamps();
         });
     }

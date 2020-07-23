@@ -18,7 +18,7 @@ use App\Mail\CancelUserEmail;
 use App\Mail\CancelStaffEmail;
 use Auth;
 
-class ClassRoomReservationController extends Controller
+class ZoomReservationController extends Controller
 {
     /**
      * Create a new controller instance.

@@ -72,7 +72,7 @@ class ClassRoomReservationController extends Controller
 
         if ($reservations->count())
         {
-            return  redirect(route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', '予約済みです');
+            return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '予約済みです');
         }
         else 
         {
@@ -159,7 +159,7 @@ class ClassRoomReservationController extends Controller
             /* 先生にメールを送信 */
             Mail::to($schedule->staff->email)->send(new ReservationStaffEmail($mail_title ,$mail_data));
 
-            return  redirect(route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', '予約しました');
+            return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '予約しました');
         }
     }
 
@@ -225,7 +225,7 @@ class ClassRoomReservationController extends Controller
         /* 先生にメールを送信 */
         Mail::to($schedule->staff->email)->send(new CancelStaffEmail($mail_title ,$mail_data));
 
-        return  redirect(route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', '予約をキャンセルしました');
+        return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '予約をキャンセルしました');
     }
 
         /**

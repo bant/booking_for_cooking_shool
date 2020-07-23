@@ -15,10 +15,10 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->unsignedBigInteger('staff_id');
+            $table->string('name')->comment('コース名称');
+            $table->unsignedBigInteger('staff_id')->comment('先生ID');
             $table->foreign('staff_id')->references('id')->on('staff');
-            $table->unsignedInteger('price');
+            $table->unsignedInteger('price')->comment('価格');
             $table->timestamps();
         });
     }

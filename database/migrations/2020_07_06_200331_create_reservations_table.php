@@ -15,12 +15,12 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('schedule_id');
+            $table->unsignedBigInteger('user_id')->comment('ユーザID');
+            $table->unsignedBigInteger('schedule_id')->comment('スケジュールID');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('schedule_id')->references('id')->on('schedules');
+            $table->boolean('is_pointpay')->comment('ポイント支払い');
             $table->timestamps();
-            $table->boolean('is_pointpay');
             $table->softDeletes();
         });
     }

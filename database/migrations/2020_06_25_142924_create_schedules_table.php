@@ -15,15 +15,14 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-//            $table->unsignedBigInteger('identifier')->unique(); 
-            $table->unsignedBigInteger('staff_id');
+            $table->unsignedBigInteger('staff_id')->comment('スタッフID');
             $table->foreign('staff_id')->references('id')->on('staff');
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('course_id')->comment('コースID');
             $table->foreign('course_id')->references('id')->on('courses');
-            $table->boolean('is_zoom')->nullable();
-            $table->unsignedInteger('capacity'); 
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->boolean('is_zoom')->nullable()->comment('ZOMM判別フラグ');
+            $table->unsignedInteger('capacity')->comment('定員'); 
+            $table->dateTime('start')->comment('開始時刻');
+            $table->dateTime('end')->comment('終了時刻');
             $table->timestamps();
         });
     }

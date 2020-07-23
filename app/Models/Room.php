@@ -10,6 +10,7 @@ class Room extends Model
     'name',
     'staff_id',
     'address',
+    'tel',
     'description'
   ];
 

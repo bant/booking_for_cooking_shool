@@ -42,6 +42,10 @@
                         <textarea name="address" id="address-field" class="form-control" rows="3"  readonly>{{$room->address}}</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="tel-field">電話番号</label>
+                        <input class="form-control" type="tel" name="tel" id="tel-field" value="{{$room->tel}}"  readonly/>
+                    </div>
+                    <div class="form-group">
                         <label for="description-field">詳細</label>
                         <textarea name="description" id="description-field" class="form-control" rows="3"  readonly>{{$room->description}}</textarea>
                     </div>

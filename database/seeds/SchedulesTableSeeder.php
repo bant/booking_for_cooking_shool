@@ -17,8 +17,8 @@ class SchedulesTableSeeder extends Seeder
             'is_zoom'           => 0,
             'title'             => 'テスト教室',
             'description'       => 'テスト教室の詳細',
-            'start'             => '2020-06-26 10:00',
-            'end'               => '2020-06-26 12:00',
+            'start'             => '2020-07-26 10:00',
+            'end'               => '2020-07-26 12:00',
         ]);
     }
 }

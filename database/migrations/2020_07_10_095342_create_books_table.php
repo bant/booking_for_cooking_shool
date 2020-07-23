@@ -16,9 +16,9 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('reservation_id');
+            $table->unsignedBigInteger('reservation_id')->comment('予約ID');
             $table->foreign('reservation_id')->references('id')->on('reservations');
-            $table->integer('point');           // 先生側から見ての金額
+            $table->integer('point')->comment('支払われたポイント');           // 先生側から見ての金額
             $table->timestamps();
             $table->softDeletes();
         });

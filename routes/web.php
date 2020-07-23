@@ -53,9 +53,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::post('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
         Route::delete('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
     
-
-        Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
-        Route::get('inquiry/{id?}/getZommSchedule', 'InquiryController@getZommSchedule');
+        Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule')->name('inquiry.get_classromm_schedule');
+        Route::get('inquiry/{id?}/getZommSchedule', 'InquiryController@getZommSchedule')->name('inquiry.get_zomm_schedule');
     });
 });
 

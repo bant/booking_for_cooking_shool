@@ -26,6 +26,7 @@ class StoreRoom extends FormRequest
         return [
             'name' => 'required',
             'address' => 'required',
+            'tel' => 'required',
             'description' => 'required',
         ];
     }
@@ -35,6 +36,7 @@ class StoreRoom extends FormRequest
         return [
             'name.required' => '教室名を入力して下さい。',
             'address.required' => '住所を入力して下さい。',
+            'tels.required' => '電話番号を入力して下さい。',
             'description.required' => '詳細を入力して下さい。',
         ];
     }

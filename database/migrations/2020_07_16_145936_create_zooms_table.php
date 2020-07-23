@@ -15,10 +15,10 @@ class CreateZoomsTable extends Migration
     {
         Schema::create('zooms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->unsignedBigInteger('staff_id')->unique();  
+            $table->string('name')->comment('名称');
+            $table->unsignedBigInteger('staff_id')->unique()->comment('先生ID');;  
             $table->foreign('staff_id')->references('id')->on('staff');
-            $table->string('description');
+            $table->string('description')->comment('詳細D');
             $table->timestamps();
         });
     }
