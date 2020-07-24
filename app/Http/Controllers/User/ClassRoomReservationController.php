@@ -111,12 +111,16 @@ class ClassRoomReservationController extends Controller
             /* 定員を減らす */
             Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
 
-            $reservate_times = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+            $reservate_count = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
             ->where('reservations.user_id','=',$user->id)
             ->where('schedules.staff_id','=',$schedule->staff->id)
             ->where('schedules.is_zoom','=',false)
             ->count();
+            if (is_null($reservate_count))
+            {
+                $reservate_count = 0;
+            }
 
             if ($book_price == 0) 
             {
@@ -131,7 +135,7 @@ class ClassRoomReservationController extends Controller
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
                     'price'             => number_format($price)."円",
-                    'times'             => $reservate_times."回",
+                    'times'             => $reservate_count."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
             }
@@ -148,7 +152,7 @@ class ClassRoomReservationController extends Controller
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
                     'price'             => number_format($price)."円(ポイントで支払い済み)",
-                    'times'             => $reservate_time."回",
+                    'times'             => $reservate_count."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
             }

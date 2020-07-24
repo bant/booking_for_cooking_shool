@@ -21,12 +21,14 @@
                         @endif
 
                         @if($room_count == 0)
-                           <h3 class="text-center alert alert-info">教室情報が登録されていません。</h3>
+                          <h3 class="text-center alert alert-info">教室情報が登録されていません。</h3>
+                          <p><a href="{{route('staff.room.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックして教室を登録してください。</p>
                         @endif
 
-
                         @if($course_count == 0)
-                           <h3 class="text-center alert alert-info">コースが設定されてません。</h3>
+                          <h3 class="text-center alert alert-info">コースが設定されてません。</h3>
+                          <p><a href="{{route('staff.course.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてコースを登録してください。</p>
+                        
                         @endif
                     </div>
                 </div>

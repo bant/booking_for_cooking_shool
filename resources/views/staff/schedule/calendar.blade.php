@@ -20,7 +20,12 @@
                         <div id='calendar'></div>
                         <div style='clear:both'></div>
                     <br/>
-                        <a href="/staff/schedule/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 新規登録</button></a>
+                        @if ($room_count != 0)
+                            <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 教室スケジュール新規登録</button></a>
+                        @endif
+                        @if ($zoom_count != 0)
+                            <a href="{{route('staff.zoom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> ZOOMスケジュール新規登録</button></a>
+                        @endif
                     </div>
 
                 </div><!-- end card-body -->

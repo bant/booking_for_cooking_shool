@@ -42,7 +42,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('staff.schedule.update', $schedule->id) }}" method="POST">
+                    <form action="{{ route('staff.classroom_schedule.update', $schedule->id) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <div class="form-group">
@@ -72,29 +72,8 @@
                             <input class="form-control" type="datetime-local" name="end"  id="end-field"  value="{{ str_replace(' ', 'T', old('end', $schedule->end)) }}" />
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label class="form-label" for="form-field">教室/ZOOM</label>
-                            </div>
-                            <div class="col-sm-10 btn-group" data-toggle="buttons">
-   
-                            @if (old('is_zoom',$schedule->is_zoom) == 0)
-                                <label class="btn btn-outline-secondary active" style="width:50%">
-                                    <input type="radio" name="is_zoom" value="0" checked="checked"> 教室
-                                </label>
-                                <label class="btn btn-outline-secondary" style="width:50%">
-                                     <input type="radio" name="is_zoom" value="1"> ZOOM
-                                </label>
-                            @else
-                                <label class="btn btn-outline-secondary active" style="width:50%">
-                                    <input type="radio" name="is_zoom" value="0"> 教室
-                                </label>
-                                <label class="btn btn-outline-secondary" style="width:50%">
-                                     <input type="radio" name="is_zoom" value="1" checked="checked"> ZOOM
-                                </label>
-                            @endif                            
-                            </div>
-                        </div>
+                        <input type="hidden" name="is_zoom" value="0">
+                        <input type="hidden" name="zoom_invitation" value="　">
 
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary">保存</button>

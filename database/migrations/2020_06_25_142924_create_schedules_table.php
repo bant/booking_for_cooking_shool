@@ -19,8 +19,9 @@ class CreateSchedulesTable extends Migration
             $table->foreign('staff_id')->references('id')->on('staff');
             $table->unsignedBigInteger('course_id')->comment('コースID');
             $table->foreign('course_id')->references('id')->on('courses');
-            $table->boolean('is_zoom')->nullable()->comment('ZOMM判別フラグ');
+            $table->boolean('is_zoom')->nullable()->comment('ZOOM判別フラグ');
             $table->unsignedInteger('capacity')->comment('定員'); 
+            $table->string('zoom_invitation')->comment('zoom招待状');
             $table->dateTime('start')->comment('開始時刻');
             $table->dateTime('end')->comment('終了時刻');
             $table->timestamps();

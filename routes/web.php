@@ -80,10 +80,15 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::resource('zoom', 'ZoomController');
         // courseページ
         Route::resource('course', 'CourseController');
+
         // scheduleページ
-        Route::resource('schedule', 'ScheduleController');
+        Route::resource('schedule', 'ScheduleController', ['only' => ['index', 'destroy']]);
+        Route::get('schedule/calendar', 'ScheduleController@calendar')->name('schedule.calendar');
+        Route::resource('classroom_schedule', 'ClassRoomScheduleController');
+        Route::resource('zoom_schedule', 'ZoomScheduleController');
 
         // reservationページ
+       
         Route::resource('reservation', 'ReservationController', ['only' => ['index', 'show']]);
         Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
         Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');

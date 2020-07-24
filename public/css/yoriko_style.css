@@ -1,0 +1,750 @@
+@charset "utf-8";
+/*
+Theme Name: 栗田クッキングサロン
+Theme URI: https://www.kuritacooking.com/
+Description: 初心者からプロを目指す人まで少人数制で丁寧に指導します。
+Author: Digital Aid;
+*/
+
+/* ====== 全デバイス 共通 ====== */
+body {
+	background-color: #634A45;
+	font-family: "新ゴ R", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-size: 12px;
+	line-height: 1.8;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 100%;
+}
+#wrapper {
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+a, a:hover {
+	color: #cc3b1e;
+	text-decoration: none;
+}
+#header a, #footer a {
+	color: #ffffff;
+}
+.addition, .addition2 {
+	display: none;
+}
+
+/* --- ヘッダー --- */
+#header {
+	background-color: #CC3B1E;
+	color: #fff;
+	font-family: "新ゴ M", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bold;
+	height: 72px;
+	position: relative;
+	width: 100%;	
+}
+#header h1 {
+	font-size: 1.9em;
+	line-height: 3.16;
+	margin: 0;
+	padding: 0;
+}
+#header h1 a, #header h1 {
+	color: #fff;
+	position: relative;
+}
+#header h1 a:before {
+	background: url(images/logo.png) no-repeat;
+	background-size: contain;
+	content: "";
+	display: inline-block;
+	height: 1em;
+	margin: 0.1em auto auto -1em; 
+	position: absolute;
+	width: 1em;
+}
+h1 a:hover {
+	color: #F5D8D2;
+}
+
+/* 提携教室 */
+.tomo #header, .tomo #footer {
+	background-color: #435C60;
+}
+.kei #header, .kei #footer {
+	background-color: #C97260;
+}
+.hama #header, .hama #footer {
+	background-color: #F45f42;
+}
+.zoom #header, .zoom #footer {
+	background-color: #464360;
+}
+
+/* --- front-page --- */
+#blog-image img {
+	max-width: 1200px;
+	margin: 2px 0 0;
+	width: 100%;
+}
+
+/* --- コンテナ --- */
+#container {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: 100%;
+}
+
+#loginstatus {
+	border-bottom: 3px dotted #cc3b1e;
+	border-top: 3px dotted #cc3b1e;
+	font-size: 0.9em;
+	position: absolute;
+	text-align: center;
+}
+
+/* --- ナビゲーション --- */
+#nav {
+	display: flex;
+	font-family: "新ゴ M", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bold;
+	line-height: 3.6;
+	margin: 2px 0;
+	padding: 0;
+	width: 100%;
+	z-index: 8000;
+}
+#nav .menu {
+	display: block;
+	flex: auto;
+	height: auto;
+	margin: 0;
+	padding-bottom: 2px;
+	position: relative;
+}
+#nav .menu a {
+	background-color: #634A45;
+	color: #ffffff;
+	display: block;
+	height: 44px;
+	margin-right: 2px;
+	padding: 0;
+	text-align: center;
+}
+.submenu {
+	background-color: #ffffff;
+	left: 0;
+	position: absolute;
+	top: 44px;
+	width: 160%;
+}
+a.subitem {
+	background-color: #634A45;
+	display: block;
+	margin-top: 2px;
+	position: relative;
+}
+#nav .menu:last-child a {
+	margin-right: 0;
+}
+#nav .menu a:hover, #nav .menu .submenu a:hover {
+	background-color: #cc3b1e;
+}
+#nav .menu:last-child .submenu {
+	margin-left: -60%;
+}
+#nav .menu .submenu {
+	display: none;
+}
+#nav .menu:hover .submenu, #nav .menu .submenu:hover {
+	display: block;
+	z-index: 9000;
+}
+
+/* --- パンくずリスト --- */
+.breadcrumbs ul {
+	display: table;
+	font-size: 0.9em;
+	margin-left: 1em;
+	padding: 0;
+	text-align: left;
+}
+.breadcrumbs ul li {
+	float: left;
+	margin: 0;
+	list-style-type: none;
+}
+.breadcrumbs ul li:first-child::before {
+	color: #cc3b1e;
+	content: "\f015";
+	font-family: FontAwesome;
+	padding: 0 3px;
+}
+.breadcrumbs ul li::before {
+	content: "\f105";
+	font-family: FontAwesome;
+	padding: 0 5px;
+}
+
+/* --- コンテンツ --- */
+#content {
+	margin: 1em;
+	padding: 0;
+	text-align: left;
+}
+img {
+	height: auto;
+	margin: 0;
+	max-width: 640px;
+	width: 100%;
+}
+p.lead {
+	color: #422218;
+	font-family: "新ゴ M", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-size: 1.2em;
+	line-height: 1.5;
+	padding: 0 1em 1em; 
+}
+h1 {
+	color: #422218;
+	font-size: 1.5em;
+	font-weight: bold;
+	line-height: 4;
+	text-align: center;
+}
+h2 {
+	border-left: 5px solid #422218;
+	color: #422218;
+	font-size: 1.4em;
+	font-weight: bold;
+	margin: 2em 0 1em -0.5em;
+	padding-left: 0.3em;
+}
+h3 {
+	border-left: 5px double #422218;
+	color: #422218;
+	font-size: 1.25em;
+	font-weight: bold;
+	margin: 2em 0 1em;
+	padding-left: 0.3em;
+}
+p.wp-caption-text {
+	font-size: 0.85em;
+	line-height: 1.3;
+	padding: 2em 1em 0.5em 2em;
+}
+.indent {
+	padding-left: 1em;
+}
+.indent2 {
+	padding-left: 2em;
+	text-indent: -1em;
+}
+.hide {
+	display: none;
+}
+.center {
+	text-align: center;
+}
+.right {
+	text-align: right;
+}
+.smaller {
+	font-size: 0.9em;
+}
+#content ol {
+	padding-left: 2em;
+}
+dl {
+	margin: 1em;
+}
+dl dd {
+	padding-left: 1em;
+}
+#main p {
+	margin: 0 1em;
+}
+#main .col-4, #main .col-3 {
+	line-height: 1.25;
+	margin-bottom: 0.5em;
+	padding: 0.5em;
+}
+#main .col-4 img, #main .col-3 img {
+	margin: 2px 0;
+	z-index: 1;
+}
+
+/* ログイン状態 */
+#main .row img {
+	max-width: 320px;
+}
+
+#profile img {
+	max-width: 120px;
+	width: 100px;
+}
+#tag-area {
+	text-align: right;
+}
+#tag, #profile {
+	border-bottom: 3px double #cc3b1e;
+	border-top: 3px double #cc3b1e;
+	margin-top: 2em;
+}
+#tag {
+	color: #cc3b1e;
+	font-family: "新ゴ M", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bold;
+	margin: 0 0 0 auto;
+	padding: 0.2em 0;
+	text-align: center;
+	width: 4em;
+}
+#profile {
+	padding: 2em 0 1em;
+}
+.btn-info {
+	color: #fff;
+	margin: 2.5em 0;
+}
+
+/* 教室別設定 */
+#main .btn {
+	border-color: #cc3b1e;
+}
+#main button.btn-outline-info, #main .btn-info:hover {
+	background-color: #fff;
+	color: #cc3b1e;
+}
+#main .btn-info, #main button.btn-outline-info:hover {
+	background-color: #cc3b1e;
+	color: #fff;
+}
+
+.zoom #tag, .zoom #main .btn, .zoom #loginstatus {
+	border-color: #464360;
+	color: #464360;
+}
+.zoom #tag, .zoom #main .btn-outline-info, .zoom #main  .btn-info:hover {
+	background-color: #fff;
+	color: #464360;
+}
+.zoom #tag {
+	width: 8em;
+}
+.zoom #main .btn-info, .zoom #main .btn-outline-info:hover {
+	background-color: #464360;
+	color: #fff;
+}
+
+.tomo #tag, .tomo #profile, .tomo #main .btn, .tomo #loginstatus {
+	border-color: #435c60;
+	color: #435c60;
+}
+.tomo #tag, .tomo #main .btn-outline-info, .tomo #main .btn-info:hover {
+	background-color: #fff;
+	color: #435c60;
+}
+.tomo #tag {
+	width: 5em;
+}
+.tomo #main .btn-info, .tomo #main button.btn-outline-info:hover {
+	background-color: #435c60;
+	color: #fff;
+}
+
+.kei #tag, .kei #profile, .kei #main .btn, .kei #loginstatus {
+	border-color: #c97260;
+	color: #c97260;
+}
+.kei #tag, .kei #main .btn-outline-info, .kei #main .btn-info:hover {
+	background-color: #fff;
+	color: #c97260; 
+}
+.kei #main .btn-info, .kei #main button.btn-outline-info:hover {
+	background-color: #c97260;
+	color: #fff;
+}
+img.w274 {
+	max-width: 274px;
+	width: 100%;
+}
+
+.hama #tag, .hama #profile, .hama #main .btn, .hama #loginsatus {
+	border-color:#f45f42;
+	color: #f45f42;
+}
+.hama #tag, .hama .btn-outline-info, .hama #main .btn-info:hover {
+	background-color: #fff;
+	color: #f45f42;
+}
+.hama #tag {
+	width: 5em;
+}
+.hama #main a.btn-info, .hama #main button.btn-outline-info:hover {
+	background-color: #f45f42;
+	color: #fff;
+}
+#main #profile, #content #loginstatus {
+	color: #666;
+}
+#main .btn:hover {
+	font-family: "新ゴ M", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bold;
+}
+
+#main .row iframe {
+	width: 100%;
+}
+
+/* 表組 */
+table.table th {
+	color: #634a45;
+	line-height: 1.2;
+}
+th, .table thead th {
+	background-color: #e5dcda;
+}
+table thead th {
+	text-align: center;
+}
+table.r caption, table.r td:last-child {
+	text-align: right;
+}
+.table-bordered th,  .table-bordered td {
+	border: 1px solid #eee6e4;
+}
+table input, table select {
+	width: 90%;
+}
+
+/* Contact Form 7 */
+.wpcf7-list-item label {
+	display: inline-block;
+}
+td textarea, td input[type="text"] {
+	width: 100%;
+}
+.w120 {
+	padding: auto 1px;
+	width: 120px;
+}
+.must {
+	color: red;
+	font-size: 0.9em;
+}
+
+/* --- 投稿ページ --- */
+.blog h2 {
+	border-bottom: 1px dotted #cc3b1e;
+	border-left: none;
+}
+.blog h3 {
+	border-left: none;
+}
+.blog h2::before, .blog h3::before {
+	color: #cc3b1e;
+	content: "\f040";
+	font-family: FontAwesome;
+	padding-right: 0.5em;
+}
+.blog #tag {
+	background-color: #ee802f;
+	border-bottom: none;
+	border-top: none; 
+	border-radius: 5px;
+	color: #fff;
+	display: auto; 
+}
+.article-date {
+	color: #777;
+	display: block;
+	font-size: 0.8em;
+	text-align: right;
+}
+.article-date ul {
+	display: inline;
+	padding: 0;
+}
+.article-date ul li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+}
+.blog img {
+	max-width: 100%;
+	width: auto;
+}
+
+/* ページネーション */
+.pagination {
+	clear: both;
+	font-size: 0.9em;
+	line-height: 3.6;
+	margin-top: 1.5em;
+	position: relative;
+	text-align: center; 
+}
+.pagination .page-numbers {
+	border: 1px solid #cc3b1e;
+	border-radius: 4px;
+	display: block;
+	float:left;
+	margin: 2px 2px 2px 0;
+	width: 1.8em;
+}
+.pagination .page-numbers:hover {
+	color:#fff;
+	background-color: #cc3b1e;
+}
+.pagination .current {
+	background-color: #cc3b1e;
+	color:#fff;
+}
+
+/* 前後の記事へのナビゲーション */
+.page-nav {
+	border-top: 1px dotted #cc3b1e;
+	display: flex;
+	font-size: 0.9em;
+	margin: 2em 0;
+	padding: 0.5em 0;
+}
+.prev, .next {
+	flex: auto;
+}
+.next {
+	text-align: right;
+}
+.page-nav a {
+	color: #777;
+}
+.page-nav a:hover {
+	color: #cc3b1e;
+}
+
+/* コメント */
+#comments {
+	margin: 1em;
+	text-align: left;
+}
+
+/* --- サイドバー --- */
+#sidebar {
+	font-size: 0.9em;
+	margin-top: 3em;
+	padding: 0;
+}
+#sidebar .widget {
+	border: 1px solid #eee6e4;
+	margin-bottom: 1em;
+}
+h3.widget-title {
+	background-color: #eee6e4;
+	font-size: 1.1em;
+	line-height: 2;
+	margin: 0;
+}
+h3.widget-title::before {
+	content: '';
+}
+.post-date {
+	font-size: 0.9em;
+}
+
+#wp-calendar {
+	width: 100%;
+}
+#wp-calendar td {
+	text-align: center;
+}
+.wp-calendar-nav {
+	padding: 0 0.5em;
+}
+.blog caption {
+	caption-side: top;
+	text-align: center;
+}
+.widget li {
+	list-style-type: none;
+}
+.widget ul, .textwidget {
+	padding:0.5em;
+}
+.fa-facebook-square {
+	color: #3B5998;
+}
+/*
+.fa-instagram {
+	color: #262626;
+}
+*/
+.fa-twitter-square {
+	color: #1DA1F2;
+}
+
+/* プロフィール */
+#author-img img {
+	max-width: 80px;
+	margin-bottom: 0.5em;
+}
+#author-description {
+	line-height: 1.3;
+}
+
+/* --- フッター --- */
+#foot-link {
+	background-color: #eee6e4;
+	clear: left;
+	display: block;
+	font-size: 0.96em;
+	margin: 0;
+	padding: 1em;
+	text-align: center;
+	width: 100%;
+}
+#footer {
+	background-color: #cc3B1e;
+	color: #ffffff;
+	font-family: "新ゴ M", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bold;
+	margin: 0;
+	padding: 1em;
+	text-align: left;
+}
+#copyright {
+	color: #FFF;
+	font-size: 0.9em;
+	line-height: 1.3;
+	margin: 1em 1em 1em auto;
+	text-align: right;
+}
+#footer h2 {
+	border-left: none;
+	color: #ffffff;
+	font-size: 1.1em;
+}
+#footer ul {
+	margin: 0;
+	padding: 0;
+}
+#footer ul li {
+	list-style-type: none;
+}
+#foot-nav {
+	display: flex;
+}
+#footer a:hover {
+	text-decoration: underline;
+}
+
+/* ====== 中型ディスプレイ ===== 440px以上 */
+@media only screen and (min-width: 440px) {
+	#header h1 a {
+		left: 2em;
+		position: absolute;
+		top: 0;
+	}
+	#header h1 a:before {
+		margin: 1em auto auto -1em;
+	}
+	.addition {
+		display: block;
+	}
+	#a-tel {
+		font-family:"Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
+		line-height: 1.2;
+		position: absolute;
+		right: 20px;
+		text-align: right;
+		top: 20px;;
+	}
+}
+
+/* ====== 中型ディスプレイ ====== 768px以上 */
+@media only screen and (min-width: 768px) {
+	body, pre.body {
+		font-size: 16px;
+	}
+	#header h1 a {
+		font-size: 1.4ren;
+		left: 2em;
+		position: absolute;
+		top: -0.3em;
+	}
+	.blog #header h1 {
+		left: 1.5em;
+		position: absolute;
+		top: -0.6em;
+	}
+	.blog #header .addition {
+		bottom: 0;
+		position: absolute;
+		right: 1.5em;
+	}
+	#nav {
+		line-height: 2.75;
+	}
+	.blog #nav {
+		width: 100%;
+	}
+	.submenu {
+		width: 100%;
+	}
+	#nav .menu:last-child .submenu {
+		margin-left: 0;
+	}
+	#content {
+		margin: 2em;
+	}
+	.blog #content {
+		display: flex;
+	}
+	.blog #content2 {
+		flex: auto;
+		width: auto;
+	}
+
+	/* サイドバー */
+	.blog #sidebar {
+		flex: auto;
+		padding-left: 1.5em;
+		width: 220px; 
+	}
+
+	/* フッター */
+	#foot-link, #footer {
+		font-size: 12px;
+	}
+	#footer h2 {
+		font-size: 1.1em;
+	}
+	.addition2 {
+		display: block;
+		width: 16.6%;
+	}
+	.addition2:last-child {
+		padding-right: 1em;
+		width: 17%;
+	}
+	.addition2 > i {
+		margin-left: -1.2em;
+	}
+}
+
+/* ====== 超大型ディスプレイ ====== 1200px以上 */
+@media only screen and (min-width: 1200px) {
+	#wrapper {
+		height: auto;
+		margin: 0 auto;
+		max-width: 1200px;
+		width: 100%;
+	}
+	#content {
+		margin: 0em 3em 2em;
+	}
+	
+}
