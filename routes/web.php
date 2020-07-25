@@ -11,16 +11,12 @@
 |
 */
 
+// ログインなし
 Route::get('/', function () {
     return view('welcome');
 });
 
-/*
-Route::post('user/password/email', 'User\Auth\ForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
-Route::get('user/password/reset', 'User\Auth\ForgotPasswordController@showLinkRequestForm')->name('user.password.request');
-Route::post('user/password/reset', 'User\Auth\ResetPasswordController@reset')->name('user.password.update');
-Route::get('user/password/reset/{token}', 'User\Auth\ResetPasswordController@showResetForm')->name('user.password.reset');
-*/
+
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 

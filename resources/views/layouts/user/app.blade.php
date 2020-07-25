@@ -2,7 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="description" content="住吉教室(栗田クッキングサロン)予約">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -36,22 +39,30 @@
     <!-- UltraDateの読み込み -->
     <script src="{{ asset('js/UltraDate.js') }}"></script>
     <script src="{{ asset('js/UltraDate.ja.js') }}"></script>
-  
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Laravel</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+    <link href="{{ asset('css/kurita_style.css') }}" rel="stylesheet">
 
-                    </ul>
+    <meta name="format-detection" content="telephone=yes">
+	  <link rel="alternate" hreflang="ja">
+	  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+    <noscript style="color: white">本サイトでは、JavaScript が重要な機能を持っています。是非、有効化してください。</noscript>
+    <article>
+    <div id="wrapper">
+      <header>
+      <div id="header">
+        <section>
+        <h1>
+          <a href="http://cooking.sumomo.ne.jp/" title="トップページへ戻る">予約</a>
+        </h1>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -88,14 +99,40 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
-            </div>
-        </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-    @yield('scripts')
+
+        </section>
+      </div><!-- #header -->
+      </header>
+
+
+
+
+<div id="container">
+  <nav>
+    @include('layouts.user.nav')
+  </nav>
+
+  <article>
+    <div id="content">
+    <section>
+    @yield('content')
+
+      <div id="main">
+        
+      </div><!-- #main -->
+    </section>
+    </div><!-- #content -->
+  </article>
+<aside>
+  @include('layouts.user.aside')
+</aside>
+</div><!-- #container -->
+<footer>
+  @include('layouts.user.footer')
+</footer>
+</div><!-- #wrapper -->
+</article>
+@yield('scripts')
 </body>
 </html>

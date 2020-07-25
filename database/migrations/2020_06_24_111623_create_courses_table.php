@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('staff_id')->comment('先生ID');
             $table->foreign('staff_id')->references('id')->on('staff');
             $table->unsignedInteger('price')->comment('価格');
+//            $table->unsignedInteger('price_down')->comment('値引き価格');
             $table->timestamps();
         });
     }

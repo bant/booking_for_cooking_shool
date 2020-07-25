@@ -10,7 +10,7 @@
             <div class="col-md-10">
                 <!-- 先生のカレンダ用スロット始まり -->
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->room->name }}のカレンダ</div>
+                    <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->zoom->name }}のカレンダ</div>
                     <div class="card-body">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -20,6 +20,12 @@
 
                         <div id='calendar'></div>
                         <div style='clear:both'></div>
+
+
+                        <br/>
+                        @foreach ($zooms as $zoom)
+                            <a href="{{route('user.zoom_reservation.calendar', ['id' => $zoom->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$zoom->name}}</button></a>
+                        @endforeach
                     </div>
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->

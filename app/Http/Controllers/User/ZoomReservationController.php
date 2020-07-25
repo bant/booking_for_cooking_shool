@@ -39,9 +39,16 @@ class ZoomReservationController extends Controller
     {
         $user = Auth::user();
 
-        /*教室情報を */
-        $zooms = Zoom::all();
-        return view('user.zoom_reservation.index')->with(["zooms" => $zooms]);
+        /*zoom情報を */
+        $zoom = Zoom::all()->first();
+        if (!is_null($zoom))
+        {
+            return  redirect()->route('user.zoom_reservation.calendar', ['id' => $zoom->staff_id]);
+        }
+        else 
+        {
+            return  view('user.room_reservation.index');
+        }
     }
 
     /**
@@ -239,23 +246,29 @@ class ZoomReservationController extends Controller
 
         /*先生情報を取り出す */
         $staff = Staff::find($id);
+        $zooms = Zoom::all();
         $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
         ->join('staff', 'schedules.staff_id', '=', 'staff.id')
         ->join('courses', 'schedules.course_id', '=', 'courses.id')
-        ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+        ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
         ->where('reservations.user_id','=',$user->id)
-        ->where('schedules.is_zoom','=',false)
+        ->where('schedules.is_zoom','=',true)
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
                 'reservations.is_pointpay as is_pointpay',
-               'rooms.name as room_name',
+                'zooms.name as zoom_name',
                 'courses.name as course_name',
                 'staff.name as staff_name',
                 'courses.price as course_price',
                 'schedules.start as start'
             ]);
    
-        return view('user.zoom_reservation.calendar')->with(["staff" => $staff, 'reservations'=> $reservations]);
+        return view('user.zoom_reservation.calendar')->with(
+            [
+                'zooms' => $zooms,
+                'staff' => $staff, 
+                'reservations'=> $reservations
+            ]);
     }
 }

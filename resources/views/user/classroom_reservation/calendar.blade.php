@@ -20,6 +20,12 @@
 
                         <div id='calendar'></div>
                         <div style='clear:both'></div>
+
+
+                        <br/>
+                        @foreach ($rooms as $room)
+                            <a href="{{route('user.classroom_reservation.calendar', ['id' => $room->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$room->name}}</button></a>
+                        @endforeach
                     </div>
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->

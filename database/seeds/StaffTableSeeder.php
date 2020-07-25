@@ -13,7 +13,7 @@ class StaffTableSeeder extends Seeder
     {
         DB::table('staff')->insert(
             [
-                'name'              => '先生1号',
+                'name'              => '栗田登志子',
                 'email'             => 'staff1@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
@@ -22,8 +22,8 @@ class StaffTableSeeder extends Seeder
         );
         DB::table('staff')->insert(
             [
-                'name'              => '先生2号',
-                'email'             => 'two@staff.com',
+                'name'              => '新吉友子',
+                'email'             => 'staff2@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => false,
@@ -31,8 +31,18 @@ class StaffTableSeeder extends Seeder
         );
         DB::table('staff')->insert(
             [
-                'name'              => '先生3号',
-                'email'             => 'tree@staff.com',
+                'name'              => '高橋景子',
+                'email'             => 'staff3@cooking.sumomo.ne.jp',
+                'password'          => Hash::make('pass0123456789'),
+                'remember_token'    => Str::random(10),
+                'is_zoom'           => true,
+            ]
+        );
+
+        DB::table('staff')->insert(
+            [
+                'name'              => '濱本知恵',
+                'email'             => 'staff4@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => true,

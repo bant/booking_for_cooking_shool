@@ -40,8 +40,15 @@ class ClassRoomReservationController extends Controller
         $user = Auth::user();
 
         /*教室情報を */
-        $rooms = Room::all();
-        return view('user.classroom_reservation.index')->with(["rooms" => $rooms]);
+        $room = Room::all()->first();
+        if (!is_null($room))
+        {
+            return  redirect()->route('user.classroom_reservation.calendar', ['id' => $room->staff_id]);
+        }
+        else 
+        {
+            return  view('user.classroom_reservation.index');
+        }
     }
 
     /**
@@ -243,6 +250,7 @@ class ClassRoomReservationController extends Controller
 
         /*先生情報を取り出す */
         $staff = Staff::find($id);
+        $rooms = Room::all();
         $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
         ->join('staff', 'schedules.staff_id', '=', 'staff.id')
         ->join('courses', 'schedules.course_id', '=', 'courses.id')
@@ -260,6 +268,11 @@ class ClassRoomReservationController extends Controller
                 'schedules.start as start'
             ]);
    
-        return view('user.classroom_reservation.calendar')->with(["staff" => $staff, 'reservations'=> $reservations]);
+        return view('user.classroom_reservation.calendar')->with(
+            [
+                'rooms' => $rooms,
+                'staff' => $staff, 
+                'reservations'=> $reservations
+            ]);
     }
 }

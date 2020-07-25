@@ -89,7 +89,6 @@ class ZoomController extends Controller
     {
         $update = [
             'name' => $request->name,
-            'address' => $request->address,            
             'description' => $request->description
         ];
         Zoom::where('id', $id)->update($update);

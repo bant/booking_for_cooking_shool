@@ -36,33 +36,22 @@
     <!-- UltraDateの読み込み -->
     <script src="{{ asset('js/UltraDate.js') }}"></script>
     <script src="{{ asset('js/UltraDate.ja.js') }}"></script>
+  
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">Laravel</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <link rel="alternate" hreflang="ja">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Styles -->
-    <link href="{{ asset('css/yoriko_style.css') }}" rel="stylesheet">
-  </head>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
 
-  <!--
-    テストサイト：http://wheatbobcat7.sakura.ne.jp
-    本番サイト：  https://www.kuritacooking.com
-  -->
-
-  <body>
-    <noscript style="color: white">本サイトでは、JavaScript が重要な機能を持っています。是非、有効化してください。</noscript>
-    <article>
-    <div id="wrapper" class="zoom">
-      <header>
-      <div id="header">
-        <section>
-        <h1>
-          <a href="http://wheatbobcat7.sakura.ne.jp/zoom/" title="トップページへ戻る">ZOOMレッスン</a>
-        </h1>
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -99,39 +88,14 @@
                             </li>
                         @endguest
                     </ul>
-        
-        </section>
-      </div><!-- #header -->
-      </header>
-<div id="container">
-  <nav>
-    @include('layouts.user.nav')
-  </nav>
+                </div>
+            </div>
+        </nav>
 
-  <article>
-
-          
-          
-    @yield('content')
-          
-  
-
-    <section>
-
-
-    </section>
-    </div><!-- #content -->
-  </article>
-<aside>
-@yield('footer_link')
-</aside>
-</div><!-- #container -->
-<footer>
-@include('layouts.user.footer')
-</footer>
-<div id="scroll-btn"></div>
-</div><!-- #wrapper -->
-</article>
-@yield('scripts')
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+    @yield('scripts')
 </body>
 </html>

@@ -46,4 +46,13 @@ class Staff extends Authenticatable
    //     return $this->belongsTo('App\Models\Room','id','staff_id');
        return $this->hasOne('App\Models\Room','staff_id', 'id');
     }
+
+    /**
+     * ユーザーに関連する教室レコードを取得
+     */
+    public function zoom()
+    {
+   //     return $this->belongsTo('App\Models\Room','id','staff_id');
+       return $this->hasOne('App\Models\Zoom','staff_id', 'id');
+    }
 }

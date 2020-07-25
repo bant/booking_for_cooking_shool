@@ -50,6 +50,7 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         Course::create($request->all());
         return redirect()->route('staff.course.index')->with('success', '新規登録完了しました');
     }
@@ -73,7 +74,8 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $course = Course::find($id)->get();
+        return view('staff.course.edit')->with(['course',$course]);
     }
 
     /**
