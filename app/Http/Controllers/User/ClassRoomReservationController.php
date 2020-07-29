@@ -12,10 +12,10 @@ use App\Models\Course;
 use App\Models\Book;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ReservationUserEmail;
-use App\Mail\ReservationStaffEmail;
-use App\Mail\CancelUserEmail;
-use App\Mail\CancelStaffEmail;
+use App\Mail\ClassRoomReservationUserEmail;
+use App\Mail\ClassRoomReservationStaffEmail;
+use App\Mail\ClassRoomCancelUserEmail;
+use App\Mail\ClassRoomCancelStaffEmail;
 use Auth;
 
 class ClassRoomReservationController extends Controller
@@ -165,12 +165,12 @@ class ClassRoomReservationController extends Controller
             }
 
             /* 生徒にメールを送信 */
-            Mail::to($user->email)->send(new ReservationUserEmail($mail_title ,$mail_data));
+            Mail::to($user->email)->send(new ClassRoomReservationUserEmail($mail_title ,$mail_data));
 
             /* 先生にメールを送信 */
-            Mail::to($schedule->staff->email)->send(new ReservationStaffEmail($mail_title ,$mail_data));
+            Mail::to($schedule->staff->email)->send(new ClassRoomReservationStaffEmail($mail_title ,$mail_data));
 
-            return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '予約しました');
+            return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '教室の予約を受付ました');
         }
     }
 
@@ -199,9 +199,9 @@ class ClassRoomReservationController extends Controller
         
         if ($book->point == 0) 
         {
-            $mail_title = "【仮予約キャンセル】".$schedule->staff->room->name."の仮予約のキャンセルを受付ました。";
+            $mail_title = "【仮予約キャンセル】".$schedule->staff->room->name."の仮予約のキャンセルを受付ました";
             $mail_data = [
-                'action'            => "--- ". $schedule->staff->room->name."の仮予約のキャンセルを受付ました。 ---",
+                'action'            => "--- ". $schedule->staff->room->name."の仮予約のキャンセルを受付ました ---",
                 'user_name'         => $user->name,
                 'user_email'        => $user->email,
                 'reservation_id'    => $reservation->id,
@@ -215,9 +215,9 @@ class ClassRoomReservationController extends Controller
         }
         else
         {
-            $mail_title = "【予約キャンセル】".$schedule->staff->room->name."の予約をキャンセルを受付ました。";
+            $mail_title = "【予約キャンセル】".$schedule->staff->room->name."の予約のキャンセルを受付ました";
             $mail_data = [
-                'action'            => "--- ". $schedule->staff->room->name."の予約を受付ました。 ---",
+                'action'            => "--- ". $schedule->staff->room->name."の予約のキャンセルを受付ました ---",
                 'user_name'         => $user->name,
                 'user_email'         => $user->email,
                 'reservation_id'    => $reservation->id,
@@ -228,18 +228,19 @@ class ClassRoomReservationController extends Controller
                 'price'             => number_format($book->point)."円(ポイントに還元済み)",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
+
         }
 
         /* 生徒にメールを送信 */
-        Mail::to($user->email)->send(new CancelUserEmail($mail_title ,$mail_data));
+        Mail::to($user->email)->send(new ClassRoomCancelUserEmail($mail_title ,$mail_data));
 
         /* 先生にメールを送信 */
-        Mail::to($schedule->staff->email)->send(new CancelStaffEmail($mail_title ,$mail_data));
+        Mail::to($schedule->staff->email)->send(new ClassRoomCancelStaffEmail($mail_title ,$mail_data));
 
-        return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '予約をキャンセルしました');
+        return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '予約はキャンセルされました');
     }
 
-        /**
+    /**
     * Show the application dashboard.
     *
     * @return \Illuminate\Contracts\Support\Renderable

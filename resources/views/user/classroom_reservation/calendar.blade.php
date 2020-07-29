@@ -3,32 +3,27 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-2">
-            <!-- left menu -->
-            @include('layouts.user.menu')
-
-            <div class="col-md-10">
-                <!-- 先生のカレンダ用スロット始まり -->
-                <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->room->name }}のカレンダ</div>
-                    <div class="card-body">
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                        @endif
-
-                        <div id='calendar'></div>
-                        <div style='clear:both'></div>
-
-
-                        <br/>
-                        @foreach ($rooms as $room)
-                            <a href="{{route('user.classroom_reservation.calendar', ['id' => $room->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$room->name}}</button></a>
-                        @endforeach
+        <div class="col-md-10">
+        <!-- 先生のカレンダ用スロット始まり -->
+            <div class="card">
+                <div class="card-header justify-content-left"><i class="fas fa-id-card"></i> {{ $staff->room->name }}のカレンダ</div>
+                <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
                     </div>
+                @endif
+
+                    <div id='calendar'></div>
+                    <div style='clear:both'></div>
+
+                    <br/>
+                    @foreach ($rooms as $room)
+                        <a href="{{route('user.classroom_reservation.calendar', ['id' => $room->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$room->name}}</button></a>
+                    @endforeach
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
+
    
                 <br/>
                 <!-- 生徒さん様の予約リスト用スロット始まり -->
@@ -79,13 +74,10 @@
                     @else
                         <h3 class="text-center alert alert-info">予約はありません。</h3>
                     @endif
-
                     </div>
-
                 </div>
                  <!-- 生徒さん様の予約リスト用スロット終わり -->
             </div><!-- end card -->
-          
         </div>
     </div>
 </div>

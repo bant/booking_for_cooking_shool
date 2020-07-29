@@ -15,7 +15,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('classroom/{id?}/calendar', 'HomeController@classroom_calendar')->name('classroom_calendar');
+Route::get('zoom/{id?}/calendar', 'HomeController@zoom_calendar')->name('zoom_calendar');
+Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
+Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule');
 
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
@@ -50,7 +53,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::delete('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
     
         Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule')->name('inquiry.get_classromm_schedule');
-        Route::get('inquiry/{id?}/getZommSchedule', 'InquiryController@getZommSchedule')->name('inquiry.get_zomm_schedule');
+        Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
     });
 });
 
@@ -60,7 +63,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
     // ログイン認証関連
     Auth::routes([
-        'register' => false,
+        'register' => true,
         'confirm'  => false,
         'reset'    => true
     ]);

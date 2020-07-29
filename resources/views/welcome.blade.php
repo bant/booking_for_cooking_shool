@@ -87,6 +87,7 @@
                 </div>
 
                 <div class="links">
+                   <a href="/classroom/1/calendar"><button class='btn btn-default'>栗田</button></a>
                     <a href="{{ route('user.login') }}"><button class='btn btn-primary'>ユーザ・ログイン</button></a>
                     <a href="{{ route('staff.login') }}"><button class='btn btn-success'>スタッフ・ログイン</button></a>
                     <a href="{{ route('admin.login') }}"><button class='btn btn-info'>管理者・ログイン</button></a>

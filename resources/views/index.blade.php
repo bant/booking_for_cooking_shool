@@ -100,6 +100,7 @@
                 </div>
 
                 <div class="links">
+                
                     <a href="https://laravel.com/docs"><button class='btn btn-default'>Docs</button></a>
                     <a href="https://laracasts.com"><button class='btn btn-primary'>Laracasts</button></a>
                     <a href="https://laravel-news.com"><button class='btn btn-success'>News</button></a>

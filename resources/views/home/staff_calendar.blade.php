@@ -1,94 +1,30 @@
-@extends('layouts.user.app')
+@extends('layouts.home.app')
 
 @section('content')
 <div class="container">
-
-
-
-
-
-
-
-
     <div class="row justify-content-center">
-        <h2>{{ $staff->zoom->name }}のカレンダ</h2>
         <div class="col-md-10">
         <!-- 先生のカレンダ用スロット始まり -->
             <div class="card">
-                <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->zoom->name }}のカレンダ</div>
+                <div class="card-header justify-content-left"><i class="fas fa-id-card"></i> {{ $staff->room->name }}({{ $staff->name }}先生)のスケジュール</div>
                 <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
+
                     <div id='calendar'></div>
                     <div style='clear:both'></div>
+
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
-            </div>
-                <div class="card">
-                <br/>
-                <br/>
-                <br/>
-                <!-- 生徒さん様の予約リスト用スロット始まり -->
-                <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
-                    <div class="card-body">
-                      @if($reservations->count())
-                      <table class="table table-sm table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">#</th>
-                          <th>zoom</th>
-                          <th>コース名</th>
-                          <th>先生</th>
-                          <th>価格</th>
-                          <th>開始時間</th>
-                          <th class="text-right">オプション</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                      @foreach($reservations as $reservation)
-                        <tr>
-                            <td>
-                            @if($reservation->is_pointpay)
-                                確
-                            @else
-                                仮
-                            @endif
-                            </td>
-                          <td>{{$reservation->zoom_name}}</td>
-                          <td>{{$reservation->course_name}}</td>
-                          <td>{{$reservation->staff_name}}</td>
-                          <td>{{ number_format($reservation->course_price) }}円</td>
-                          <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
-                          <td class="text-right">
-                            <form action="{{route('user.zoom_reservation.destroy', ['id' => $reservation->id])}}" method="POST" style="display: inline;"
-                                onsubmit="return confirm('予約を取り消しても良いですか?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
-                            </form>
-                          </td>
-                        </tr>
-                      @endforeach
-                      </tbody>
-                      </table>
-                    @else
-                        <h3 class="text-center alert alert-info">予約はありません。</h3>
-                    @endif
-                    </div>
-                </div>
-                 <!-- 生徒さん様の予約リスト用スロット終わり -->
 
             </div><!-- end card -->
         </div>
     </div>
 </div>
 @endsection
-
 
 @section('scripts')
 <script>
@@ -127,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 day:  '日',
                 list: 'リスト'
             },
-        events:'/user/inquiry/{{ $staff->id }}/getZoomSchedule',
+        events:'/inquiry/{{ $staff->id }}/getClassrommSchedule',
 
         dayRender: function(info) {
             date.setFullYear(

@@ -5,7 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-md-2">
             <!-- left menu -->
-            @include('layouts.user.menu')
             
             <div class="col-md-10">
                 <div class="card">

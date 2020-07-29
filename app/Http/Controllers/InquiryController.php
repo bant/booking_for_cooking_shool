@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class InquiryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:user');
+//        $this->middleware('auth:user');
     }
 
     /**
@@ -36,7 +36,7 @@ class InquiryController extends Controller
         $now = Carbon::now();
         $schedules = Schedule::where('staff_id',$id)
                         ->where('is_zoom', false)
-                        ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
+//                        ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                         ->get();
         foreach($schedules as $schedule) {
             $start = new Carbon($schedule->start);

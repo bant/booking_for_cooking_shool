@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReservationUserEmail extends Mailable
+class ClassRoomReservationStaffEmail extends Mailable
 {
     use Queueable, SerializesModels;
     protected $title;
@@ -31,8 +31,8 @@ class ReservationUserEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.reservation_user_html')
-                ->text('emails.reservation_user_text')
+        return $this->view('emails.class_room_reservation_staff_html')
+                ->text('emails.class_room_reservation_staff_text')
                 ->subject($this->title)
                 ->with(['data' => $this->data]);
     }
