@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 day:  '日',
                 list: 'リスト'
             },
-        events:'/inquiry/{{ $staff->id }}/getClassrommSchedule',
+        events:'/api/inquiry/{{ $staff->id }}/getClassrommSchedule',
 
         dayRender: function(info) {
             date.setFullYear(
