@@ -36,7 +36,7 @@ class InquiryController extends Controller
         $now = Carbon::now();
         $schedules = Schedule::where('staff_id',$id)
                         ->where('is_zoom', false)
-//                        ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
+                        ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                         ->get();
         foreach($schedules as $schedule) {
             $start = new Carbon($schedule->start);
