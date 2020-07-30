@@ -49,7 +49,7 @@ class InquiryController extends Controller
                         'start'     => str_replace(' ', 'T', $schedule->start), 
                         'end'       => str_replace(' ', 'T', $schedule->end), 
                         'color'     => 'blue', 
-                        'url'       => '/user/classroom_reservation/create/'.$schedule->id,
+                        'url'       => 'https://booking.sumomo.ne.jp/user/classroom_reservation/create/'.$schedule->id,
                         'extendedProps' => [
                             'schedule_id'       => $schedule->id,
                             'schedule_name'     => $schedule->name,
@@ -120,7 +120,7 @@ class InquiryController extends Controller
                     'end'       =>str_replace(' ', 'T', $schedule->end), 
                     'color'     =>'lightpink', 
                     'identifier'=>$schedule->identifier,
-                    'url'       => '/user/zoom_reservation/create/'.$schedule->id,
+                    'url'       => 'https://booking.sumomo.ne.jp/user/zoom_reservation/create/'.$schedule->id,
                 ];
             }
             else
