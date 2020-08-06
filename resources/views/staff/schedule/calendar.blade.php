@@ -1,37 +1,34 @@
 @extends('layouts.staff.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+    <section>
+    <h2>スケジュール</h2>
     <div class="row justify-content-center">
-        <div class="col-md-2">
-            <!-- left menu -->
-            @include('layouts.staff.menu')
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}先生のスケジュール</div>
+                <div class="card-body">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}先生のスケジュール</div>
-                    <div class="card-body">
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                        @endif
+                <div id='calendar'></div>
+                <div style='clear:both'></div>
 
-                        <div id='calendar'></div>
-                        <div style='clear:both'></div>
-                    <br/>
-                        @if ($room_count != 0)
-                            <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 教室スケジュール新規登録</button></a>
-                        @endif
-                        @if ($zoom_count != 0)
-                            <a href="{{route('staff.zoom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> ZOOMスケジュール新規登録</button></a>
-                        @endif
-                    </div>
-
-                </div><!-- end card-body -->
-            </div><!-- end card -->
-        </div>
-    </div>
+                <br/>
+            @if ($room_count != 0)
+                <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 教室スケジュール新規登録</button></a>
+            @endif
+            @if ($zoom_count != 0)
+                <a href="{{route('staff.zoom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> ZOOMスケジュール新規登録</button></a>
+            @endif  
+            </div>
+        </div><!-- end card-body -->
+    </div><!-- end card -->
+    </section>
 </div>
 @endsection
 

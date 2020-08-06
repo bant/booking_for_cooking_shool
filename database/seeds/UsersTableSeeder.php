@@ -13,29 +13,42 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert(
             [
-                'name'              => '生徒1号',
+                'name'              => '神戸太郎',
                 'email'             => 'user1@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
-                'remember_token'    => Str::random(10),
-                'point'             => 1000000
-            ]
-        );
-        DB::table('users')->insert(
-            [
-                'name'              => '生徒2号',
-                'email'             => 'two@user.com',
-                'password'          => Hash::make('pass0123456789'),
+                'address'           => '兵庫県神戸市東灘区住吉宮町',
                 'remember_token'    => Str::random(10),
                 'point'             => 0
             ]
         );
         DB::table('users')->insert(
             [
-                'name'              => '生徒3号',
-                'email'             => 'tree@user.com',
+                'name'              => '神戸花子',
+                'email'             => 'user2@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
+                'address'           => '兵庫県神戸市東灘区御影石町',
                 'remember_token'    => Str::random(10),
-                'point'             => 50000
+                'point'             => 0
+            ]
+        );
+        DB::table('users')->insert(
+            [
+                'name'              => '大阪太郎',
+                'email'             => 'user3@cooking.sumomo.ne.jp',
+                'password'          => Hash::make('pass0123456789'),
+                'address'           => '大阪府大阪市淀川区十三本町',
+                'remember_token'    => Str::random(10),
+                'point'             => 0
+            ]
+        );
+        DB::table('users')->insert(
+            [
+                'name'              => '大阪花子',
+                'email'             => 'user4@cooking.sumomo.ne.jp',
+                'password'          => Hash::make('pass0123456789'),
+                'address'           => '大阪府豊中市',
+                'remember_token'    => Str::random(10),
+                'point'             => 0
             ]
         );
     }

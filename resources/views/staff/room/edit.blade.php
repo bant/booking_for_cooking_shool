@@ -1,42 +1,38 @@
 @extends('layouts.staff.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+    <section>
+    <h3>教室の詳細</h3>
     <div class="row justify-content-center">
-      <div class="col-md-2">
-        <!-- left menu -->
-        @include('layouts.staff.menu')
-
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生の教室の詳細</div>
-
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+            @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+            @endif
 
-                    {{--成功時のメッセージ--}}
-                    @if (session('success'))
-                      <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    {{-- エラーメッセージ --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
+            {{--成功時のメッセージ--}}
+            @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            {{-- エラーメッセージ --}}
+            @if ($errors->any())
+                    <div class="alert alert-danger">
                         <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                    @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                    @endforeach
                         </ul>
-                        </div>
-                    @endif
+                    </div>
+            @endif
 
                     <form action="{{ route('staff.room.update', $room->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                    @csrf
+                    @method('PUT')
                         <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
                         <div class="form-group">
                             <label for="name-field">教室名</label>
@@ -61,10 +57,10 @@
                         </div>
                     </form>
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 </div>
 @endsection

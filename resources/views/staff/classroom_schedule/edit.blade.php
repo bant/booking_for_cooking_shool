@@ -1,46 +1,35 @@
 @extends('layouts.staff.app')
 
-@section('style')
-<style>
-    input[type=radio] {
-       display: none; /* ラジオボタンを非表示にする */
-  }
-</style>
-@section('style')
-
 @section('content')
-<div class="container">
+<div id="content">
+<section>
+    <h2>スケジュール/編集</h2>
     <div class="row justify-content-center">
-        <div class="col-md-2">
-            <!-- left menu -->
-            @include('layouts.staff.menu')
- 
-
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-plus"></i> スケジュール/編集</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-                    {{--成功時のメッセージ--}}
-                    @if (session('success'))
+                {{--成功時のメッセージ--}}
+                @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    {{-- エラーメッセージ --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
+                @endif
+                {{-- エラーメッセージ --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
                         <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
                         </ul>
-                        </div>
-                    @endif
+                    </div>
+                @endif
 
                     <form action="{{ route('staff.classroom_schedule.update', $schedule->id) }}" method="POST">
                         @method('PUT')
@@ -80,11 +69,11 @@
                             <a class="btn btn-link pull-right" href="{{ route('staff.schedule.index') }}"><i class="fas fa-backward"></i> 戻る</a>
                         </div>
                     </form>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 </div>
 
 @endsection

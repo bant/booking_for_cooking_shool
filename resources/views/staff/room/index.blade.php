@@ -1,22 +1,18 @@
 @extends('layouts.staff.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+  <section>
+    <h3>教室の詳細</h3>
     <div class="row justify-content-center">
-      <div class="col-md-2">
-        <!-- left menu -->
-        @include('layouts.staff.menu')
-
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生の教室の詳細</div>
-
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
 
                     {{--成功時のメッセージ--}}
@@ -25,15 +21,14 @@
                     @endif
                     {{-- エラーメッセージ --}}
                     @if ($errors->any())
-                        <div class="alert alert-danger">
+                    <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                        </div>
+                    </div>
                     @endif
-
 
                     @if(isset($room))
                     <div class="form-group">
@@ -54,15 +49,15 @@
                     </div>
                     <div class="well well-sm">
                             <a class="btn btn-primary" href="/staff/room/{{$room->id}}/edit"><i class="fas fa-edit"></i> 編集</a>
-                        </div>
+                    </div>
                     @else
                         <h3 class="text-center alert alert-info">教室が未登録です。</h3>
                         <a href="/staff/room/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックして教室を登録してください。
                     @endif
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 </div>
 @endsection

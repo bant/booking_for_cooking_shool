@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Course;
-use Auth;
 
-class CourseController extends Controller
+class StaffController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -16,9 +14,8 @@ class CourseController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:staff');
+        $this->middleware('auth:admin');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -27,9 +24,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $staff = Auth::user();
-        $courses = Course::where('staff_id', $staff->id)->get();
-        return view('staff.course.index', compact('courses'));
+        //
     }
 
     /**
@@ -39,7 +34,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('staff.course.create');
+        //
     }
 
     /**
@@ -50,8 +45,7 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        Course::create($request->all());
-        return redirect()->route('staff.course.index')->with('success', '新規登録完了しました');
+        //
     }
 
     /**
@@ -73,9 +67,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-//        dd($id);
-        $course = Course::where('id',$id)->get();
-        return view('staff.course.edit', compact('course'));
+        //
     }
 
     /**
@@ -98,7 +90,6 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        Course::where('id', $id)->delete();
-        return redirect()->route('staff.course.index')->with('success', '削除完了しました');
+        //
     }
 }

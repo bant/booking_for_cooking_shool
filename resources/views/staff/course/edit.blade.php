@@ -1,22 +1,11 @@
 @extends('layouts.staff.app')
 
-@section('style')
-<style>
-    input[type=radio] {
-       display: none; /* ラジオボタンを非表示にする */
-  }
-</style>
-@section('style')
-
 @section('content')
-<div class="container">
+<div id="content">
+  <section>
+    <h2>コース一覧</h2>
     <div class="row justify-content-center">
-        <div class="col-md-2">
-            <!-- left menu -->
-            @include('layouts.staff.menu')
- 
-
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-plus"></i> コース編集</div>
 
@@ -42,49 +31,29 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('staff.classroom_schedule.update', $schedule->id) }}" method="POST">
-                        @method('PUT')
+                    <form action="{{ route('staff.course.update', $course->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
+                        <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
                         <div class="form-group">
-                            <label for="title-field">コース</label>
-                            <select type="text" class="form-control" name="course_id">                          
-                            @foreach($courses as $course)
-                                <option value="{{ $course->id }}" 
-                                @if ( $course->id ===  $schedule->course_id) 
-                                    selected
-                                @endif                          
-                                >{{ $course->name }}</option>
-                            @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="capacity-field">定員</label>
-                            <input class="form-control" type="number" name="capacity" id="capacity-field"  min="1" max="10" value="{{old('capacity', $schedule->capacity)}}" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="start-field">開始日時</label>
-                            <input  class="form-control" type="datetime-local" name="start"  id="start-field" value="{{ str_replace(' ', 'T', old('start', $schedule->start)) }}" />
+                            <label for="name-field">コース名</label>
+                            <input class="form-control" type="text" name="name" id="name-field" value="{{$course->name}}" />
                         </div>
                         <div class="form-group">
-                            <label for="end-field">終了日時</label>
-                            <input class="form-control" type="datetime-local" name="end"  id="end-field"  value="{{ str_replace(' ', 'T', old('end', $schedule->end)) }}" />
+                            <label for="price-field">価格</label>
+                            <input class="form-control" type="tel" name="price" id="price-field" value="{{$price->tel}}" />
                         </div>
-
-                        <input type="hidden" name="is_zoom" value="0">
-                        <input type="hidden" name="zoom_invitation" value="　">
-
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary">保存</button>
-                            <a class="btn btn-link pull-right" href="{{ route('staff.schedule.index') }}"><i class="fas fa-backward"></i> 戻る</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>データ更新</button>
+                            <a class="btn btn-link pull-right" href="{{ route('staff.course.index') }}"><i class="fas fa-backward"></i> 戻る</a>
                         </div>
                     </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </section>
 </div>
-
 @endsection

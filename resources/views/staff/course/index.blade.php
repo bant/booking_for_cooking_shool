@@ -1,13 +1,11 @@
 @extends('layouts.staff.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+  <section>
+    <h2>コース一覧</h2>
     <div class="row justify-content-center">
-      <div class="col-md-2">
-        <!-- left menu -->
-        @include('layouts.staff.menu')
-
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-plus"></i> {{ Auth::user()->name }}先生ののコース詳細</div>
                 <div class="card-body">
@@ -66,12 +64,13 @@
 
                     @else
                         <h3 class="text-center alert alert-info">コース情報が未登録です。</h3>
-                        <a href="/staff/course/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてスケジュールを登録してください。
+                        <a href="{{ route('staff.course.create') }}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてスケジュールを登録してください。
                     @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </section>
 </div>
 @endsection

@@ -1,12 +1,10 @@
 @extends('layouts.staff.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+  <section>
+    <h3>予約状況</h3>
     <div class="row justify-content-center">
-        <div class="col-md-2">
-            <!-- left menu -->
-            @include('layouts.staff.menu')
-
             <div class="col-md-10">
                 <!-- 先生の教室の予約の始まり -->
                 <div class="card">
@@ -101,9 +99,8 @@
                     @else
                         <h3 class="text-center alert alert-info">ZOOMの予約はありません。</h3>
                     @endif
-                    <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"><i class="fas fa-edit"></i> <<前月</a>
-                    <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"><i class="fas fa-edit"></i> >>次月</a>
-
+                    <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"> 次月>></a>
+                    <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"> <<前月</a>
  
                   </div>
                 </div>
@@ -112,5 +109,6 @@
        
         </div>
     </div>
+  </section>
 </div>
 @endsection

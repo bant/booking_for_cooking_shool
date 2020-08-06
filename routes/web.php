@@ -87,7 +87,6 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::resource('zoom_schedule', 'ZoomScheduleController');
 
         // reservationページ
-       
         Route::resource('reservation', 'ReservationController', ['only' => ['index', 'show']]);
         Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
         Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');
@@ -122,10 +121,22 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // ログイン認証後
     Route::middleware('auth:admin')->group(function () {
         // TOPページ
-       Route::resource('home', 'HomeController', ['only' => 'index']);
+        Route::resource('home', 'HomeController', ['only' => 'index']);
 
         // Roomページ
         Route::resource('room', 'RoomController', ['only' => 'index']);
+
+//        Route::resource('point', 'PointController');
+        Route::get('point', 'PointController@index')->name('point.index');
+        Route::get('point/search', 'PointController@search')->name('point.search');
+        Route::post('point/search', 'PointController@search')->name('point.search');
+        Route::get('point/{id?}/edit', 'PointController@edit')->name('point.edit');
+        Route::post('point/{id?}/update', 'PointController@update')->name('point.update');
+
+
+        Route::resource('user', 'UserController');
+        Route::post('user/search', 'UserController@search')->name('user.search');
+
 
 /*
         Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');

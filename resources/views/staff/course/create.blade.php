@@ -1,16 +1,12 @@
 @extends('layouts.staff.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+  <section>
     <div class="row justify-content-center">
-      <div class="col-md-2">
-        <!-- left menu -->
-        @include('layouts.staff.menu')
-
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生のコース詳細</div>
+                <div class="card-header"><i class="fas fa-align-justify"></i> {{ Auth::user()->name }}先生のコース作成</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -54,7 +50,7 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+    </section>
 </div>
 @endsection
