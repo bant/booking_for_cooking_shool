@@ -1,19 +1,12 @@
 @extends('layouts.user.app')
 
 @section('content')
-<div class="container">
-
-
-
-
-
-
-
-
+<div id="content">
+<section>
+<h3>{{ $staff->zoom->name }}のカレンダ</h3>
     <div class="row justify-content-center">
-        <h2>{{ $staff->zoom->name }}のカレンダ</h2>
         <div class="col-md-10">
-        <!-- 先生のカレンダ用スロット始まり -->
+            <!-- 先生のカレンダ用スロット始まり -->
             <div class="card">
                 <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->zoom->name }}のカレンダ</div>
                 <div class="card-body">
@@ -27,44 +20,40 @@
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
             </div>
-                <div class="card">
-                <br/>
-                <br/>
-                <br/>
-                <!-- 生徒さん様の予約リスト用スロット始まり -->
-                <div class="card">
-                    <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
-                    <div class="card-body">
-                      @if($reservations->count())
-                      <table class="table table-sm table-striped">
-                      <thead>
-                        <tr>
-                          <th class="text-center">#</th>
-                          <th>zoom</th>
-                          <th>コース名</th>
-                          <th>先生</th>
-                          <th>価格</th>
-                          <th>開始時間</th>
-                          <th class="text-right">オプション</th>
-                        </tr>
-                      </thead>
 
-                      <tbody>
-                      @foreach($reservations as $reservation)
+            <br/>
+            <!-- 生徒さん様の予約リスト用スロット始まり -->
+            <div class="card">
+                <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
+                <div class="card-body">
+                @if($reservations->count())
+                    <table class="table table-sm table-striped">
+                    <thead>
                         <tr>
-                            <td>
-                            @if($reservation->is_pointpay)
-                                確
-                            @else
-                                仮
-                            @endif
-                            </td>
-                          <td>{{$reservation->zoom_name}}</td>
-                          <td>{{$reservation->course_name}}</td>
-                          <td>{{$reservation->staff_name}}</td>
-                          <td>{{ number_format($reservation->course_price) }}円</td>
-                          <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
-                          <td class="text-right">
+                            <th class="text-center">#</th>
+                            <th>zoom</th>
+                            <th>コース名</th>
+                            <th>先生</th>
+                            <th>価格</th>
+                            <th>開始時間</th>
+                            <th class="text-right">オプション</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach($reservations as $reservation)
+                        <tr>
+                    @if ($reservation->is_contract)
+                        <td class="text-center text-white bg-success"><strong>確</strong></td>
+                    @else
+                        <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                    @endif
+                        <td>{{$reservation->zoom_name}}</td>
+                        <td>{{$reservation->course_name}}</td>
+                        <td>{{$reservation->staff_name}}</td>
+                        <td>{{ number_format($reservation->course_price) }}円</td>
+                        <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
+                        <td class="text-right">
                             <form action="{{route('user.zoom_reservation.destroy', ['id' => $reservation->id])}}" method="POST" style="display: inline;"
                                 onsubmit="return confirm('予約を取り消しても良いですか?');">
                                 @csrf
@@ -73,19 +62,18 @@
                             </form>
                           </td>
                         </tr>
-                      @endforeach
-                      </tbody>
-                      </table>
+                    @endforeach
+                    </tbody>
+                    </table>
                     @else
                         <h3 class="text-center alert alert-info">予約はありません。</h3>
                     @endif
-                    </div>
                 </div>
                  <!-- 生徒さん様の予約リスト用スロット終わり -->
-
             </div><!-- end card -->
         </div>
     </div>
+ </section>
 </div>
 @endsection
 
@@ -127,7 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 day:  '日',
                 list: 'リスト'
             },
-        events:'/user/inquiry/{{ $staff->id }}/getZoomSchedule',
+        events:'{{route('user.inquiry.get_zomm_schedule',$staff->id)}}',
+//        events:'/user/inquiry/{{ $staff->id }}/getZoomSchedule',
 
         dayRender: function(info) {
             date.setFullYear(

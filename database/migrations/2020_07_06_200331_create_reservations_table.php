@@ -19,7 +19,9 @@ class CreateReservationsTable extends Migration
             $table->unsignedBigInteger('schedule_id')->comment('スケジュールID');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('schedule_id')->references('id')->on('schedules');
+            $table->boolean('is_contract')->comment('本契約フラグ');
             $table->boolean('is_pointpay')->comment('ポイント支払い');
+            $table->integer('spent_point')->comment('支払われたポイント');           // 先生側から見ての金額
             $table->timestamps();
             $table->softDeletes();
         });

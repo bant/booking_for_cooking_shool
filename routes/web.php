@@ -38,21 +38,21 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
         // 教室予約関係
         Route::get('classroom_reservation', 'ClassRoomReservationController@index')->name('classroom_reservation.index');
-        Route::get('classroom_reservation/{id?}/calendar', 'ClassRoomReservationController@calendar')->name('classroom_reservation.calendar');
-        Route::get('classroom_reservation/create/{id?}', 'ClassRoomReservationController@create')->name('classroom_reservation.create');  
-        Route::post('classroom_reservation/store', 'ClassRoomReservationController@store')->name('classroom_reservation.store');
-        Route::post('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
-        Route::delete('classroom_reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
+        Route::get('classroom/reservation/{id?}/calendar', 'ClassRoomReservationController@calendar')->name('classroom_reservation.calendar');
+        Route::get('classroom/reservation/{id?}/create', 'ClassRoomReservationController@create')->name('classroom_reservation.create');  
+        Route::post('classroom/reservation/store', 'ClassRoomReservationController@store')->name('classroom_reservation.store');
+        Route::post('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
+        Route::delete('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
 
         // ZOOM予約関係
-        Route::get('zoom_reservation', 'ZoomReservationController@index')->name('zoom_reservation.index');
-        Route::get('zoom_reservation/{id?}/calendar', 'ZoomReservationController@calendar')->name('zoom_reservation.calendar');
-        Route::get('zoom_reservation/create/{id?}', 'ZoomReservationController@create')->name('zoom_reservation.create');  
-        Route::post('zoom_reservation/store', 'ZoomReservationController@store')->name('zoom_reservation.store');
-        Route::post('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
-        Route::delete('zoom_reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
+        Route::get('zoom/reservation', 'ZoomReservationController@index')->name('zoom_reservation.index');
+        Route::get('zoom/reservation/{id?}/calendar', 'ZoomReservationController@calendar')->name('zoom_reservation.calendar');
+        Route::get('zoom/reservation/{id?}/create', 'ZoomReservationController@create')->name('zoom_reservation.create');  
+        Route::post('zoom/reservation/store', 'ZoomReservationController@store')->name('zoom_reservation.store');
+        Route::post('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
+        Route::delete('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
     
-        Route::get('inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule')->name('inquiry.get_classromm_schedule');
+        Route::get('inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule')->name('inquiry.get_classroom_schedule');
         Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
     });
 });
@@ -128,10 +128,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
 //        Route::resource('point', 'PointController');
         Route::get('point', 'PointController@index')->name('point.index');
-        Route::get('point/search', 'PointController@search')->name('point.search');
-        Route::post('point/search', 'PointController@search')->name('point.search');
-        Route::get('point/{id?}/edit', 'PointController@edit')->name('point.edit');
-        Route::post('point/{id?}/update', 'PointController@update')->name('point.update');
+        Route::get('point/user/search', 'PointController@user_search')->name('point.user_search');
+        Route::post('point/user/search', 'PointController@user_search')->name('point.user_search');
+        Route::get('point/user/{id?}/edit', 'PointController@user_edit')->name('point.user_edit');
+        Route::post('point/user/{id?}/update', 'PointController@user_update')->name('point.user_update');
+
+        Route::get('point/staff/select', 'PointController@staff_select')->name('point.staff_select');
+        Route::post('point/staff/select', 'PointController@staff_select')->name('point.staff_select');
+        Route::get('point/staff/{id?}/check', 'PointController@staff_check')->name('point.staff_check');
 
 
         Route::resource('user', 'UserController');

@@ -24,14 +24,12 @@
         <tbody>
         @foreach($classroom_reservations as $classroom_reservation)
             <tr>
-                <td>
-                @if($classroom_reservation->is_pointpay)
-                    確
-                @else
-                    仮
-                @endif
-                </td>
-                <td>{{$classroom_reservation->course_name}}</td>
+             @if ($classroom_reservation->is_contract)
+                <td class="text-center text-white bg-success"><strong>確</strong></td>
+            @else
+                <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+            @endif
+　              <td>{{$classroom_reservation->course_name}}</td>
                 <td>{{$classroom_reservation->room_name}}</td>
                 <td>{{$classroom_reservation->staff_name}}</td>
                 <td>{{ number_format($classroom_reservation->course_price) }}円</td>
@@ -72,12 +70,11 @@
         <tbody>
         @foreach($zoom_reservations as $zoom_reservation)
             <tr>
-                <td>
-                @if($zoom_reservation->is_pointpay)
-                    確
-                @else
-                    仮
-                @endif
+            @if ($zoom_reservation->is_contract)
+                <td class="text-center text-white bg-success"><strong>確</strong></td>
+            @else
+                <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+            @endif
                 </td>
                 <td>{{$zoom_reservation->course_name}}</td>
                 <td>{{$zoom_reservation->room_name}}</td>

@@ -9,7 +9,6 @@ use App\Models\Schedule;
 use App\Models\Staff;
 use App\Models\Zoom;
 use App\Models\Course;
-use App\Models\Book;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ZoomReservationUserEmail;
@@ -47,7 +46,7 @@ class ZoomReservationController extends Controller
         }
         else 
         {
-            return  view('user.room_reservation.index');
+            return  view('user.zoom_reservation.index');
         }
     }
 
@@ -81,74 +80,46 @@ class ZoomReservationController extends Controller
         {
             return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', '予約済みです');
         }
-        else 
+
+        // 生徒さんのポイント
+        $point  = $user->point;
+        $price = Course::find($schedule->course->id)->price; /* ※バグ!? */
+  
+        /* 支払えるポイントがない */
+        if ($price > $point)
         {
-            // 生徒さんのポイント
-            $point  = $user->point;
-            $price = Course::find($schedule->course->staff->id)->price;
+            return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'ポイントが足りません');
+        }
 
-            $reservation = new Reservation();
-            $reservation->user_id = $user->id;
-            $reservation->schedule_id = $request->schedule_id;
-   
-            if ($point > $price)
-            {
-                $reservation->is_pointpay = true;
+        /* 予約テーブルに記録 */
+        $reservation = new Reservation();
+        $reservation->user_id = $user->id;
+        $reservation->schedule_id = $request->schedule_id;
+        $reservation->is_contract = true;
+        $reservation->is_pointpay = true;
+        $reservation->spent_point = $price;
+        $reservation->save();
 
-                $update = [
-                    'point' => $point - $price,
-                ];
-                User::where('id', $user->id)->update($update);
+        /* スケジュールの定員を減らす */
+        Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
 
-                $book_price = $price;
-            }
-            else
-            {
-                $reservation->is_pointpay = false;
-                $book_price = 0;
-            }
-            $reservation->save();
+        /* 生徒のポイントを減らす */
+        User::where('id', $user->id)->update(['point' => $point - $price]);
 
-            /* 帳簿につける */
-            $book = new Book();
-            $book->reservation_id = $reservation->id;
-            $book->point = $book_price;
-            $book->save();
+        /* メール送信 */
+        $reservate_times = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+                    ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+                    ->where('reservations.user_id','=',$user->id)
+                    ->where('schedules.staff_id','=',$schedule->staff->id)
+                    ->where('schedules.is_zoom','=',true)
+                    ->count();
+        if (is_null($reservate_times))
+        {
+            $reservate_times = "初";
+        } 
 
-            /* 定員を減らす */
-            Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
-
-            $reservate_times = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-            ->where('reservations.user_id','=',$user->id)
-            ->where('schedules.staff_id','=',$schedule->staff->id)
-            ->where('schedules.is_zoom','=',true)
-            ->count();
-            if (is_null($reservate_times))
-            {
-                $reservate_times = "初";
-            } 
-
-            if ($book_price == 0) 
-            {
-                $mail_title = "【仮予約受付】".$schedule->staff->zoom->name."のZOOM教室の仮予約を受付ました。";
-                $mail_data = [
-                    'action'            => "--- ". $schedule->staff->zoom->name."のZOOM教室の仮予約を受付ました。 ---",
-                    'user_name'         => $user->name,
-                    'user_email'        => $user->email,
-                    'reservation_id'    => $reservation->id,
-                    'course_name'       => $schedule->course->name,
-                    'staff_name'        => $schedule->staff->name,
-                    'price'             => number_format($price)."円",
-                    'times'             => $reservate_times."回",
-                    'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start)),
-                    'zoom_invitation'   => $schedule->zoom_invitation,
-                ];
-            }
-            else
-            {
-                $mail_title = "【予約受付】".$schedule->staff->zoom->name."の予約を受付ました。";
-                $mail_data = [
+        $mail_title = "【予約受付】".$schedule->staff->zoom->name."の予約を受付ました。";
+        $mail_data = [
                     'action'            => "--- ". $schedule->staff->zoom->name."の予約を受付ました。 ---",
                     'user_name'         => $user->name,
                     'user_email'        => $user->email,
@@ -160,16 +131,14 @@ class ZoomReservationController extends Controller
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start)),
                     'zoom_invitation'   => $schedule->zoom_invitation,
                 ];
-            }
+         
+        /* 生徒にメールを送信 */
+        Mail::to($user->email)->send(new ZoomReservationUserEmail($mail_title ,$mail_data));
 
-            /* 生徒にメールを送信 */
-            Mail::to($user->email)->send(new ZoomReservationUserEmail($mail_title ,$mail_data));
+        /* 先生にメールを送信 */
+        Mail::to($schedule->staff->email)->send(new ZoomReservationStaffEmail($mail_title ,$mail_data));
 
-            /* 先生にメールを送信 */
-            Mail::to($schedule->staff->email)->send(new ZoomReservationStaffEmail($mail_title ,$mail_data));
-
-            return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'ZOOM教室の予約しました');
-        }
+        return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'ZOOM教室の予約しました');
     }
 
     /**
@@ -181,21 +150,17 @@ class ZoomReservationController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $reservation = Reservation::find($id)->first();
-        $schedule = Schedule::find($reservation->schedule_id)->first();
-        $book = Book::where('reservation_id', $id)->first();
-        
+        $reservation = Reservation::find($id);
+        $schedule = Schedule::find($reservation->schedule_id);
 
         /* 定員を増を元に戻す */
         Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity + 1]);
         /* ポイントを戻す */
-        User::where('id', $user->id)->update(['point' => $user->point + $book->point]);
-        /* 帳簿を削除(訂正)する */
-        Book::where('reservation_id', $id)->delete();
+        User::where('id', $user->id)->update(['point' => $user->point + $reservation->spent_point]);
         /* 予約を削除(訂正)する */
         Reservation::find($id)->delete();
       
-        if ($book->point == 0) 
+        if ($reservation->spent_point == 0) 
         {
             $mail_title = "【仮予約キャンセル】".$schedule->staff->zoom->name."の仮予約のキャンセルを受付ました。";
             $mail_data = [
@@ -219,7 +184,7 @@ class ZoomReservationController extends Controller
                 'reservation_id'    => $reservation->id,
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
-                'price'             => number_format($book->point)."円(ポイントに還元済み)",
+                'price'             => number_format($reservation->spent_point)."円(ポイントに還元済み)",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
         }
@@ -254,6 +219,7 @@ class ZoomReservationController extends Controller
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
+                'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
                 'zooms.name as zoom_name',
                 'courses.name as course_name',

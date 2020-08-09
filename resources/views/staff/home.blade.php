@@ -55,7 +55,7 @@
             <tbody>
 @foreach($class_reservations as $class_reservation)
               <tr>
-  @if ($class_reservation->is_pointpay)
+  @if ($class_reservation->is_contract)
                 <td class="text-center text-white bg-success"><strong>確</strong></td>
   @else
                 <td class="text-center text-white bg-danger"><strong>仮</strong></td>
@@ -95,7 +95,7 @@
               <tbody>
 @foreach($zoom_reservations as $zoom_reservation)
                 <tr>
-@if ($zoom_reservation->is_pointpay)
+@if ($zoom_reservation->is_contract)
                   <td class="text-center text-white bg-success"><strong>確</strong></td>
 @else
                   <td class="text-center text-white bg-danger"><strong>仮</strong></td>

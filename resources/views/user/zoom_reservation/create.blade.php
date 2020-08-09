@@ -1,14 +1,11 @@
 @extends('layouts.user.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+<section>
+    <h3>ZOOM教室の詳細</h3>
     <div class="row justify-content-center">
-      <div class="col-md-2">
-        <!-- left menu -->
-        @include('layouts.staff.menu')
-
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-align-justify"></i>ZOOM教室の詳細</div>
 
@@ -67,5 +64,6 @@
             </div>
         </div>
     </div>
+    </section>
 </div>
 @endsection

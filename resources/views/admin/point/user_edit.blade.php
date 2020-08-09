@@ -83,7 +83,7 @@
                             </ul>
                         </div>
                     @endif
-                        <form action="{{ route('admin.point.update', $user->id) }}" method="POST">
+                        <form action="{{ route('admin.point.user_update', $user->id) }}" method="POST">
                         @csrf
                             <div class="form-group">
                                 <label for="name-field">追加ポイント(訂正の場合はマイナス値を入力)</label>

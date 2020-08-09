@@ -1,17 +1,13 @@
 @extends('layouts.user.app')
 
 @section('content')
-<div class="container">
+<div id="content">
+<section>
+    <h2>レッスンの予約・確認</h2>
     <div class="row justify-content-center">
-      <div class="col-md-2">
-        <!-- left menu -->
-        @include('layouts.staff.menu')
-
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><i class="fas fa-align-justify"></i>レッスンの詳細</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -54,13 +50,14 @@
                         <dd class="col-md-10">{{ date('Y年m月d日 H時i分',  strtotime($schedule->end)) }}</dd>
                    </dl>
 
-                   <form action="/user/classroom_reservation/store" method="POST">
+                   <form action="{{route('user.classroom_reservation.store')}}" method="POST">
                         @csrf
                         <input type="hidden" name="schedule_id" value="{{$schedule->id}}">
                         <input type="hidden" name="price" value="{{$schedule->course->price}}">
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 予約</button>
-                            <a class="btn btn-link pull-right" href="/user/classroom_reservation/{{$schedule->staff_id}}/calendar"><i class="fas fa-backward"></i>{{ $schedule->staff->room->name }}のカレンダーに戻る</a>
+                            <button type="submit" class="btn btn-primary" name="no_point" value="1"><i class="fas fa-save"></i> 仮予約</button>
+                            <button type="submit" class="btn btn-primary" name="no_point" value="0"><i class="fas fa-save"></i> 予約</button>
+                            <a class="btn btn-link pull-right" href="{{route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])}}"><i class="fas fa-backward"></i>{{ $schedule->staff->room->name }}のカレンダーに戻る</a>
                         </div>
                     </form>
 
@@ -69,5 +66,6 @@
             </div>
         </div>
     </div>
+    </section>
 </div>
 @endsection

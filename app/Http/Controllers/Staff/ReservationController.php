@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\Zoom;
@@ -55,6 +56,9 @@ class ReservationController extends Controller
             $course_count = $course->count();
         }
 
+        // 現在の日時
+        $now = Carbon::now();
+
         $previous_first_month_day = Carbon::now()->subMonth()->startOfMonth()->toDateString();
         $now_first_month_day = Carbon::now()->startOfMonth()->toDateString();
         $now_last_month_day = Carbon::now()->endOfMonth()->toDateString();
@@ -71,6 +75,7 @@ class ReservationController extends Controller
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
+                'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',
@@ -90,10 +95,12 @@ class ReservationController extends Controller
             ->orderBy('schedules.start')
             ->get( [
                     'reservations.id as id',
+                    'reservations.is_contract as is_contract',
                     'reservations.is_pointpay as is_pointpay',
                     'zooms.name as zoom_name',
                     'courses.name as course_name',
                     'users.name as user_name',
+                    'users.id as user_id',
                     'courses.price as course_price',
                     'schedules.start as start'
                 ]);
@@ -158,6 +165,7 @@ class ReservationController extends Controller
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
+                'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',
@@ -177,6 +185,7 @@ class ReservationController extends Controller
             ->orderBy('schedules.start')
             ->get( [
                     'reservations.id as id',
+                    'reservations.is_contract as is_contract',
                     'reservations.is_pointpay as is_pointpay',
                     'zooms.name as zoom_name',
                     'courses.name as course_name',
@@ -218,6 +227,7 @@ class ReservationController extends Controller
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
+                'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',
@@ -256,6 +266,7 @@ class ReservationController extends Controller
         ->orderBy('schedules.start')
         ->get( [
                 'reservations.id as id',
+                'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',

@@ -1,7 +1,8 @@
 <div id="nav">
     <div class="menu"><a href="#" title="ポイント管理">ポイント管理</a>
         <div class="submenu">
-            <a class="subitem" href="{{ route('admin.point.search') }}" title="生徒のポイント追加/修正">生徒のポイントの追加/修正</a>
+            <a class="subitem" href="{{ route('admin.point.user_search') }}" title="生徒のポイント追加/修正">生徒のポイントの追加/修正</a>
+            <a class="subitem" href="{{ route('admin.point.staff_select') }}" title="先生の獲得ポイント確認">先生の獲得ポイント確認</a>
         </div><!-- .submenu -->
     </div><!-- .menu -->
     <div class="menu"><a href="https://cooking.sumomo.ne.jp/real/tomo/" title="ともクッキングサロン">須磨区教室</a>
