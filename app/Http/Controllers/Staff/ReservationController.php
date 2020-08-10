@@ -205,6 +205,20 @@ class ReservationController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function is_contract_update($id)
+    {
+        Reservation::where('id', $id)->update(['is_contract' => true]);
+        return back()->with('success', '本予約しました');
+    }
+
+
+    /**
      * 帳票のエクスポート
      */
     public function export_class($id)

@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label for="price-field">価格</label>
-                            <input class="form-control" type="tel" name="price" id="price-field" value="{{$price->tel}}" />
+                            <input class="form-control" type="price" name="price" id="price-field" value="{{$course->price}}" />
                         </div>
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>データ更新</button>

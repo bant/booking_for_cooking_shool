@@ -73,8 +73,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-//        dd($id);
-        $course = Course::where('id',$id)->get();
+        $course = Course::find($id);
         return view('staff.course.edit', compact('course'));
     }
 
@@ -87,7 +86,12 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = [
+            'name' => $request->name,
+            'price' => $request->price
+        ];
+        Course::where('id', $id)->update($update);
+        return back()->with('success', 'コース情報を修正しました');
     }
 
     /**

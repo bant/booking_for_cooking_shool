@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="format-detection" content="telephone=yes">
     <meta name="description" content="住吉教室(栗田クッキングサロン)予約">
-    <title>管理者ページ</title>
-	  <link rel="alternate" hreflang="ja">
+ 	  <link rel="alternate" hreflang="ja">
 	  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,7 +20,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>管理者ページ</title>
+    <title>管理者のダッシュボード</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
