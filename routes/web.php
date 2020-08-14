@@ -36,6 +36,11 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
+        //
+//        Route::resource('profile', 'ProfileController', ['only' => ['edit', 'update']]);
+        Route::get('profile/edit', 'ProfileController@showForm')->name('profile.edit');
+        Route::post('profile/{id?}/update', 'ProfileController@update')->name('profile.update');
+
         // 教室予約関係
         Route::get('classroom_reservation', 'ClassRoomReservationController@index')->name('classroom_reservation.index');
         Route::get('classroom/reservation/{id?}/calendar', 'ClassRoomReservationController@calendar')->name('classroom_reservation.calendar');
@@ -100,6 +105,14 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::get('reservation/{id?}/show', 'InquiryController@show');
 
         Route::get('user/{id?}/info', 'UserController@info')->name('user.info');
+
+        Route::get('message/user', 'MessageController@user_index')->name('message.user_index');
+        Route::get('message/user/search', 'MessageController@user_search')->name('message.user_search');
+
+        Route::get('message/user/{id?}/send', 'MessageController@user_send')->name('message.user_send');
+
+        Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
+        Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
         
 
         /*

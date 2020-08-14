@@ -6,6 +6,62 @@
         <h1>{{ Auth::user()->name }}さんのホーム</h1>
         <div id="main">
 
+        <h2>お知らせ</h2>
+        @if($staff_messages->count())
+        <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>先生名</th>
+                <th>メッセージ</th>
+                <th>表示期限</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach($staff_messages as $staff_message)
+            <tr>
+                <td>{{$staff_message->id}}</td>
+                <td>{{$staff_message->staff->name}}</td>
+                <td>{{$staff_message->message}}</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($staff_message->expired_at))}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
+        @else
+        <div class="text-center alert alert-info">
+            先生からメッセージはありません。
+        </div>
+        @endif
+
+        @if($admin_messages->count())
+        <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>管理者名</th>
+                <th>メッセージ</th>
+                <th>表示期限</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach($admin_messages as $admin_message)
+            <tr>
+                <td>{{$admin_message->id}}</td>
+                <td>{{$admin_message->staff->name}}</td>
+                <td>{{$admin_message->message}}</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($admin_message->expired_at))}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
+        @else
+
+        @endif
+
+
         <h2>教室の予約状況</h2>
         @if($classroom_reservations->count())
         <table class="table table-sm table-striped">
@@ -94,11 +150,12 @@
         </tbody>
         </table>
         @else
-        <h3 class="text-center alert alert-info">zoom教室の予約はありません。</h3>
+        <div class="text-center alert alert-info">
+            zoom教室の予約はありません。
+        </div>
         @endif
 
-
         </div><!-- #main -->
-        </section>
+    </section>
 </div><!-- #content -->
 @endsection

@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Models\Room;
+use App\Models\AdminMessage;
+use App\Models\StaffMessage;
 use Auth;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -29,8 +32,18 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         $rooms = Room::all();
+
+        $admin_messages = AdminMessage::where('user_id',$user->id)
+                        ->whereNull('user_id')
+                        ->where('expired_at','>',Carbon::now())
+                        ->get();
+
+        $staff_messages = StaffMessage::where('user_id',$user->id)
+                        ->whereNull('user_id')
+                        ->where('expired_at','>',Carbon::now())
+                        ->get();
+
 
         $classroom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
@@ -48,6 +61,8 @@ class HomeController extends Controller
             ->get();
 
         return view('user.home')->with([
+                    'admin_messages'            => $admin_messages,
+                    'staff_messages'            => $staff_messages,
                     'rooms'                     => $rooms,
                     'classroom_reservations'    => $classroom_reservations, 
                     'zoom_reservations'         => $zoom_reservations 
