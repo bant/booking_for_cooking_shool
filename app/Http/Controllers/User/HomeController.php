@@ -35,14 +35,18 @@ class HomeController extends Controller
         $rooms = Room::all();
 
         $admin_messages = AdminMessage::where('user_id',$user->id)
-                        ->whereNull('user_id')
+                        ->where('direction','ToUser')
+//                        ->whereNull('user_id')
                         ->where('expired_at','>',Carbon::now())
                         ->get();
 
         $staff_messages = StaffMessage::where('user_id',$user->id)
-                        ->whereNull('user_id')
+                        ->where('direction','ToUser')
+//                        ->whereNull('user_id')
                         ->where('expired_at','>',Carbon::now())
                         ->get();
+        
+//        dd($staff_messages);
 
 
         $classroom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')

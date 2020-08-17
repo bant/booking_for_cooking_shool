@@ -15,11 +15,13 @@ class CreateAdminMessagesTable extends Migration
     {
         Schema::create('admin_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('direction');
             $table->unsignedBigInteger('admin_id')->comment('管理者ID');
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->unsignedBigInteger('user_id')->nullable()->comment('生徒ID');
             $table->text('message')->comment('メッセージ');
             $table->timestamp('expired_at')->nullable();
+            $table->timestamps();
         });
     }
 

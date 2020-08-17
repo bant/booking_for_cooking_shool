@@ -15,11 +15,13 @@ class CreateStaffMessagesTable extends Migration
     {
         Schema::create('staff_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('direction');
             $table->unsignedBigInteger('staff_id')->comment('スタッフID');
             $table->foreign('staff_id')->references('id')->on('staff');
             $table->unsignedBigInteger('user_id')->nullable()->comment('生徒ID');
             $table->text('message')->comment('メッセージ');
             $table->timestamp('expired_at')->nullable();
+            $table->timestamps();
         });
     }
 

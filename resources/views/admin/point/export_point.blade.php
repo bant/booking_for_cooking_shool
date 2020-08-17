@@ -1,0 +1,24 @@
+<table>
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>入金日付</th>
+    <th>生徒氏名(ID)</th>
+    <th>生徒住所</th>
+    <th>ポイント</th>
+    <th>摘要</th>
+  </tr>
+  </thead>
+  <tbody>
+  @foreach ($payments as $payment)
+    <tr>
+      <td>{{$payment->id}}</td>
+      <td>{{$payment->created_at}}</td>
+      <td>{{$payment->user->name}}({{$payment->user->id}})</td>
+      <td>{{$payment->user->pref}}{{$payment->user->address}}</td>
+      <td>{{$payment->point}}</td>
+      <td>{{$payment->description->name}}</td>
+    </tr>
+  @endforeach
+  </tbody>
+</table>

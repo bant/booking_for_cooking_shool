@@ -10,7 +10,6 @@
                 <div class="card-header"><i class="fas fa-align-justify"></i> 生徒の詳細</div>
                 <div class="card-body">
                     {{-- ユーザー1件の情報 --}}
-
                     <dl class="row">
                         <dt class="col-md-2">{{ __('ID') }}</dt>
                             <dd class="col-md-10">{{ $user->id }}</dd>
@@ -18,20 +17,13 @@
                             <dd class="col-md-10">{{ $user->name }}</dd>
                         <dt class="col-md-2">{{ __('E-Mail Address') }}</dt>
                             <dd class="col-md-10">{{ $user->email }}</dd>
-                        <dt class="col-md-2">郵便番号</dt>
-                            <dd class="col-md-10">{{ $user->zip_code }}</dd>
                         <dt class="col-md-2">住所</dt>
-                            <dd class="col-md-10">{{ $user->pref }}{{ $user->address }}</dd>
-                        <dt class="col-md-2">電話</dt>
-                            <dd class="col-md-10">{{ $user->tel }}</dd>
-                        <dt class="col-md-2">誕生日</dt>
-                            <dd class="col-md-10">{{ $user->birthday }}</dd>
-                        <dt class="col-md-2">性別</dt>
-                            <dd class="col-md-10">{{ $user->gender }}</dd>
+                            <dd class="col-md-10">{{ $user->address }}</dd>
                         <dt class="col-md-2">ポイント</dt>
                             <dd class="col-md-10">{{number_format($user->point)}}pt</dd>
                     </dl>
                 </div>
+                
                 </div>
                 <br/>
                 <div class="card">
@@ -41,10 +33,10 @@
                       <thead>
                         <tr>
                           <th class="text-center">#</th>
-                          <th>ポイント</th>
+                          <th>日付</th>
                           <th>生徒名</th>
                           <th>住所</th>
-                          <th>入金等日付</th>
+                          <th>ポイント</th>
                           <th>摘要</th>
                         </tr>
                       </thead>
@@ -53,11 +45,12 @@
                       @foreach($payments as $payment)
                         <tr>
                           <td class="text-center"><strong>{{$payment->id}}</strong></td>
-                          <td>{{number_format($payment->point)}}pt</td>
+                          <td>{{$payment->created_at}}</td>                             
                           <td>{{$payment->user->name}}</td>
-                          <td>{{$payment->user->pref}}{{$payment->user->address}}</td>
-                          <td>{{ date('Y年m月d日 H時i分', strtotime($payment->created_at)) }}</td>
+                          <td>{{$payment->user->address}}</td>
+                           <td>{{number_format($payment->point)}}pt</td>
                            <td>{{$payment->description->name}}</td>
+
                         </tr>
                       @endforeach
                       </tbody>
@@ -90,7 +83,7 @@
                             </ul>
                         </div>
                     @endif
-                        <form action="{{ route('admin.point.user_update', $user->id) }}" method="POST">
+                        <form action="{{ route('admin.user.point_update', $user->id) }}" method="POST">
                         @csrf
                             <div class="form-group">
                                 <label for="name-field">追加ポイント(訂正の場合はマイナス値を入力)</label>
@@ -107,7 +100,7 @@
                             @endforeach
                             </select>
                             <div class="well well-sm">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>ポイント追加/削除</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> ポイント追加/削除</button>
                              </div>
                         </form>
                     </div>

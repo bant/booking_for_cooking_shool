@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header"><i class="fas fa-align-justify"></i> 生徒の検索</div>
                 <div class="card-body">
-                    <form action="{{ route('admin.point.user_search') }}" method="POST">
+                    <form action="{{ route('admin.user.search') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="user_id-field">生徒IDで検索</label>
@@ -55,8 +55,8 @@
                           <td>{{$user->address}}</td>
                           <td>{{number_format($user->point)}}pt</td>
                           <td class="text-right">
-                            <a class="btn btn-sm btn-warning" href="{{route('admin.point.user_edit', $user->id)}}"><i class="fas fa-edit"></i> ポイントの追加</a>
-                          </td>
+                             <a class="btn btn-sm btn-danger" href="{{route('admin.user.edit', $user->id)}}"><i class="fas fa-edit"></i> 生徒の修正・停止</a>
+                           </td>
                         </tr>
                       @endforeach
                       </tbody>

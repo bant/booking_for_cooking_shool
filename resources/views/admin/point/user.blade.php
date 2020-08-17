@@ -1,4 +1,4 @@
-@extends('layouts.staff.app')
+@extends('layouts.admin.app')
 
 @section('content')
 <div id="content">
@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header"><i class="fas fa-align-justify"></i> 生徒の検索</div>
                 <div class="card-body">
-                    <form action="{{ route('staff.message.user_search') }}" method="POST">
+                    <form action="{{ route('admin.point.user') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="user_id-field">生徒IDで検索</label>
@@ -41,8 +41,8 @@
                         <tr>
                           <th class="text-center">#</th>
                           <th>生徒名</th>
-                          <th>メール</th>
                           <th>住所</th>
+                          <th>現ポイント</th>
                           <th class="text-right">オプション</th>
                         </tr>
                       </thead>
@@ -52,10 +52,10 @@
                         <tr>
                           <td class="text-center"><strong>{{$user->id}}</strong></td>
                           <td>{{$user->name}}</td>
-                          <td>{{$user->email}}</td>
                           <td>{{$user->address}}</td>
+                          <td>{{number_format($user->point)}}pt</td>
                           <td class="text-right">
-                            <a class="btn btn-sm btn-warning" href="{{route('staff.message.user_send', $user->id)}}"><i class="fas  fa-envelope"></i> メッセージ送信</a>
+                            <a class="btn btn-sm btn-warning" href="{{route('admin.point.user_edit', $user->id)}}"><i class="fas fa-edit"></i> ポイントの追加</a>
                           </td>
                         </tr>
                       @endforeach

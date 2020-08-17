@@ -96,7 +96,6 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::get('reservation/{id?}/is_contract_update', 'ReservationController@is_contract_update')->name('reservation.is_contract_update');
         Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
         Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');
-
         Route::get('inquiry/{id?}/get', 'InquiryController@get');
         Route::post('inquiry/destroy', 'InquiryController@destroy');
         Route::post('inquiry/store', 'InquiryController@store');
@@ -106,14 +105,18 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         Route::get('user/{id?}/info', 'UserController@info')->name('user.info');
 
+        Route::post('message/user/classuser_send', 'MessageController@classuser_send')->name('message.class_user_send');
         Route::get('message/user', 'MessageController@user_index')->name('message.user_index');
+        Route::get('message/user/edit', 'MessageController@user_edit')->name('message.user_edit');
+
         Route::get('message/user/search', 'MessageController@user_search')->name('message.user_search');
+        Route::post('message/user/search', 'MessageController@user_search')->name('message.user_search');
 
         Route::get('message/user/{id?}/send', 'MessageController@user_send')->name('message.user_send');
 
         Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
         Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
-        
+       
 
         /*
 
@@ -145,18 +148,37 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
 //        Route::resource('point', 'PointController');
         Route::get('point', 'PointController@index')->name('point.index');
-        Route::get('point/user/search', 'PointController@user_search')->name('point.user_search');
-        Route::post('point/user/search', 'PointController@user_search')->name('point.user_search');
+        Route::get('point/user', 'PointController@user')->name('point.user');
+        Route::post('point/user', 'PointController@user')->name('point.user');
         Route::get('point/user/{id?}/edit', 'PointController@user_edit')->name('point.user_edit');
         Route::post('point/user/{id?}/update', 'PointController@user_update')->name('point.user_update');
 
-        Route::get('point/staff/select', 'PointController@staff_select')->name('point.staff_select');
-        Route::post('point/staff/select', 'PointController@staff_select')->name('point.staff_select');
+        Route::get('point/staff', 'PointController@staff')->name('point.staff');
+        Route::post('point/staff', 'PointController@staff')->name('point.staff');
         Route::get('point/staff/{id?}/check', 'PointController@staff_check')->name('point.staff_check');
+        Route::get('point/staff/{id?}/check/{date?}', 'PointController@staff_check_show')->name('point.staff_check_show');
+        Route::get('point/check', 'PointController@check')->name('point.check');
+        Route::get('point/check/{date?}', 'PointController@check_show')->name('point.check_show');
 
+        Route::get('point/staff/{id?}/export_class/{date?}', 'PointController@staff_export_class')->name('point.staff_export_class');
+        Route::get('point/staff/{id?}/export_zoom/{date?}', 'PointController@staff_export_zoom')->name('point.staff_export_zoom');
+        Route::get('point/export/{date?}', 'PointController@export_point')->name('point.export_point');
 
-        Route::resource('user', 'UserController');
+        Route::get('user/search', 'UserController@search')->name('user.search');
         Route::post('user/search', 'UserController@search')->name('user.search');
+        Route::get('user/{id?}/edit', 'UserController@edit')->name('user.edit');
+        Route::get('user/{id?}/info', 'UserController@info')->name('user.info');
+        Route::post('user/{id?}/update', 'UserController@update')->name('user.update');
+        Route::post('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
+        Route::delete('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
+
+        Route::get('user/{id?}/point_edit', 'UserController@point_edit')->name('user.point_edit');
+        Route::post('user/{id?}/point_update', 'UserController@point_update')->name('user.point_update');
+
+
+        Route::resource('staff', 'StaffController');
+        Route::post('staff/search', 'StaffController@search')->name('staff.search');
+
 
 
 /*
