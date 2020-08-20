@@ -59,6 +59,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     
         Route::get('inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule')->name('inquiry.get_classroom_schedule');
         Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
+
     });
 });
 
@@ -70,7 +71,8 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
     Auth::routes([
         'register' => true,
         'confirm'  => false,
-        'reset'    => true
+        'reset'    => true,
+        'verify'  => false
     ]);
 
     // ログイン認証後
@@ -116,15 +118,8 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
         Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
-       
+     
 
-        /*
-
-        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('staff.password.email');
-        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('staff.password.request');
-        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('staff.password.update');
-        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('staff.password.reset');
-*/
     });
 });
 

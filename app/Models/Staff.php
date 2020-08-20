@@ -59,4 +59,16 @@ class Staff extends Authenticatable
    //     return $this->belongsTo('App\Models\Room','id','staff_id');
        return $this->hasOne('App\Models\Zoom','staff_id', 'id');
     }
+
+
+    /**
+     * Override to send for password reset notification.
+     *
+     * @param [type] $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\StaffPasswordResetNotification($token));
+    }
 }

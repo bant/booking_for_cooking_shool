@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -41,14 +42,11 @@ class ResetPasswordController extends Controller
 
     protected function guard()
     {
-        return Auth::guard('user');
+        return \Auth::guard('user');
     }
 
     public function broker()
     {
-        return Password::broker('users');
+        return \Password::broker('users');
     }
-
-
-
 }
