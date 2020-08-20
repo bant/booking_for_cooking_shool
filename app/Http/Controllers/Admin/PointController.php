@@ -217,6 +217,7 @@ class PointController extends Controller
                                                             'reservations.spent_point as spent_point',
                                                             'users.id as user_id',
                                                             'users.name as user_name',
+                                                            'users.deleted_at as user_deleted_at',
                                                             'courses.name as course_name',
                                                             'courses.price as course_price',
                                                             'schedules.start as start'  ]);   
@@ -240,6 +241,7 @@ class PointController extends Controller
                                             'courses.name as course_name',
                                             'users.name as user_name',
                                             'users.id as user_id',
+                                            'users.deleted_at as user_deleted_at',
                                             'courses.price as course_price',
                                             'schedules.start as start' ]);
 
@@ -284,6 +286,7 @@ class PointController extends Controller
                                                             'reservations.spent_point as spent_point',
                                                             'users.id as user_id',
                                                             'users.name as user_name',
+                                                            'users.deleted_at as user_deleted_at',
                                                             'courses.name as course_name',
                                                             'courses.price as course_price',
                                                             'schedules.start as start'  ]);   
@@ -307,6 +310,7 @@ class PointController extends Controller
                                             'courses.name as course_name',
                                             'users.name as user_name',
                                             'users.id as user_id',
+                                            'users.deleted_at as user_deleted_at',
                                             'courses.price as course_price',
                                             'schedules.start as start' ]);
 
@@ -354,6 +358,7 @@ class PointController extends Controller
                                                             'reservations.spent_point as spent_point',
                                                             'users.id as user_id',
                                                             'users.name as user_name',
+                                                            'users.deleted_at as user_deleted_at',
                                                             'users.zip_code as user_zip_code',
                                                             'users.pref as user_pref',
                                                             'users.address as user_address',
@@ -405,6 +410,7 @@ class PointController extends Controller
                                                             'reservations.spent_point as spent_point',
                                                             'users.id as user_id',
                                                             'users.name as user_name',
+                                                            'users.deleted_at as user_deleted_at',
                                                             'users.zip_code as user_zip_code',
                                                             'users.pref as user_pref',
                                                             'users.address as user_address',
@@ -456,6 +462,7 @@ class PointController extends Controller
                                             'reservations.is_pointpay as is_pointpay',
                                             'users.id as user_id',
                                             'users.name as user_name',
+                                            'users.deleted_at as user_deleted_at',
                                             'courses.name as course_name',
                                             'courses.price as course_price',
                                             'schedules.start as start'  ]);
@@ -505,6 +512,7 @@ class PointController extends Controller
                                             'reservations.is_pointpay as is_pointpay',
                                             'users.id as user_id',
                                             'users.name as user_name',
+                                            'users.deleted_at as user_deleted_at',
                                             'courses.name as course_name',
                                             'courses.price as course_price',
                                             'schedules.start as start'  ]);

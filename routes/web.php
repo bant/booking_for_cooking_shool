@@ -152,14 +152,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('point/user', 'PointController@user')->name('point.user');
         Route::get('point/user/{id?}/edit', 'PointController@user_edit')->name('point.user_edit');
         Route::post('point/user/{id?}/update', 'PointController@user_update')->name('point.user_update');
-
         Route::get('point/staff', 'PointController@staff')->name('point.staff');
         Route::post('point/staff', 'PointController@staff')->name('point.staff');
         Route::get('point/staff/{id?}/check', 'PointController@staff_check')->name('point.staff_check');
         Route::get('point/staff/{id?}/check/{date?}', 'PointController@staff_check_show')->name('point.staff_check_show');
         Route::get('point/check', 'PointController@check')->name('point.check');
         Route::get('point/check/{date?}', 'PointController@check_show')->name('point.check_show');
-
         Route::get('point/staff/{id?}/export_class/{date?}', 'PointController@staff_export_class')->name('point.staff_export_class');
         Route::get('point/staff/{id?}/export_zoom/{date?}', 'PointController@staff_export_zoom')->name('point.staff_export_zoom');
         Route::get('point/export/{date?}', 'PointController@export_point')->name('point.export_point');
@@ -169,17 +167,29 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('user/{id?}/edit', 'UserController@edit')->name('user.edit');
         Route::get('user/{id?}/info', 'UserController@info')->name('user.info');
         Route::post('user/{id?}/update', 'UserController@update')->name('user.update');
+        Route::get('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
         Route::post('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
         Route::delete('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
 
         Route::get('user/{id?}/point_edit', 'UserController@point_edit')->name('user.point_edit');
         Route::post('user/{id?}/point_update', 'UserController@point_update')->name('user.point_update');
 
+        Route::get('user/deleted_search', 'UserController@deleted_search')->name('user.deleted_search');
+        Route::get('user/{id?}/restore', 'UserController@restore')->name('user.restore');
+        
+        Route::get('staff/create', 'StaffController@create')->name('staff.create');
+        Route::get('staff/store', 'StaffController@store')->name('staff.store');
+        Route::post('staff/store', 'StaffController@store')->name('staff.store');
+        Route::get('staff/stop', 'StaffController@stop')->name('staff.stop');
+        Route::post('staff/stop', 'StaffController@stop')->name('staff.stop');
 
-        Route::resource('staff', 'StaffController');
-        Route::post('staff/search', 'StaffController@search')->name('staff.search');
+        Route::get('staff/restore', 'StaffController@restore')->name('staff.restore');
+        Route::post('staff/restore', 'StaffController@restore')->name('staff.restore');
 
 
+//        Route::resource('staff', 'StaffController');
+//        Route::get('staff/search', 'StaffController@search')->name('staff.search');
+//        Route::post('staff/search', 'StaffController@search')->name('staff.search');
 
 /*
         Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');

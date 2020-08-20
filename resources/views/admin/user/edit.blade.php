@@ -3,7 +3,10 @@
 @section('content')
 <div id="content">
     <section>
-    <h3>生徒のポイントの追加</h3>
+    <h2></h2>
+
+
+
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -31,7 +34,7 @@
                             <dd class="col-md-10">{{number_format($user->point)}}pt</dd>
                     </dl>
 
-                    <form action="{{route('staff.user.destroy', $user->id)}}" method="POST" style="display: inline;"
+                    <form action="{{route('admin.user.destroy', ['id'=>$user->id])}}" method="POST" style="display: inline;"
                                  onsubmit="return confirm('生徒を停止しても良いですか!?');">
                         @csrf
                         @method('DELETE')

@@ -17,6 +17,8 @@ class AdminsTableSeeder extends Seeder
                 'email'             => 'admin1@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ] 
         );
         DB::table('admins')->insert(
@@ -25,6 +27,8 @@ class AdminsTableSeeder extends Seeder
                 'email'             => 'two@admin.com',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ]
         );
         DB::table('admins')->insert(
@@ -33,6 +37,8 @@ class AdminsTableSeeder extends Seeder
                 'email'             => 'tree@admin.com',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ]
         );
     }

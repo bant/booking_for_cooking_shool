@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         User::find($id)->delete();
 
-        return  redirect()->route('staff.user.search')->with('status', '生徒を停止してました');
+        return  redirect()->route('admin.user.search')->with('status', '生徒を停止しました');
     }
 
 
@@ -203,4 +203,24 @@ class UserController extends Controller
                             "payment_descriptions" => $payment_descriptions]);   
     }
 
+    /**
+     * 
+     */
+    public function deleted_search(Request $request)
+    {
+        $users = User::onlyTrashed()->whereNotNull('id')->get();
+     
+        /* 停止ユーザ検索一覧ビュー表示 */
+        return view('admin.user.deleted_search')->with(["users" => $users]);
+    }
+
+
+    public function restore($id)
+    {
+        User::withTrashed()->find($id)->restore();
+
+        $users = User::onlyTrashed()->whereNotNull('id')->get();
+        /* 停止ユーザ検索一覧ビュー表示 */
+        return view('admin.user.deleted_search')->with(["users" => $users]);
+    }
 }

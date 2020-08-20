@@ -60,9 +60,6 @@ class MessageController extends Controller
         return view('staff.message.user_search')->with(["users" => $users]);
     }
 
-   
-
-
     /**
      * 
      */
@@ -84,7 +81,6 @@ class MessageController extends Controller
     {
         return view('staff.message.user_edit');
     }
-
 
     public function classuser_send(Request $request)
     {
@@ -117,7 +113,6 @@ class MessageController extends Controller
 
     }
 
-
     /**
      * 
      */
@@ -133,8 +128,4 @@ class MessageController extends Controller
                         "messages"        => $messages 
                     ]);
     }
-
-
-
-
 }

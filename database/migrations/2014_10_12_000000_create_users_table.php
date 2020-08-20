@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->integer('point')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

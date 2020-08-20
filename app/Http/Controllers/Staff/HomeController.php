@@ -69,6 +69,7 @@ class HomeController extends Controller
                 'reservations.is_pointpay as is_pointpay',
                 'users.id as user_id',
                 'users.name as user_name',
+                'users.deleted_at as user_deleted_at',
                 'courses.name as course_name',
                 'courses.price as course_price',
                 'schedules.start as start'
@@ -91,6 +92,7 @@ class HomeController extends Controller
                     'zooms.name as zoom_name',
                     'courses.name as course_name',
                     'users.name as user_name',
+                    'users.deleted_at as user_deleted_at',
                     'courses.price as course_price',
                     'schedules.start as start'
                 ]);

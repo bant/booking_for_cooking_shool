@@ -22,6 +22,7 @@ class CreateStaffTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->boolean('is_zoom');
+            $table->softDeletes();
         });
     }
 

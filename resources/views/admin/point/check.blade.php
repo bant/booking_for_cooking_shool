@@ -54,8 +54,13 @@
                         <tr>
                           <td class="text-center"><strong>{{$payment->id}}</strong></td>
                           <td>{{ date('Y年m月d日 H時i分', strtotime($payment->created_at)) }}</td>
-                          <td><a href="{{ route('admin.user.info', ['id' => $payment->user->id])}}">{{$payment->user->name}}({{$payment->user->id}})</a></td>
+                        @if (is_null($payment->user))
+                          <td>停止ユーザ({{$payment->user_id}})</td>
+                          <td>---</td>
+                        @else
+                          <td>{{$payment->user->name}}({{$payment->user->id}})</td>
                           <td>{{$payment->user->pref}}{{$payment->user->address}}</td>
+                        @endif
                           <td class="text-right">{{number_format($payment->point)}}pt</td>
                           <td class="text-center">{{$payment->description->name}}</td>
                         </tr>

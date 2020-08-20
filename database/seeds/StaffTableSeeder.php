@@ -18,6 +18,8 @@ class StaffTableSeeder extends Seeder
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => true,
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ]
         );
         DB::table('staff')->insert(
@@ -27,6 +29,8 @@ class StaffTableSeeder extends Seeder
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => false,
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ]
         );
         DB::table('staff')->insert(
@@ -36,6 +40,8 @@ class StaffTableSeeder extends Seeder
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => true,
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ]
         );
 
@@ -46,6 +52,8 @@ class StaffTableSeeder extends Seeder
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
                 'is_zoom'           => true,
+                'created_at'        => '2020-08-15 10:00:00',
+                'updated_at'        => '2020-08-15 10:00:00'
             ]
         );
     }

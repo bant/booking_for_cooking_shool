@@ -3,7 +3,10 @@
 @section('content')
 <div id="content">
     <section>
-    <h3>生徒のポイントの追加</h3>
+    <h2>生徒のポイントの追加</h2>
+    <h3>生徒の詳細</h3>
+
+
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">

@@ -1,6 +1,6 @@
 <div id="header">
     <section>
-        <h1><a href="#" title="管理者のダッシュボード">管理者のダッシュボード</a></h1>
+        <h1><a href="{{route('admin.home.index')}}" title="管理者のダッシュボード">管理者のダッシュボード</a></h1>
 
         <div id="a-tel">
         <!-- Right Side Of Navbar -->

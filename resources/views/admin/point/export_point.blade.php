@@ -1,8 +1,8 @@
 <table>
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>入金日付</th>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>入金日付</th>
     <th>生徒氏名(ID)</th>
     <th>生徒住所</th>
     <th>ポイント</th>
@@ -14,8 +14,13 @@
     <tr>
       <td>{{$payment->id}}</td>
       <td>{{$payment->created_at}}</td>
+    @if (is_null($payment->user))
+      <td>停止ユーザ({{$payment->user_id}})</td>
+      <td>---</td>
+    @else
       <td>{{$payment->user->name}}({{$payment->user->id}})</td>
       <td>{{$payment->user->pref}}{{$payment->user->address}}</td>
+    @endif
       <td>{{$payment->point}}</td>
       <td>{{$payment->description->name}}</td>
     </tr>

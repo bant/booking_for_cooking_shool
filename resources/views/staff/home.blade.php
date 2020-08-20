@@ -3,7 +3,7 @@
 @section('content')
 <div id="content">
   <section>
-    <h3>予約状況</h3>
+    <h2>予約状況</h2>
     <div class="row justify-content-center">
       <div class="col-md-10">
 
@@ -61,7 +61,11 @@
                 <td class="text-center text-white bg-danger"><strong>仮</strong></td>
   @endif
                 <td>{{$class_reservation->course_name}}</td>
-                <td>{{$class_reservation->user_name}}</td>
+              @if (!is_null($class_reservation->deleted_at))
+                <td><a href="{{ route('staff.user.info', ['id' => $class_reservation->user_id])}}">{{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
+               @else
+                <td>{{$class_reservation->user_name}}(停止)</td>
+              @endif
                 <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
                 <td class="text-right">メール送信</td>
               </tr>

@@ -58,8 +58,5 @@ class UserController extends Controller
             'class_reservation_times' => $class_reservation_times, 
             'zoom_reservation_times' => $zoom_reservation_times 
         ]);
-
     }
-
-
 }
