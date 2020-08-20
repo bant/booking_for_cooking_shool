@@ -28,7 +28,7 @@ class StaffPasswordResetNotification extends ResetPassword
         return (new MailMessage)
                     ->subject('パスワードリセット通知')
                     ->view('emails.password_reset', [
-                        'reset_url' => url(config('app.url').":8000".route('staff.password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false))
+                        'reset_url' => url(config('app.url').route('staff.password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false))
                     ]);
     }
 }

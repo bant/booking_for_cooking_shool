@@ -49,8 +49,7 @@ class InquiryController extends Controller
                         'start'     => str_replace(' ', 'T', $schedule->start), 
                         'end'       => str_replace(' ', 'T', $schedule->end), 
                         'color'     => 'blue', 
-                        'url'       =>  route('user.classroom_reservation.create',['id'=>$schedule->id]),
-//                        'url'       => '/user/classroom_reservation/create/'.$schedule->id,
+                        'url'       =>  route('user.classroom_reservation.create',$schedule->id),
                         'extendedProps' => [
                             'schedule_id'       => $schedule->id,
                             'schedule_name'     => $schedule->name,
@@ -121,8 +120,7 @@ class InquiryController extends Controller
                     'end'       =>str_replace(' ', 'T', $schedule->end), 
                     'color'     =>'lightpink', 
                     'identifier'=>$schedule->identifier,
-                    'url'       =>  route('user.zoom_reservation.create',['id'=>$schedule->id]),
-//                    'url'       => '/user/zoom_reservation/create/'.$schedule->id,
+                    'url'       =>  route('user.zoom_reservation.create',$schedule->id),
                 ];
             }
             else
