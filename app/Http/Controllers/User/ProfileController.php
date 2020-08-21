@@ -48,6 +48,7 @@ class ProfileController extends Controller
     {
         $update = [
             'name' => $request->name,
+            'kana' => $request->kana,
             'zip_code' => $request->zip_code,
             'pref' => $request->pref,
             'address' => $request->address,
@@ -56,7 +57,7 @@ class ProfileController extends Controller
             'gender' => $request->gender,
         ];
         User::where('id', $id)->update($update);
-        return back()->with('success', '編集完了しました');
+        return back()->with('success', 'プロフィールを更新しました');
     }
 
 

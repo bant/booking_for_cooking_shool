@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><i class="fas fa-plus"></i> コース編集</div>
+                <div class="card-header"><i class="fas fa-plus"></i> プロフィール編集</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -39,10 +39,14 @@
                             <label for="name-field">お名前</label>
                             <input class="form-control" type="text" name="name" id="name-field"  value="{{$user->name}}" />
                         </div>
+                        <div class="form-group">
+                            <label for="name-field">読み方</label>
+                            <input class="form-control" type="text" name="kana" id="kana-field"  value="{{$user->kana}}" />
+                        </div>
 
                         <span class="p-country-name" style="display:none;">Japan</span>
                         <div class="form-group">
-                            <label for="postal_code-field">郵便番号</label><br/>
+                            <label for="postal_code-field">郵便番号(入力すると都道府県と住所が補完されます)(例:123-4560)</label><br/>
                             <input type="text" name="zip_code" class="p-postal-code" size="8" maxlength="8" value="{{$user->zip_code}}"/>
                         </div>
                         <div class="form-group">
@@ -50,12 +54,12 @@
                             <input type="text" name="pref" class="p-region" value="{{$user->pref}}"/>
                         </div>
                         <div class="form-group">
-                            <label for="address-field">住所</label><br/>
+                            <label for="address-field">住所(残りを入力してください)</label><br/>
                             <input type="text" name="address" class="form-control p-locality p-street-address p-extended-address"　size="35" maxlength="128"  value="{{$user->address}}"/>
                         </div>
                         
                         <div class="form-group">
-                            <label for="tel-field">電話番号</label><br/>
+                            <label for="tel-field">昼間に連絡の取れる電話番号(携帯可)(例:078-123-4567)</label><br/>
                             <input class="form-control" type="tel" name="tel" id="tel-field" value="{{$user->tel}}" />
                         </div>
 
