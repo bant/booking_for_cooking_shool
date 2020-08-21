@@ -24,63 +24,54 @@
                         <a href="{{route('user.classroom_reservation.calendar', ['id' => $room->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$room->name}}</button></a>
                     @endforeach
                 </div>
-            </div>
-            <!-- 先生のカレンダ用スロット終わり -->
-   
-            <br/>
-            <!-- 生徒さん様の予約リスト用スロット始まり -->
-            <div class="card">
-                <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
-                <div class="card-body">
-                @if($reservations->count())
-                    <table class="table table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>コース名</th>
-                            <th>教室</th>
-                            <th>先生</th>
-                            <th>価格</th>
-                            <th>開始時間</th>
-                            <th class="text-right">オプション</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                @foreach($reservations as $reservation)
-                        <tr>
-                        @if ($reservation->is_contract)
-                            <td class="text-center text-white bg-success"><strong>確</strong></td>
-                        @else
-                            <td class="text-center text-white bg-danger"><strong>仮</strong></td>
-                        @endif
-                            <td>{{$reservation->course_name}}</td>
-                            <td>{{$reservation->room_name}}</td>
-                            <td>{{$reservation->staff_name}}</td>
-                            <td>{{ number_format($reservation->course_price) }}円</td>
-                            <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
-                            <td class="text-right">
-                            <form action="{{route('user.classroom_reservation.destroy',['id' => $reservation->id])}}" method="POST" style="display: inline;"
-                                onsubmit="return confirm('予約を取り消しても良いですか?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
-                            </form>
-                          </td>
-                        </tr>
-                      @endforeach
-                    </tbody>
-                    </table>
-                    @else
-                        <h3 class="text-center alert alert-info">予約はありません。</h3>
-                    @endif
-                    </div>
-                </div>
-                 <!-- 生徒さん様の予約リスト用スロット終わり -->
             </div><!-- end card -->
         </div>
     </div>
- </section>
+
+    <h3> {{ Auth::user()->name }}さんのご予約状況</h3>
+    @if($reservations->count())
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th>コース名</th>
+                    <th>教室</th>
+                    <th>先生</th>
+                    <th>価格</th>
+                    <th>開始時間</th>
+                    <th class="text-right"> アクション</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach($reservations as $reservation)
+                <tr>
+                @if ($reservation->is_contract)
+                    <td class="text-center text-white bg-success"><strong>確</strong></td>
+                @else
+                    <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                @endif
+                <td>{{$reservation->course_name}}</td>
+                <td>{{$reservation->room_name}}</td>
+                <td>{{$reservation->staff_name}}</td>
+                <td>{{ number_format($reservation->course_price) }}円</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
+                <td class="text-right">
+                    <form action="{{route('user.classroom_reservation.destroy',$reservation->id)}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('予約を取り消しても良いですか?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                    </form>
+                </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @else
+        <div class="text-center alert alert-info">予約はありません。</div>
+    @endif
+    </section>
 </div>
 @endsection
 

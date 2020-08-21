@@ -3,7 +3,7 @@
 @section('content')
 <div id="content">
 <section>
-<h3>{{ $staff->zoom->name }}のカレンダ</h3>
+<h2>{{ $staff->zoom->name }}の予約</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <!-- 先生のカレンダ用スロット始まり -->
@@ -20,13 +20,12 @@
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
             </div>
+        </div>
+    </div>
 
-            <br/>
-            <!-- 生徒さん様の予約リスト用スロット始まり -->
-            <div class="card">
-                <div class="card-header"><i class="fas fa-id-card"></i> {{ Auth::user()->name }}さんのご予約状況</div>
-                <div class="card-body">
-                @if($reservations->count())
+
+    <h3> {{ Auth::user()->name }}さんのご予約状況</h3>
+    @if($reservations->count())
                     <table class="table table-sm table-striped">
                     <thead>
                         <tr>
@@ -68,11 +67,6 @@
                     @else
                         <h3 class="text-center alert alert-info">予約はありません。</h3>
                     @endif
-                </div>
-                 <!-- 生徒さん様の予約リスト用スロット終わり -->
-            </div><!-- end card -->
-        </div>
-    </div>
  </section>
 </div>
 @endsection

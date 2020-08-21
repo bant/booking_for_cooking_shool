@@ -1,8 +1,6 @@
 <div id="header">
     <section>
         <h1><a href="{{route('user.home.index')}}" title="生徒ホームへ戻る">生徒ホーム</a></h1>
-
-
         <div id="a-tel">
             <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
@@ -10,6 +8,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.login') }}">{{ __('Login') }}</a>
             </li>
+
                 @if (Route::has('user.register'))
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.register') }}">{{ __('Register') }}</a>

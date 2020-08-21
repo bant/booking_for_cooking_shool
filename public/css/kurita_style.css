@@ -27,13 +27,19 @@ h1, h2, h3, h4, #header, #nav, #tag, #main .btn:hover, #footer {
 	padding: 0;
 	width: 100%;
 }
-a, a:hover {
-	color: #005ab3;
-	text-decoration: none;
+
+#header a {
+	color: teal;
 }
-#header a, #footer a {
-	color: #fff;
+
+#foot-link a{
+	color: olive;
 }
+
+#footer a{
+	color:  #ffffff;
+}
+
 .addition, .addition2, .addition3 {
 	display: none;
 }
@@ -423,11 +429,12 @@ dl dd {
 }
 #a-tel {
 	font-family:"Arial Rounded MT Bold", Arial, Helvetica, sans-serif;
-	line-height: 1.2;
+	color: teal;
+	line-height: 1.0;
 	position: absolute;
-	right: 20px;
+	right: 15px;
 	text-align: right;
-	top: 20px;
+	top: 10px;
 }
 
 /* ====== 中型ディスプレイ ===== 440px以上 */
