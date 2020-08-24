@@ -57,7 +57,7 @@
     @endif
 
     <br/>
-    <h3>{{date('Y年m月', strtotime($now_first_month_day)) }}のZOOM教室予約一覧</h3>
+    <h3>{{date('Y年m月', strtotime($now_first_month_day)) }}のオンライン教室予約一覧</h3>
     @if($zoom_reservations->count())
       <table class="table table-sm table-striped">
       <thead>
@@ -95,7 +95,7 @@
       </table>
       <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.export_zoom', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
     @else
-      <div class="text-center alert alert-info">ZOOM教室の予約はありません。</div>
+      <div class="text-center alert alert-info">オンライン教室の予約はありません。</div>
     @endif
     <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"> 次月>></a>
     <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"> <<前月</a>

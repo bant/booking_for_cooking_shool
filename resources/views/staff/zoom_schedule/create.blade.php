@@ -3,7 +3,7 @@
 @section('content')
 <div id="content">
 <section>
-    <h2>ZOOM教室スケジュール/追加</h2>
+    <h2>オンライン教室スケジュール/追加</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">

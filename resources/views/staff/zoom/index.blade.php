@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> ZOOM教室の詳細</div>
+                <div class="card-header"><i class="fas fa-align-justify"></i> オンライン教室の詳細</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -44,7 +44,7 @@
                             <a class="btn btn-primary" href="/staff/zoom/{{$zoom->id}}/edit"><i class="fas fa-edit"></i> 編集</a>
                         </div>
                     @else
-                        <h3 class="text-center alert alert-info">ZOOM教室が未登録です。</h3>
+                        <h3 class="text-center alert alert-info">オンライン教室が未登録です。</h3>
                         <a href="/staff/zoom/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックして教室を登録してください。
                     @endif
                     </div>

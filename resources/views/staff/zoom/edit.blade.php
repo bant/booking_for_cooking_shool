@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> ZOOM教室の情報更新</div>
+                <div class="card-header"><i class="fas fa-align-justify"></i> オンライン教室の情報更新</div>
 
                 <div class="card-body">
                     @if (session('status'))

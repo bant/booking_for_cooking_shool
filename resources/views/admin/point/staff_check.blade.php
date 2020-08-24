@@ -70,7 +70,7 @@
     <br/>
 
     @if ($staff->is_zoom)
-    <h3>{{date('Y年m月', strtotime($now_first_month_day)) }}のZOOM教室の予約状況</h3>
+    <h3>{{date('Y年m月', strtotime($now_first_month_day)) }}のオンライン教室の予約状況</h3>
       @if($zoom_reservations->count())
       <table class="table table-sm table-striped">
       <thead>

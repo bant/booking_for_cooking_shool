@@ -82,10 +82,10 @@
         <br/>
         <!-- ZOOM予約の始まり -->
         <div class="card">
-          <div class="card-header"><i class="fas fa-id-card"></i> ZOOM教室の予約一覧</div>
+          <div class="card-header"><i class="fas fa-id-card"></i> オンライン教室の予約一覧</div>
             <div class="card-body">
 @if($zoom_reservations->count())
-              <h3 class="my-3 ml-3">ZOOM教室の予約一覧</h3>
+              <h3 class="my-3 ml-3">オンライン教室の予約一覧</h3>
               <table class="table table-sm table-striped">
               <thead>
                 <tr>

@@ -30,7 +30,7 @@
     <div class="menu"><a href="{{route('user.home.index')}}" title="生徒さんホーム">生徒さんホーム</a>
         <div class="submenu">
             <a class="subitem" href="{{ route('user.classroom_reservation.index') }}" title="教室予約">教室予約</a>
-            <a class="subitem" href="{{ route('user.zoom_reservation.index') }}" title="ZOOM教室予約">ZOOM教室予約</a>  
+            <a class="subitem" href="{{ route('user.zoom_reservation.index') }}" title="オンライン教室予約">オンライン教室予約</a>  
             <a class="subitem" href="{{ route('user.profile.edit') }}" title="ユーザプロフィール">ユーザプロフィール</a>
         </div><!-- .submenu -->
     </div>  

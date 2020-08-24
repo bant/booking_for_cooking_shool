@@ -1,4 +1,4 @@
-{{$data['user_name']}} 様からZOOM教室の予約のキャンセルがありました。<br/>
+{{$data['user_name']}} 様からオンライン教室の予約のキャンセルがありました。<br/>
 <br/>
 {{$data['action']}}<br/>
 <br/>

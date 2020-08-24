@@ -43,7 +43,7 @@
                         <dd class="col-md-8">{{ $user->address }}</dd>
                         <dt class="col-md-4">教室参加回数</dt>
                         <dd class="col-md-8">{{ $class_reservation_times }}回</dd>
-                        <dt class="col-md-4">ZOOM教室参加回数</dt>
+                        <dt class="col-md-4">オンライン教室参加回数</dt>
                         <dd class="col-md-8">{{ $zoom_reservation_times }}回</dd>
                    </dl>
                 </div>

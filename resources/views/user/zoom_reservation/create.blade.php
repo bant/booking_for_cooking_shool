@@ -3,11 +3,11 @@
 @section('content')
 <div id="content">
 <section>
-    <h3>ZOOM教室の詳細</h3>
+    <h3>オンライン教室の詳細</h3>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i>ZOOM教室の詳細</div>
+                <div class="card-header"><i class="fas fa-align-justify"></i>オンライン教室の詳細</div>
 
                 <div class="card-body">
                     @if (session('status'))

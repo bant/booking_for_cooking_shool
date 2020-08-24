@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="is_zoom-field">ZOOM教室</label>
+                            <label for="is_zoom-field">オンライン教室</label>
                                 <input type="radio" name="is_zoom" value="0">開催する
                                 <input type="radio" name="is_zoom" value="1">開催しない
                         </div>

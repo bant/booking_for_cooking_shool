@@ -108,7 +108,7 @@
         </div>
         @endif
 
-        <h2>ZOOM教室の予約状況</h2>
+        <h2>オンライン教室の予約状況</h2>
         @if($zoom_reservations->count())
         <table class="table table-sm table-striped">
         <thead>
@@ -151,7 +151,7 @@
         </table>
         @else
         <div class="text-center alert alert-info">
-            zoom教室の予約はありません。
+            オンライン教室の予約はありません。
         </div>
         @endif
 

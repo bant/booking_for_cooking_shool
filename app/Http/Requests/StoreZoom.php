@@ -32,7 +32,7 @@ class StoreZoom extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'ZOOM教室名を入力して下さい。',
+            'name.required' => 'オンライン教室名を入力して下さい。',
             'description.required' => '詳細を入力して下さい。',
         ];
     }

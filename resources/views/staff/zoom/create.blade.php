@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> ZOOM教室の登録</div>
+                <div class="card-header"><i class="fas fa-align-justify"></i> オンライン教室の登録</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -34,7 +34,7 @@
                         @csrf
                         <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
                         <div class="form-group">
-                            <label for="name-field">ZOOM教室名</label>
+                            <label for="name-field">オンライン教室名</label>
                             <input class="form-control" type="text" name="name" id="name-field" value="{{old('name')}}" />
                         </div>
                         <div class="form-group">

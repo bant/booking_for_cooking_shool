@@ -37,16 +37,22 @@ class ClassRoomReservationController extends Controller
     public function index()
     {
         $user = Auth::user();
-
-        /*教室情報を */
-        $room = Room::all()->first();
-        if (!is_null($room))
+        if (!$user->checkProfile())
         {
-            return  redirect()->route('user.classroom_reservation.calendar', ['id' => $room->staff_id]);
+            return view('user.profile_error');
         }
-        else 
+        else
         {
-            return  view('user.classroom_reservation.index');
+            /*教室情報を */
+            $room = Room::all()->first();
+            if (!is_null($room))
+            {
+                return  redirect()->route('user.classroom_reservation.calendar', ['id' => $room->staff_id]);
+            }
+            else 
+            {
+                return  view('user.classroom_reservation.index');
+            }
         }
     }
 

@@ -26,7 +26,7 @@
       </table>
       <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.export_zoom', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
     @else
-      <div class="text-center alert alert-info">ZOOM教室の予約はありません。</div>
+      <div class="text-center alert alert-info">オンライン教室の予約はありません。</div>
     @endif
 
 </section>

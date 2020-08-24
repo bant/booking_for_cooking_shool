@@ -37,16 +37,22 @@ class ZoomReservationController extends Controller
     public function index()
     {
         $user = Auth::user();
-
-        /*zoom情報を */
-        $zoom = Zoom::all()->first();
-        if (!is_null($zoom))
+        if (!$user->checkProfile())
         {
-            return  redirect()->route('user.zoom_reservation.calendar', ['id' => $zoom->staff_id]);
+            return view('user.profile_error');
         }
-        else 
+        else
         {
-            return  view('user.zoom_reservation.index');
+            /*zoom情報を */
+            $zoom = Zoom::all()->first();
+            if (!is_null($zoom))
+            {
+                return  redirect()->route('user.zoom_reservation.calendar', ['id' => $zoom->staff_id]);
+            }
+            else 
+            {
+                return  view('user.zoom_reservation.index');
+            }
         }
     }
 
@@ -138,7 +144,7 @@ class ZoomReservationController extends Controller
         /* 先生にメールを送信 */
         Mail::to($schedule->staff->email)->send(new ZoomReservationStaffEmail($mail_title ,$mail_data));
 
-        return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'ZOOM教室の予約しました');
+        return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'オンライン教室の予約しました');
     }
 
     /**
@@ -195,7 +201,7 @@ class ZoomReservationController extends Controller
         /* 先生にメールを送信 */
         Mail::to($schedule->staff->email)->send(new ZoomCancelStaffEmail($mail_title ,$mail_data));
 
-        return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'ZOOM教室の予約をキャンセルしました');
+        return  redirect(route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id]))->with('status', 'オンライン教室の予約をキャンセルしました');
     }
 
         /**

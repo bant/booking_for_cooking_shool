@@ -32,44 +32,50 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $rooms = Room::all();
 
-        $admin_messages = AdminMessage::where('user_id',$user->id)
-                        ->where('direction','ToUser')
-//                        ->whereNull('user_id')
-                        ->where('expired_at','>',Carbon::now())
-                        ->get();
+        if (!$user->checkProfile())
+        {
+            return view('user.profile_error');
+        }
+        else
+        {
+            $rooms = Room::all();
 
-        $staff_messages = StaffMessage::where('user_id',$user->id)
-                        ->where('direction','ToUser')
-//                        ->whereNull('user_id')
-                        ->where('expired_at','>',Carbon::now())
-                        ->get();
-        
-//        dd($staff_messages);
-
-
-        $classroom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-            ->join('courses', 'schedules.course_id', '=', 'courses.id')
-            ->where('reservations.user_id','=',$user->id)
-            ->where('schedules.is_zoom', '=', false)
-            ->orderBy('schedules.start')
-            ->get();
-
-        $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-            ->where('reservations.user_id','=',$user->id)
-            ->where('schedules.is_zoom', '=', true)
-            ->orderBy('schedules.start')
-            ->get();
-
-        return view('user.home')->with([
-                    'admin_messages'            => $admin_messages,
-                    'staff_messages'            => $staff_messages,
-                    'rooms'                     => $rooms,
-                    'classroom_reservations'    => $classroom_reservations, 
-                    'zoom_reservations'         => $zoom_reservations 
-                ]);
+            $admin_messages = AdminMessage::where('user_id',$user->id)
+                            ->where('direction','ToUser')
+    //                        ->whereNull('user_id')
+                            ->where('expired_at','>',Carbon::now())
+                            ->get();
+    
+            $staff_messages = StaffMessage::where('user_id',$user->id)
+                            ->where('direction','ToUser')
+    //                        ->whereNull('user_id')
+                            ->where('expired_at','>',Carbon::now())
+                            ->get();
+            
+    
+            $classroom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+                ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+                ->join('courses', 'schedules.course_id', '=', 'courses.id')
+                ->where('reservations.user_id','=',$user->id)
+                ->where('schedules.is_zoom', '=', false)
+                ->orderBy('schedules.start')
+                ->get();
+    
+            $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+                ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+                ->where('reservations.user_id','=',$user->id)
+                ->where('schedules.is_zoom', '=', true)
+                ->orderBy('schedules.start')
+                ->get();
+    
+            return view('user.home')->with([
+                        'admin_messages'            => $admin_messages,
+                        'staff_messages'            => $staff_messages,
+                        'rooms'                     => $rooms,
+                        'classroom_reservations'    => $classroom_reservations, 
+                        'zoom_reservations'         => $zoom_reservations 
+                    ]);
+        }
     }
 }
