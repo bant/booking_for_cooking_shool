@@ -35,7 +35,7 @@
                             <th>先生</th>
                             <th>価格</th>
                             <th>開始時間</th>
-                            <th class="text-right">オプション</th>
+                            <th class="text-right">アクション</th>
                         </tr>
                     </thead>
 

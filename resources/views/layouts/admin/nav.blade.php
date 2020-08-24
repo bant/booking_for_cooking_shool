@@ -13,9 +13,4 @@
             <a class="subitem" href="{{ route('admin.point.staff') }}" title="先生の月間獲得ポイント確認">先生の月間獲得ポイント確認</a>
         </div><!-- .submenu -->
     </div><!-- .menu -->
-    <div class="menu"><a href="#" title="連絡・メッセージ">連絡・メッセージ</a>
-       <div class="submenu">
-            <a class="subitem" href="" title="生徒とのメッセージ交換">生徒とのメッセージ交換</a>
-        </div><!-- .submenu -->
-    </div><!-- .menu -->
 </div><!-- #nav -->

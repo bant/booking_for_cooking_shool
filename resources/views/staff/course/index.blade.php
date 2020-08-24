@@ -37,7 +37,7 @@
                           <th class="text-center">#</th>
                           <th>名称</th>
                           <th>単価</th>
-                          <th class="text-right">オプション</th>
+                          <th class="text-right">アクション</th>
                         </tr>
                       </thead>
 

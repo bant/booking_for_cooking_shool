@@ -59,7 +59,6 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     
         Route::get('inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule')->name('inquiry.get_classroom_schedule');
         Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
-
     });
 });
 
@@ -118,8 +117,6 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
         Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
-     
-
     });
 });
 
@@ -130,7 +127,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Auth::routes([
         'register' => false,
         'confirm'  => false,
-        'reset'    => true
+        'reset'    => true,
+        'verify'  => false
     ]);
 
     // ログイン認証後
@@ -172,8 +170,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('user/deleted_search', 'UserController@deleted_search')->name('user.deleted_search');
         Route::get('user/{id?}/restore', 'UserController@restore')->name('user.restore');
         Route::get('user/export_users', 'UserController@export_users')->name('user.export_users');
-        
-        
+                
         Route::get('staff/create', 'StaffController@create')->name('staff.create');
         Route::get('staff/store', 'StaffController@store')->name('staff.store');
         Route::post('staff/store', 'StaffController@store')->name('staff.store');
@@ -182,18 +179,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
         Route::get('staff/restore', 'StaffController@restore')->name('staff.restore');
         Route::post('staff/restore', 'StaffController@restore')->name('staff.restore');
-
-
-//        Route::resource('staff', 'StaffController');
-//        Route::get('staff/search', 'StaffController@search')->name('staff.search');
-//        Route::post('staff/search', 'StaffController@search')->name('staff.search');
-
-/*
-        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('admin.password.update');
-        Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('admin.password.reset');
-*/
     });
-
 });

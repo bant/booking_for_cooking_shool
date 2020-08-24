@@ -18,7 +18,7 @@
           <th>日時</th>
           <th>料金</th>
           <th>支払済ポイント</th>
-          <th class="text-right">オプション</th>
+          <th class="text-right">アクション</th>
         </tr>
       </thead>
 
@@ -68,7 +68,7 @@
           <th>料金</th>
           <th>日時</th>
           <th>状態</th>
-          <th class="text-right">オプション</th>
+          <th class="text-right">アクション</th>
         </tr>
       </thead>
       <tbody>

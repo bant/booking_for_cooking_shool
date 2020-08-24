@@ -2,20 +2,25 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        先生の月間獲得ポイント確認(先生の一覧)
+    </div>  
     <section>
-    <h3>先生の一覧</h3>
+    <h1>先生の月間獲得ポイント確認</h1>
+    <h2>先生の一覧</h2>
   @if(!is_null($staff))
     <table class="table table-sm table-striped">
-      <thead>
-        <tr>
-          <th class="text-center">#</th>
-          <th>先生名</th>
-          <th>教室名</th>
-          <th class="text-right">オプション</th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>先生名</th>
+                <th>教室名</th>
+                <th class="text-right">アクション</th>
+            </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
         @foreach($staff as $teacher)
           <tr>
             <td class="text-center"><strong>{{$teacher->id}}</strong></td>

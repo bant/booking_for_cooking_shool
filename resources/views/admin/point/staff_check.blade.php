@@ -2,12 +2,20 @@
 
 @section('content')
 <div id="content">
-  <section>
-    <h2>{{$staff->name}}先生のポイント
+    <div id="breadcrumbs">
+        <a href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a href="{{route('admin.point.staff')}}">先生の月間獲得ポイント確認(先生の一覧</a>) >
+        {{$staff->name}}先生のポイント
+    </div>  
+
+    <section>
+    <h1>先生の月間獲得ポイント確認</h1>
+    <h2>{{date('Y年m月', strtotime($now_first_month_day)) }}の{{$staff->name}}先生のポイント状況
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.staff_check_show', ['id' => $staff->id, 'date' => $next_first_month_day])}}"> 次月 >></a>
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.staff_check_show', ['id' => $staff->id, 'date' => $previous_first_month_day])}}"> << 前月</a>
     </h2>
-    <h3>{{date('Y年m月', strtotime($now_first_month_day)) }}の{{$staff->room->name}}のポイント状況</h3>
+
+    <h3>{{$staff->room->name}}のポイント状況</h3>
     @if (session('status'))
       <div class="alert alert-success" role="alert">
         {{ session('status') }}
@@ -70,7 +78,7 @@
     <br/>
 
     @if ($staff->is_zoom)
-    <h3>{{date('Y年m月', strtotime($now_first_month_day)) }}のオンライン教室の予約状況</h3>
+    <h3>オンライン教室の予約状況</h3>
       @if($zoom_reservations->count())
       <table class="table table-sm table-striped">
       <thead>

@@ -39,7 +39,7 @@
                           <th>詳細</th>
                           <th>日時</th>
                           <th>zoom</th>
-                          <th class="text-right">オプション</th>
+                          <th class="text-right">アクション</th>
                         </tr>
                       </thead>
 

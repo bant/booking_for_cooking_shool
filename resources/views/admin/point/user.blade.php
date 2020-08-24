@@ -2,9 +2,14 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        生徒のポイント管理(生徒の検索)
+    </div>  
+
     <section>
-    <h2>生徒のポイント管理</h2>
-    <h3>生徒の検索</h3>
+    <h1>生徒のポイント管理</h1>
+    <h2>生徒の検索</h2>
     <form action="{{ route('admin.point.user') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -24,8 +29,8 @@
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>検索</button>
         </div>
     </form>
-
-    <h3>検索結果</h3>
+    <br/>
+    <h2>検索結果</h2>
     @if(!is_null($users))
         <table class="table table-sm table-striped">
             <thead>
@@ -55,6 +60,7 @@
     @else
         <div class="text-center alert alert-info">該当する生徒はいません。</div>
     @endif
+    <br/>
     </section>
 </div>
 @endsection

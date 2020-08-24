@@ -48,7 +48,7 @@
                 <th>タイトル</th>
                 <th>生徒</th>
                 <th>日時</th>
-                <th class="text-right">オプション</th>
+                <th class="text-right">アクション</th>
               </tr>
             </thead>
 
@@ -93,7 +93,7 @@
                   <th>タイトル</th>
                   <th>生徒</th>
                   <th>日時</th>
-                  <th class="text-right">オプション</th>
+                  <th class="text-right">アクション</th>
                 </tr>
               </thead>
               <tbody>

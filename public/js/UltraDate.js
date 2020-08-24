@@ -68,7 +68,7 @@ function UltraDate(year, month, day, hours, minutes, seconds, ms) {
     var _duplicate = [];
 
     /**
-     * 祝祭日のオプション群
+     * 祝祭日のアクション群
      */
     var _holidays = {
         def: {
@@ -78,7 +78,7 @@ function UltraDate(year, month, day, hours, minutes, seconds, ms) {
         }
     };
     /**
-     * 日付フォーマットのオプション群
+     * 日付フォーマットのアクション群
      */
     var _formats = {
         /**
@@ -338,12 +338,12 @@ function UltraDate(year, month, day, hours, minutes, seconds, ms) {
     };
 
     /**
-     * 日付フォーマットのオプション追加
+     * 日付フォーマットのアクション追加
      *
      * @static
      *
      * @param {String} locale フォーマット用のロケール
-     * @param {Object} options フォーマットのオプション
+     * @param {Object} options フォーマットのアクション
      *
      * @return {this} 自身に返す（チェーンメソッド用）
      *
@@ -379,7 +379,7 @@ function UltraDate(year, month, day, hours, minutes, seconds, ms) {
      * @static
      *
      * @param {String} locale 祝祭日用のロケール
-     * @param {Object} options 祝祭日用のオプション
+     * @param {Object} options 祝祭日用のアクション
      *
      * @return {this} 自身に返す（チェーンメソッド用）
      *

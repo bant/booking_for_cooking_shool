@@ -7,6 +7,7 @@
         生徒の停止
     </div>      
     <section>
+    <h1>管理者のダッシュボード</h1>
     <h2>生徒の停止</h2>
     <h3>生徒の検索</h3>
     <form action="{{ route('admin.user.search') }}" method="POST">
@@ -37,8 +38,10 @@
             <tr>
                 <th class="text-center">#</th>
                 <th>生徒名</th>
+                <th>Email</th>
                 <th>住所</th>
                 <th>現ポイント</th>
+                <th>参加回数</th>
                 <th class="text-right">アクション</th>
             </tr>
         </thead>
@@ -47,11 +50,18 @@
         @foreach($users as $user)
             <tr>
                 <td class="text-center"><strong>{{$user->id}}</strong></td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->address}}</td>
+                <td><a href="{{route('admin.user.info',$user->id)}}">{{$user->name}}</a></td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->prof}}{{$user->address}}</td>
                 <td>{{number_format($user->point)}}pt</td>
+                <td>{{number_format($user->reservations()->count())}}回</td>
                 <td class="text-right">
-                    <a class="btn btn-sm btn-danger" href="{{route('admin.user.edit', $user->id)}}"><i class="fas fa-edit"></i> 生徒の停止</a>
+                    <form action="{{route('admin.user.destroy', ['id'=>$user->id])}}" method="POST" style="display: inline;"
+                                 onsubmit="return confirm('{{$user->name}}さんを停止しても良いですか!?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>生徒の停止</button>
+                    </form>
                 </td>
             </tr>
         @endforeach

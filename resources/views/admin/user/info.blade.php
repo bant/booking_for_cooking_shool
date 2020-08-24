@@ -26,7 +26,11 @@
                         <dt class="col-md-2">誕生日</dt>
                             <dd class="col-md-10">{{ $user->birthday }}</dd>
                         <dt class="col-md-2">性別</dt>
-                            <dd class="col-md-10">{{ $user->gender }}</dd>
+                        @if ($user->gender=='male')
+                            <dd class="col-md-10">男</dd>
+                        @else
+                            <dd class="col-md-10">女</dd>
+                        @endif
                         <dt class="col-md-2">ポイント</dt>
                             <dd class="col-md-10">{{number_format($user->point)}}pt</dd>
                     </dl>

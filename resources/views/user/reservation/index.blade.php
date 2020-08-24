@@ -39,7 +39,7 @@
                           <th class="text-center">担当先生</th>
                           <th>教室名</th>
                           <th>住所</th>
-                           <th class="text-right">オプション</th>
+                           <th class="text-right">アクション</th>
                         </tr>
                       </thead>
 

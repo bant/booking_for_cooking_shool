@@ -12,7 +12,7 @@
           <th>生徒</th>
           <th>先生</th>
           <th>管理者</th>
-          <th class="text-right">オプション</th>
+          <th class="text-right">アクション</th>
         </tr>
       </thead>
       <tbody>

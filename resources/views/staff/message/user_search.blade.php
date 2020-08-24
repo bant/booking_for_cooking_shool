@@ -43,7 +43,7 @@
                           <th>生徒名</th>
                           <th>メール</th>
                           <th>住所</th>
-                          <th class="text-right">オプション</th>
+                          <th class="text-right">アクション</th>
                         </tr>
                       </thead>
 
