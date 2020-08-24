@@ -10,6 +10,9 @@ use App\Models\Reservation;
 use App\Models\Payment;
 use App\Models\PaymentDescription;
 
+use App\Exports\Export;
+use Carbon\Carbon;
+
 class UserController extends Controller
 {
     /**
@@ -223,4 +226,19 @@ class UserController extends Controller
         /* 停止ユーザ検索一覧ビュー表示 */
         return view('admin.user.deleted_search')->with(["users" => $users]);
     }
+
+    /**
+     * 
+     */
+    public function export_users()
+    {
+        $users =User::all();
+        // 現在の日時
+        $now = Carbon::now();
+
+        $view = view('admin.user.export_users')->with(['users' => $users]);
+        $export_name = date('Y-m-d', strtotime($now)) ."_生徒一覧.xlsx";
+        return \Excel::download(new Export($view), $export_name);
+    }
+
 }

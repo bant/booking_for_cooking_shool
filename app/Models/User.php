@@ -70,4 +70,9 @@ class User extends Authenticatable
         
         return true;
     }
+
+    Public function reservations()
+    {
+        return $this->hasMany('App\Models\Reservation');
+    }
 }

@@ -171,6 +171,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
         Route::get('user/deleted_search', 'UserController@deleted_search')->name('user.deleted_search');
         Route::get('user/{id?}/restore', 'UserController@restore')->name('user.restore');
+        Route::get('user/export_users', 'UserController@export_users')->name('user.export_users');
+        
         
         Route::get('staff/create', 'StaffController@create')->name('staff.create');
         Route::get('staff/store', 'StaffController@store')->name('staff.store');
