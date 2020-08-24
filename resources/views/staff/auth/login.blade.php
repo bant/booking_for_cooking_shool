@@ -1,6 +1,7 @@
 @extends('layouts.staff.app')
 
 @section('content')
+<br/>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -51,6 +52,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-3">
+                                <div class="form-password_reset">
+                                    パスワードを忘れた方は<a  href="{{route('staff.password.request')}}" title="こちら">こちら</a>へ
+                                 </div>
+                            </div>
+                        </div>
+                    
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-2">
                                 <button type="submit" class="btn btn-primary">
@@ -64,4 +73,5 @@
         </div>
     </div>
 </div>
+<br/>
 @endsection
