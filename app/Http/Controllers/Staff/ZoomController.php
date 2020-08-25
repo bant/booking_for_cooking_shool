@@ -103,7 +103,8 @@ class ZoomController extends Controller
      */
     public function destroy($id)
     {
+   
         Zoom::where('id', $id)->delete();
-        return redirect()->route('staff.zoom.index')->with('success', '削除完了しました');
+        return redirect()->route('staff.zoom.index')->with('success', 'オンライン教室を閉鎖しました。');
     }
 }

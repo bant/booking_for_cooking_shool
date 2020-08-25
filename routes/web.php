@@ -68,7 +68,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
     // ログイン認証関連
     Auth::routes([
-        'register' => true,
+        'register' => false,
         'confirm'  => false,
         'reset'    => true,
         'verify'  => false

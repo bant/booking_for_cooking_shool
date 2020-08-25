@@ -2,8 +2,13 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        メッセージの送信
+    </div>  
     <section>
-    <h3>{{Auth::user()->room->name}}の生徒さんへメッセージ送信</h3>
+    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h2>{{Auth::user()->room->name}}の生徒さんへメッセージ送信</h2>
 
     @if (session('status'))
     <div class="alert alert-success" role="alert">

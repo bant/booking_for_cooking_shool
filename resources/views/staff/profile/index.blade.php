@@ -1,6 +1,18 @@
 @extends('layouts.staff.app')
 
 @section('content')
+<div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+            教室設定の確認
+    </div>  
+    <section>
+    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h2>教室設定の確認</h>
+
+    </section>
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-2">

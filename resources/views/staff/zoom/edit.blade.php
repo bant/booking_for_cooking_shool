@@ -2,57 +2,53 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a href="{{route('staff.room.index')}}">オンライン教室の確認</a>  >
+        オンライン教室の作成
+    </div>  
     <section>
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i> オンライン教室の情報更新</div>
+    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h2>オンライン教室の情報更新</h2>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{--成功時のメッセージ--}}
-                    @if (session('success'))
-                      <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    {{-- エラーメッセージ --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('staff.zoom.update', $zoom->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
-                        <div class="form-group">
-                            <label for="name-field">教室名</label>
-                            <input class="form-control" type="text" name="name" id="name-field" value="{{$zoom->name}}" />
-                        </div>
-                        <div class="form-group">
-                            <label for="description-field">詳細</label>
-                            <textarea name="description" id="description-field" class="form-control" rows="3">{{$zoom->description}}</textarea>
-                        </div>
-                        <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>データ更新</button>
-                            <a class="btn btn-link pull-right" href="{{ route('staff.zoom.index') }}"><i class="fas fa-backward"></i> 詳細へ戻る</a>
-                        </div>
-                    </form>
-
-                    </div>
-                </div>
-            </div>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
         </div>
-    </div>
+    @endif
+
+    {{--成功時のメッセージ--}}
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    {{-- エラーメッセージ --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('staff.zoom.update', $zoom->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <input class="form-control" type="hidden" name="staff_id" id="staff_id-field" value="{{ Auth::user()->id }}" />
+        <div class="form-group">
+            <label for="name-field">教室名</label>
+            <input class="form-control" type="text" name="name" id="name-field" value="{{$zoom->name}}" />
+        </div>
+        <div class="form-group">
+            <label for="description-field">詳細</label>
+            <textarea name="description" id="description-field" class="form-control" rows="3">{{$zoom->description}}</textarea>
+        </div>
+        <div class="well well-sm">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>情報更新</button>
+            <a class="btn btn-link pull-right" href="{{ route('staff.zoom.index') }}"><i class="fas fa-backward"></i> 詳細へ戻る</a>
+        </div>
+    </form>
     </section>
 </div>
 @endsection

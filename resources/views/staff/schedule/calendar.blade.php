@@ -2,8 +2,14 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        スケジュール登録
+    </div>  
     <section>
-    <h2>スケジュール</h2>
+    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h2>スケジュール登録</h2>
+
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -172,7 +178,7 @@
          },
  
          eventClick: function (info) {
-                     var deleteMsg = confirm("Do you really want to delete?");
+                     var deleteMsg = confirm("このスケジュールを削除して良いですか?");
                      if (deleteMsg) {
                          // csrf。Laravelお約束
                          $.ajaxSetup({

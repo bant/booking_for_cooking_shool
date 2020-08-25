@@ -98,6 +98,7 @@ class HomeController extends Controller
                 ]);
 
         return view('staff.home')->with([
+                        'staff'              => $staff,
                         "room_count"        => $room_count, 
                         "course_count"      => $course_count, 
                         "class_reservations" => $class_reservations, 
