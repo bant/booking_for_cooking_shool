@@ -40,6 +40,7 @@ class HomeController extends Controller
         else
         {
             $rooms = Room::all();
+     
 
             $admin_messages = AdminMessage::where('user_id',$user->id)
                             ->where('direction','ToUser')
@@ -57,17 +58,40 @@ class HomeController extends Controller
             $classroom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
                 ->join('staff', 'schedules.staff_id', '=', 'staff.id')
                 ->join('courses', 'schedules.course_id', '=', 'courses.id')
+                ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
                 ->where('reservations.user_id','=',$user->id)
-                ->where('schedules.is_zoom', '=', false)
+                ->where('schedules.is_zoom','=',false)
                 ->orderBy('schedules.start')
-                ->get();
-    
+                ->get( [
+                    'reservations.id as id',
+                    'reservations.is_contract as is_contract',
+                    'reservations.is_pointpay as is_pointpay',
+                    'rooms.name as room_name',
+                    'courses.name as course_name',
+                    'staff.name as staff_name',
+                    'courses.price as course_price',
+                    'schedules.start as start'
+                ]);
+
+
             $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
                 ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+                ->join('courses', 'schedules.course_id', '=', 'courses.id')
+                ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
                 ->where('reservations.user_id','=',$user->id)
-                ->where('schedules.is_zoom', '=', true)
+                ->where('schedules.is_zoom','=',true)
                 ->orderBy('schedules.start')
-                ->get();
+                ->get( [
+                    'reservations.id as id',
+                    'reservations.is_contract as is_contract',
+                    'reservations.is_pointpay as is_pointpay',
+                    'rooms.name as room_name',
+                    'courses.name as course_name',
+                    'staff.name as staff_name',
+                    'courses.price as course_price',
+                    'schedules.start as start'
+                ]);
+
     
             return view('user.home')->with([
                         'admin_messages'            => $admin_messages,

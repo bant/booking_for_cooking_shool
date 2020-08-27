@@ -18,6 +18,7 @@ class CreateStaffMessagesTable extends Migration
             $table->string('direction');
             $table->unsignedBigInteger('staff_id')->comment('スタッフID');
             $table->foreign('staff_id')->references('id')->on('staff');
+            $table->unsignedBigInteger('admin_id')->nullable()->comment('管理者D');
             $table->unsignedBigInteger('user_id')->nullable()->comment('生徒ID');
             $table->text('message')->comment('メッセージ');
             $table->timestamp('expired_at')->nullable();

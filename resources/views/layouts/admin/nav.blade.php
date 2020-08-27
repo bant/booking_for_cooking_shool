@@ -13,4 +13,10 @@
             <a class="subitem" href="{{ route('admin.point.staff') }}" title="先生の月間獲得ポイント確認">先生の月間獲得ポイント確認</a>
         </div><!-- .submenu -->
     </div><!-- .menu -->
+    <div class="menu"><a href="#" title="連絡・メッセージ">連絡・メッセージ送信</a>
+        <div class="submenu">
+            <a class="subitem" href="{{ route('admin.message.staff_search') }}" title="先生へ入金確認通知">先生へ入金確認通知</a>
+            <a class="subitem" href="{{ route('admin.message.user_search') }}" title="生徒さんへ入金確認通知">生徒さんへ入金確認通知</a>
+        </div><!-- .submenu -->
+    </div><!-- .menu -->
 </div><!-- #nav -->

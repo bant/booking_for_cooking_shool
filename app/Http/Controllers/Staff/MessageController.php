@@ -128,4 +128,10 @@ class MessageController extends Controller
                         "messages"        => $messages 
                     ]);
     }
+
+    public function admin_delete($id)
+    {
+        AdminMessage::where('id',$id)->delete();
+        return back()->with('success', 'メッセージを削除しました。');
+    }
 }

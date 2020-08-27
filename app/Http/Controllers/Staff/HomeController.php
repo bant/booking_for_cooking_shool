@@ -10,6 +10,7 @@ use App\Models\Room;
 use App\Models\Zoom;
 use Auth;
 use Carbon\Carbon;
+use App\Models\AdminMessage;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,12 @@ class HomeController extends Controller
     public function index()
     {
         $staff = Auth::user();
+
+        $admin_messages = AdminMessage::where('staff_id',$staff->id)
+        ->where('direction','ToStaff')
+        ->where('expired_at','>',Carbon::now())
+        ->get();
+
 
         $room = Room::where('staff_id', $staff->id)->first();
         if (is_null($room))
@@ -98,6 +105,7 @@ class HomeController extends Controller
                 ]);
 
         return view('staff.home')->with([
+                        'admin_messages'     => $admin_messages,
                         'staff'              => $staff,
                         "room_count"        => $room_count, 
                         "course_count"      => $course_count, 

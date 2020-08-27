@@ -64,6 +64,27 @@ class PointController extends Controller
         return view('admin.point.user')->with(["users" => $users]);
     }
 
+    /**
+     * 
+     */
+    public function reservation_search(Request $request)
+    {
+        $users = null;
+        $reservation = Reservation::find($request->reservation_id);
+        if (!is_null($reservation) )
+        {
+            $users = User::where('id', $reservation->user_id)->get();
+            if (!is_null($users))
+            {
+                if ($users->count() == 0)
+                {
+                    $users = null;
+                }
+            }
+        }
+        /* ユーザ検索一覧ビュー表示 */
+        return view('admin.point.user')->with(["users" => $users]);
+    }
 
     /**
      * Show the form for editing the specified resource.

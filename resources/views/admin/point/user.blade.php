@@ -30,6 +30,20 @@
         </div>
     </form>
     <br/>
+
+    <h2>予約番号による検索</h2>
+    <form action="{{ route('admin.point.reservation_search') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="reservation_id-field">予約番号</label>
+            <input class="form-control" type="text" name="reservation_id" id="reservation_id-field" value="{{old('reservation_id')}}" />
+        </div>
+        <div class="well well-sm">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>検索</button>
+        </div>
+    </form>
+    <br/>
+
     <h2>検索結果</h2>
     @if(!is_null($users))
         <table class="table table-sm table-striped">

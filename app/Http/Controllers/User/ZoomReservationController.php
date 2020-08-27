@@ -184,7 +184,7 @@ class ZoomReservationController extends Controller
         {
             $mail_title = "【予約キャンセル】".$schedule->staff->zoom->name."の予約をキャンセルを受付ました。";
             $mail_data = [
-                'action'            => "--- ". $schedule->staff->zoom->name."の予約を受付ました。 ---",
+                'action'            => "--- ". $schedule->staff->zoom->name."の予約をキャンセルを受付ました。 ---",
                 'user_name'         => $user->name,
                 'user_email'         => $user->email,
                 'reservation_id'    => $reservation->id,

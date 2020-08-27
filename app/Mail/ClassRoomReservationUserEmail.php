@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class ClassRoomReservationUserEmail extends Mailable
 {
     use Queueable, SerializesModels;
+    protected $classification;
     protected $title;
     protected $data;
 
@@ -18,8 +19,9 @@ class ClassRoomReservationUserEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($title, $data)
+    public function __construct($classification, $title, $data)
     {
+        $this->classification = $classification;
         $this->title = $title;
         $this->data = $data;
     }
@@ -31,9 +33,32 @@ class ClassRoomReservationUserEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.class_room_reservation_user_html')
-                ->text('emails.class_room_reservation_user_text')
-                ->subject($this->title)
-                ->with(['data' => $this->data]);
+        switch ($this->classification)
+        {
+            case 'hon_yoyaku':      /* 支払い済み */
+                return $this->text('emails.class_room_hon_reservation_user_plane')
+//                    ->view('emails.class_room_hon_reservation_user')
+                    ->subject($this->title)
+                    ->with(['data' => $this->data]);
+
+            case 'kari_yoyaku':        /* 仮払い */
+                return $this->text('emails.class_room_kari_reservation_user_plane')
+//                    ->view('emails.class_room_kari_reservation_user')
+                    ->subject($this->title)
+                    ->with(['data' => $this->data]);
+
+            case 'kakutei':      /* 確定 */
+                return $this->text('emails.class_room_kakutei_reservation_user_plane')
+//                    ->view('emails.class_room_kakutei_reservation_user')
+                    ->subject($this->title)
+                    ->with(['data' => $this->data]);
+
+            case 'cancel_machi':      /* キャンセル待ち */
+                        return $this->text('emails.class_room_cancel_reservation_user_plane')
+        //                    ->view('emails.class_room_cancel_reservation_user')
+                            ->subject($this->title)
+                            ->with(['data' => $this->data]);
+
+        }
     }
 }

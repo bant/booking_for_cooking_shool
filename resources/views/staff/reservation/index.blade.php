@@ -20,7 +20,8 @@
     <table class="table table-sm table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
+                <th>予約番号</th>
+                <th>確定</th>
                 <th>状態</th>
                 <th>生徒(ID)</th>
                 <th>コース名</th>
@@ -34,6 +35,7 @@
       <tbody>
             @foreach($class_reservations as $class_reservation)
                 <tr>
+               <td>{{$class_reservation->id}}</td>
                 @if ($class_reservation->is_contract)
                     <td class="text-center text-white bg-success"><strong>確</strong></td>
                 @else

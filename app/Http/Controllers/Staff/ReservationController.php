@@ -11,9 +11,12 @@ use App\Models\Zoom;
 use Auth;
 use App\Http\Requests\StoreZoom;
 use App\Models\Course;
-
+use App\Models\Admin;
 use App\Exports\Export;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ClassRoomReservationUserEmail;
+use App\Mail\ClassRoomReservationStaffEmail;
 
 class ReservationController extends Controller
 {
@@ -101,7 +104,7 @@ class ReservationController extends Controller
                     'courses.name as course_name',
                     'users.name as user_name',
                     'users.id as user_id',
-                    'courses.price as course_price',
+                    'courses.price as price',
                     'schedules.start as start'
                 ]);
 
@@ -214,6 +217,59 @@ class ReservationController extends Controller
     public function is_contract_update($id)
     {
         Reservation::where('id', $id)->update(['is_contract' => true]);
+
+        $reservation = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+        ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+        ->join('users', 'reservations.user_id', '=', 'users.id')
+        ->join('courses', 'schedules.course_id', '=', 'courses.id')
+        ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+        ->where('reservations.id','=',$id)
+        ->get( [
+                'reservations.id as id',
+                'reservations.is_contract as is_contract',
+                'reservations.is_pointpay as is_pointpay',
+                'users.id as user_id',
+                'users.name as user_name',
+                'users.email as user_email',
+                'users.zip_code as user_zip_code',
+                'users.pref as user_pref',
+                'users.address as user_address',
+                'users.tel as user_tel',
+                'rooms.name as room_name',
+                'rooms.address as room_address',
+                'staff.id as staff_id',
+                'staff.name as staff_name',
+                'staff.email as staff_email',
+                'courses.name as course_name',
+                'courses.price as course_price',
+                'schedules.start as start'
+            ])->first();
+
+
+
+        $mail_classification = "kakutei";
+        $mail_title = "【予約確定】". $reservation->course_name ."(". date('Y年m月d日 H時i分', strtotime($reservation ->start)) . ")の予約を確定しました。";
+        $mail_data = [
+            'reservation_id'    => $reservation->id,
+            'course_name'       => $reservation->course_name,
+            'user_name'         => $reservation->user_name,
+            'user_email'        => $reservation->user_email,
+            'user_address'      => "〒" . $reservation->user_zip_code . " ". $reservation->user_pref . $reservation->user_address,
+            'user_tel'          => $reservation->user_tel,
+            'staff_name'        => $reservation->staff_name,
+            'room_name'         => $reservation->room_name,
+            'room_address'      => $reservation->room_address,
+            'price'             => number_format($reservation->course_price)."円",
+            'start'             => date('Y年m月d日 H時i分', strtotime($reservation->start))
+        ];
+
+        /* 生徒にメールを送信 */
+        Mail::to($reservation->user_email)->send(new ClassRoomReservationUserEmail($mail_classification, $mail_title ,$mail_data));
+
+        /* 先生と管理者()にメールを送信 */
+        Mail::to($reservation->staff_email)->cc(Admin::find(1)->email)->send(new ClassRoomReservationStaffEmail($mail_classification, $mail_title ,$mail_data));
+
+
         return back()->with('success', '本予約しました');
     }
 

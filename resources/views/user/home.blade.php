@@ -35,12 +35,12 @@
         </div>
         @endif
 
+        <h3>管理者からのお知らせ</h3>
         @if($admin_messages->count())
         <table class="table table-sm table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
-                <th>管理者名</th>
+                <th>予約番号</th>
                 <th>メッセージ</th>
                 <th>表示期限</th>
             </tr>
@@ -49,8 +49,7 @@
         <tbody>
         @foreach($admin_messages as $admin_message)
             <tr>
-                <td>{{$admin_message->id}}</td>
-                <td>{{$admin_message->staff->name}}</td>
+                <td>{{$admin_message->reservation_id}}</td>
                 <td>{{$admin_message->message}}</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($admin_message->expired_at))}}</td>
             </tr>
@@ -73,7 +72,6 @@
                 <th>先生</th>
                 <th>価格</th>
                 <th>開始時間</th>
-                <th class="text-right">アクション</th>
             </tr>
         </thead>
 
@@ -90,14 +88,6 @@
                 <td>{{$classroom_reservation->staff_name}}</td>
                 <td>{{ number_format($classroom_reservation->course_price) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($classroom_reservation->start))}}</td>
-                <td class="text-right">
-                    <form action="/user/classroom_reservation/{{$classroom_reservation->id}}/destroy" method="POST" style="display: inline;"
-                                 onsubmit="return confirm('予約を取り消しても良いですか?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
-                    </form>
-                </td>
             </tr>
         @endforeach
         </tbody>
@@ -119,7 +109,6 @@
                 <th>先生</th>
                 <th>価格</th>
                 <th>開始時間</th>
-                <th class="text-right">アクション</th>
             </tr>
         </thead>
 
@@ -137,15 +126,7 @@
                 <td>{{$zoom_reservation->staff_name}}</td>
                 <td>{{ number_format($zoom_reservation->course_price) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start))}}</td>
-                <td class="text-right">
-                    <form action="/user/zoom_reservation/{{$zoom_reservation->id}}/destroy" method="POST" style="display: inline;"
-                                 onsubmit="return confirm('予約を取り消しても良いですか?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
-                    </form>
-                </td>
-            </tr>
+             </tr>
         @endforeach
         </tbody>
         </table>

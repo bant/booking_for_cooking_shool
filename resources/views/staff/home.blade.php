@@ -25,6 +25,37 @@
             <p><a href="{{route('staff.course.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてコースを登録してください。</p>
         @endif
     @else
+
+
+        <h2>管理者からのお知らせ</h2>
+            @if($admin_messages->count())
+            <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+                <th>予約番号</th>
+                <th>メッセージ</th>
+                <th>表示期限</th>
+                <th>アクション</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach($admin_messages as $admin_message)
+            <tr>
+                <td>{{$admin_message->reservation_id}}</td>
+                <td>{{$admin_message->message}}</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($admin_message->expired_at))}}</td>
+                <td><a class="float-right btn btn-sm btn-warning" href="{{ route('staff.message.admin_delete', $admin_message->id) }}"> メッセージ削除</a> </td>                             
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
+        @else
+        <div class="text-center alert alert-info">
+            管理者からメッセージはありません。
+        </div>
+        @endif
+
         <h2>{{$staff->room->name}}の予約状況</h2>
 
         <!-- 教室の予約の始まり -->
@@ -38,37 +69,38 @@
             <table class="table table-sm table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">#</th>
-                        <th>タイトル</th>
-                        <th>生徒</th>
-                        <th>日時</th>
-                        <th class="text-right">アクション</th>
+                    <th>予約番号</th>
+                    <th>確定</th>
+                    <th>生徒(ID)</th>
+                    <th>コース名</th>
+                    <th>日時</th>
+                    <th>料金</th>
+                    <th>支払済ポイント</th>
+                    <th>アクション</th>
                     </tr>
                 </thead>
 
                 <tbody>
                 @foreach($class_reservations as $class_reservation)
                     <tr>
-                    @if ($class_reservation->is_contract)
-                        <td class="text-center text-white bg-success"><strong>確</strong></td>
-                    @else
-                        <td class="text-center text-white bg-danger"><strong>仮</strong></td>
-                    @endif
-                        <td>{{$class_reservation->course_name}}</td>
-                    @if (is_null($class_reservation->deleted_at))
-                        <td><a href="{{ route('staff.user.info', ['id' => $class_reservation->user_id])}}">{{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
-                    @else
-                        <td>{{$class_reservation->user_name}}(停止)</td>
-                    @endif
-                        <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
-                        <td class="text-right">
-                        @if (!$class_reservation->is_contract)
-                            <td><strong>確定にする</strong></td>
-                        @endif
-                        
-                        
-                        
-                        メール送信</td>
+                    <td>{{$class_reservation->id}}</td>
+                @if ($class_reservation->is_contract)
+                    <td class="text-center text-white bg-success"><strong>確</strong></td>
+                @else
+                    <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                @endif
+                    <td><a href="{{ route('staff.user.info', $class_reservation->user_id) }}"> {{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
+                    <td>{{$class_reservation->course_name}}</td>
+                    <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
+                    <td>{{ number_format($class_reservation->course_price)}}円</td>
+                    <td>{{ number_format($class_reservation->point)}}pt</td>
+                    @if (!$class_reservation->is_contract)
+                    <td>
+                        <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.is_contract_update', $class_reservation->id) }}"> 確定に変更</a>                              
+                    </td>
+                @else
+                    <td>--</td>                            
+                @endif
                     </tr>
                 @endforeach
                 </tbody>
@@ -86,25 +118,31 @@
             <table class="table table-sm table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">#</th>
-                        <th>タイトル</th>
-                        <th>生徒</th>
-                        <th>日時</th>
-                        <th class="text-right">アクション</th>
+                    <th>予約番号</th>
+                    <th>確定</th>
+                    <th>生徒(ID)</th>
+                    <th>コース名</th>
+                    <th>日時</th>
+                    <th>料金</th>
+                    <th>支払済ポイント</th>
+                    <th>アクション</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($zoom_reservations as $zoom_reservation)
                     <tr>
-                    @if ($zoom_reservation->is_contract)
-                        <td class="text-center text-white bg-success"><strong>確</strong></td>
-                    @else
-                        <td class="text-center text-white bg-danger"><strong>仮</strong></td>
-                    @endif
-                        <td>{{$zoom_reservation->course_name}}</td>
-                        <td>{{$zoom_reservation->user_name}}</td>
-                        <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
-                        <td class="text-right">メール送信</td>
+                    <td>{{$zoom_reservation->id}}</td>
+                @if ($zoom_reservation->is_contract)
+                    <td class="text-center text-white bg-success"><strong>確</strong></td>
+                @else
+                    <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                @endif
+                    <td><a href="{{ route('staff.user.info', $zoom_reservation->user_id) }}"> {{$zoom_reservation->user_name}}({{$zoom_reservation->user_id}})</a></td>
+                    <td>{{$class_reservation->course_name}}</td>
+                    <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
+                    <td>{{ number_format($zoom_reservation->course_price)}}円</td>
+                    <td>{{ number_format($zoom_reservation->point)}}pt</td>
+                    <td>--</td>                            
                     </tr>
                 @endforeach
                 </tbody>

@@ -9,6 +9,7 @@ use App\Models\Schedule;
 use App\Models\Staff;
 use App\Models\Room;
 use App\Models\Course;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ClassRoomReservationUserEmail;
@@ -93,56 +94,87 @@ class ClassRoomReservationController extends Controller
         $reservation = new Reservation();
         $reservation->user_id = $user->id;
         $reservation->schedule_id = $request->schedule_id;
-            
-        if($request->no_point==1)
+
+
+        if ($schedule->capacity == 0)  /* キャンセル待ち */
         {
-            $reservation->is_contract = false;          // 仮契約
-            $reservation->is_pointpay = false;
-            $spent_point = 0;
+            $mail_classification = "cancel_machi";
+            $mail_title = "【キャンセル待ち予約】". $schedule->course->name ."(". date('Y年m月d日 H時i分', strtotime($schedule->start)) . ")のキャンセル待ち予約を受け付けました。";
+            $mail_data = [
+                'user_name'         => $user->name,
+                'user_email'        => $user->email,
+                'user_address'      => "〒" . $user->zip_code . " ". $user->pref . $user->address,
+                'user_tel'          => $user->tel,
+                'course_name'       => $schedule->course->name,
+                'staff_name'        => $schedule->staff->name,
+                'room_name'         => $schedule->staff->room->name,
+                'room_address'      => $schedule->staff->room->address,
+                'price'             => number_format($price)."円",
+                'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start)),
+                'cancel_rank'       => $schedule->number_of_reservation + 1,
+            ];
+
+            /* 予約人数を増やす */
+            Schedule::where('id', $schedule->id)->update([
+                'number_of_reservation' => $schedule->number_of_reservation + 1
+                ]);
         }
         else 
         {
-            if ($point > $price)
+            if($request->no_point==1)
             {
-                $reservation->is_contract = true;    // 本契約
-                $reservation->is_pointpay = true;
-                $spent_point = $price;
-
-                User::where('id', $user->id)->update(['point' => $point - $price]);
-            }
-            else
-            {
-                $reservation->is_contract = false;      // 仮契約
+                $reservation->is_contract = false;          // 仮契約
                 $reservation->is_pointpay = false;
                 $spent_point = 0;
             }
-        }
-        $reservation->spent_point = $spent_point;
-        $reservation->save();
+            else 
+            {
+                if ($point > $price)
+                {
+                    $reservation->is_contract = true;    // 本契約
+                    $reservation->is_pointpay = true;
+                    $spent_point = $price;
 
-        /* 定員を減らす */
-        Schedule::where('id', $schedule->id)->update(['capacity' => $schedule->capacity - 1]);
+                    User::where('id', $user->id)->update(['point' => $point - $price]);
+                }
+                else
+                {
+                    $reservation->is_contract = false;      // 仮契約
+                    $reservation->is_pointpay = false;
+                    $spent_point = 0;
+                }
+            }
+            $reservation->spent_point = $spent_point;
+            $reservation->save();
 
-        $reservate_times = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-            ->where('reservations.user_id','=',$user->id)
-            ->where('schedules.staff_id','=',$schedule->staff->id)
-            ->where('schedules.is_zoom','=',false)
-            ->count();
-        if (is_null($reservate_times))
-        {
-            $reservate_times = "初";
-        }
+            /* 定員を減らす、予約人数を増やす */
+            Schedule::where('id', $schedule->id)->update([
+                'capacity' => $schedule->capacity - 1,
+                'number_of_reservation' => $schedule->number_of_reservation + 1
+                ]);
 
-        if ($reservation->is_contract) 
-        {
-            $mail_title = "【予約受付】".$schedule->staff->room->name."の予約を受付ました。";
-            $mail_data = [
-                    'action'            => "--- ". $schedule->staff->room->name."の予約を受付ました。 ---",
-                    'user_name'         => $user->name,
-                    'user_email'         => $user->email,
+            $reservate_times = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+                ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+                ->where('reservations.user_id','=',$user->id)
+                ->where('schedules.staff_id','=',$schedule->staff->id)
+                ->where('schedules.is_zoom','=',false)
+                ->count();
+            if (is_null($reservate_times))
+            {
+                $reservate_times = "初";
+            }
+
+            if ($reservation->is_contract) 
+            {
+                $mail_classification = "hon_yoyaku";
+                $mail_title = "【予約受付】". $schedule->course->name ."(". date('Y年m月d日 H時i分', strtotime($schedule->start)) . ")の予約を受付ました。";
+                $mail_data = [
                     'reservation_id'    => $reservation->id,
                     'course_name'       => $schedule->course->name,
+                    'user_name'         => $user->name,
+                    'user_email'        => $user->email,
+                    'user_address'      => "〒" . $user->zip_code . " ". $user->pref . $user->address,
+                    'user_tel'          => $user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
@@ -150,16 +182,18 @@ class ClassRoomReservationController extends Controller
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
-        }
-        else
-        {
-            $mail_title = "【仮予約受付】".$schedule->staff->room->name."の仮予約を受付ました。";
-            $mail_data = [
-                    'action'            => "--- ". $schedule->staff->room->name."の仮予約を受付ました。 ---",
-                    'user_name'         => $user->name,
-                    'user_email'        => $user->email,
+            }
+            else
+            {
+                $mail_classification = "kari_yoyaku";
+                $mail_title = "【仮予約受付】". $schedule->course->name ."(". date('Y年m月d日 H時i分', strtotime($schedule->start)) . ")の仮予約を受付ました。";
+                $mail_data = [
                     'reservation_id'    => $reservation->id,
                     'course_name'       => $schedule->course->name,
+                    'user_name'         => $user->name,
+                    'user_email'        => $user->email,
+                    'user_address'      => "〒" . $user->zip_code . " ". $user->pref . $user->address,
+                    'user_tel'          => $user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
@@ -167,13 +201,14 @@ class ClassRoomReservationController extends Controller
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
+            }
         }
-                
+                    
         /* 生徒にメールを送信 */
-        Mail::to($user->email)->send(new ClassRoomReservationUserEmail($mail_title ,$mail_data));
+        Mail::to($user->email)->send(new ClassRoomReservationUserEmail($mail_classification, $mail_title ,$mail_data));
 
-        /* 先生にメールを送信 */
-        Mail::to($schedule->staff->email)->send(new ClassRoomReservationStaffEmail($mail_title ,$mail_data));
+        /* 先生と管理者()にメールを送信 */
+        Mail::to($schedule->staff->email)->cc(Admin::find(1)->email)->send(new ClassRoomReservationStaffEmail($mail_classification, $mail_title ,$mail_data));
 
         return  redirect()->route('user.classroom_reservation.calendar', ['id' => $schedule->staff_id])->with('status', '教室の予約を受付ました');
     }

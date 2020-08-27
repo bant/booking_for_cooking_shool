@@ -18,7 +18,9 @@ class CreateAdminMessagesTable extends Migration
             $table->string('direction');
             $table->unsignedBigInteger('admin_id')->comment('管理者ID');
             $table->foreign('admin_id')->references('id')->on('admins');
+            $table->unsignedBigInteger('staff_id')->nullable()->comment('先生ID');
             $table->unsignedBigInteger('user_id')->nullable()->comment('生徒ID');
+            $table->unsignedBigInteger('reservation_id')->nullable()->comment('予約番号');
             $table->text('message')->comment('メッセージ');
             $table->timestamp('expired_at')->nullable();
             $table->timestamps();

@@ -62,6 +62,7 @@ class ClassRoomScheduleController extends Controller
         $schedule->staff_id = $staff->id;
         $schedule->course_id = $request->course_id;
         $schedule->capacity = $request->capacity;
+        $schedule->number_of_reservation = 0;
         $schedule->start = str_replace('T', ' ', $request->start);
         $dt = new Carbon($schedule->start);
         $schedule->end = $dt->addHours(1)->toDateTimeString();
@@ -113,6 +114,7 @@ class ClassRoomScheduleController extends Controller
             'staff_id'      => $staff->id,
             'course_id'     => $request->course_id,
             'capacity'      => $request->capacity,
+            'number_of_reservation' => 0,
             'is_zoom'       => $request->is_zoom,
             'zoom_invitation'  => $request->zoom_invitation,
             'start'         => str_replace('T', ' ', $request->start),
