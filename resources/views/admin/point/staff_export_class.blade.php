@@ -12,7 +12,7 @@
     <th>生徒Email</th>
     <th>生徒性別</th>
     <th>契約</th>
-    <th>開講</th>
+    <th>終了</th>
     <th>支払い方法</th>
     <th>支払ったポイント</th>
   </tr>

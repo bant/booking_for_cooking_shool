@@ -22,7 +22,7 @@
             <tr>
                 <th>予約番号</th>
                 <th>確定</th>
-                <th>状態</th>
+                <th>終了</th>
                 <th>生徒(ID)</th>
                 <th>コース名</th>
                 <th>日時</th>

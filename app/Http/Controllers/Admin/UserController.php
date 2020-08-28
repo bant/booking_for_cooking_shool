@@ -28,6 +28,28 @@ class UserController extends Controller
     /**
      * 
      */
+    public function check()
+    {
+        // 現在の日時
+        $now = Carbon::now();
+        $count = 0;
+        Carbon::useMonthsOverflow(false); // デフォルトはtrue
+
+        $count_datas = array();
+        for ($i = 11; $i >= 0; $i--) {
+            $first_month_day = Carbon::now()->day(1)->subMonths($i)->startOfMonth()->toDateString();
+            $last_month_day = Carbon::now()->day(1)->subMonths($i)->endOfMonth()->toDateString();
+            $add_count = User::whereBetween('created_at', [$first_month_day, $last_month_day])->get()->count();
+            $stop_count = User::onlyTrashed()->whereNotNull('id')->whereBetween('deleted_at', [$first_month_day, $last_month_day])->get()->count();
+            $all_count = User::where('created_at', '<', $last_month_day)->get()->count();
+            array_push($count_datas,['first_month_day'=>$first_month_day, 'add_count' => $add_count, 'stop_count' => $stop_count, 'all_count' => $all_count ]);
+        }
+        return view('admin.user.check')->with(['count_datas'=>$count_datas]);
+    }
+
+    /**
+     * 
+     */
     public function search(Request $request)
     {
         // 指定アイテムを削除

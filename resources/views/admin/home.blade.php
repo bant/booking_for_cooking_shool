@@ -9,32 +9,36 @@
     <section>
     <h1>管理者のダッシュボード</h1>
 
-    <h2>生徒の確認</h2>
-        <h3>生徒の状況(過去1年)</h3>
-        <table class="table table-sm table-striped">
+    <h2>先生からのメッセージ</h2>
+            @if($staff_messages->count())
+            <table class="table table-sm table-striped">
             <thead>
             <tr>
-                <th>年月</th>            
-                <th>新規生徒数</th>
-                <th>停止生徒数</th>
-                <th>総生徒数</th>
+                <th width="120">先生</th>
+                <th >メッセージ</th>
+                <th width="250">表示期限</th>
+                <th width="180">アクション</th>
             </tr>
         </thead>
 
         <tbody>
-        @foreach($count_datas as $count_data)
+        @foreach($staff_messages as $staff_message)
             <tr>
-                <td>{{ date('Y年m月', strtotime($count_data['first_month_day'])) }}</td>
-                <td>{{ $count_data['add_count']}}</td>
-                <td>{{ $count_data['stop_count']}}</td>
-                <td>{{ $count_data['all_count']}}</td>
+                <td>{{$staff_message->staff->name}}</td>
+                <td>{{$staff_message->message}}</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($staff_message->expired_at))}}</td>
+                <td><a class="float-right btn btn-sm btn-warning" href=""> 返信</a> 
+                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.delete_staff_message',$staff_message->id)}}"> <i class="fas fa-trash">メッセージの削除</a></td>                             
             </tr>
         @endforeach
         </tbody>
         </table>
+        @else
+        <div class="text-center alert alert-info">
+            先生からのメッセージはありません。
+        </div>
+        @endif
 
-        <h3>生徒の一覧出力</h3>
-            <a class="btn btn-sm btn-danger" href="{{route('admin.user.export_users')}}"><i class="fas fa-edit"></i> 生徒一覧ダウンロード</a>
     </section>
 </div>
 @endsection

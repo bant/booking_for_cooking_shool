@@ -7,8 +7,8 @@
         メッセージの送信
     </div>  
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
-    <h2>{{Auth::user()->room->name}}の生徒さんへメッセージ送信</h2>
+    <h1>{{Auth::user()->name}}先生のダッシュボード</h1>
+    <h2>{{Auth::user()->room->name}}の生徒さんへメッセージ一括送信</h2>
 
     @if (session('status'))
     <div class="alert alert-success" role="alert">

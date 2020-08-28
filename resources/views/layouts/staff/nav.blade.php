@@ -14,7 +14,8 @@
     </div><!-- .menu -->
     <div class="menu"><a href="#" title="連絡・メッセージ">連絡・メッセージ</a>
         <div class="submenu">
-            <a class="subitem" href="{{ route('staff.message.user_edit') }}" title="教室参加生徒へメッセージ送信">教室参加生徒へメッセージ送信</a>
+            <a class="subitem" href="{{route('staff.message.admin_edit')}}" title="管理者へメッセージ送信">管理者へメッセージ送信</a>
+            <a class="subitem" href="{{route('staff.message.class_user_edit')}}" title="教室参加生徒へ一括メッセージ送信">教室参加生徒へ一括メッセージ送信</a>
         </div><!-- .submenu -->
     </div><!-- .menu -->
 </div><!-- #nav -->

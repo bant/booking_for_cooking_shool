@@ -9,8 +9,8 @@
     </div>  
 
     <section>
-    <h1>先生の月間獲得ポイント確認</h1>
-    <h2>{{date('Y年m月', strtotime($now_first_month_day)) }}の{{$staff->name}}先生のポイント状況
+    <h1>{{$staff->name}}先生の月間獲得ポイント確認</h1>
+    <h2>{{date('Y年m月', strtotime($now_first_month_day)) }}のポイント状況
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.staff_check_show', ['id' => $staff->id, 'date' => $next_first_month_day])}}"> 次月 >></a>
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.staff_check_show', ['id' => $staff->id, 'date' => $previous_first_month_day])}}"> << 前月</a>
     </h2>
@@ -26,7 +26,7 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th>#</th>
+            <th>予約番号</th>
             <th>コース名</th>
             <th>料金</th>
             <th>開催日時</th>
@@ -45,7 +45,7 @@
           <td>{{$class_reservation->course_name}}</td>
           <td>{{ number_format($class_reservation->course_price)}}円</td>
           <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
-        @if (!is_null($class_reservation->deleted_at))
+        @if (is_null($class_reservation->user_deleted_at))
           <td><a href="{{ route('admin.user.info', ['id' => $class_reservation->user_id])}}">{{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
         @else
           <td>{{$class_reservation->user_name}}(停止)</td>
@@ -83,7 +83,7 @@
       <table class="table table-sm table-striped">
       <thead>
         <tr>
-          <th>#</th>
+          <th>予約番号</th>
           <th>コース名</th>
           <th>料金</th>
           <th>開催日時</th>
@@ -102,7 +102,7 @@
                           <td>{{$zoom_reservation->course_name}}</td>
                           <td>{{ number_format($zoom_reservation->course_price)}}円</td>
                           <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
-                        @if (!is_null($zoom_reservation->deleted_at))
+                        @if (is_null($zoom_reservation->user_deleted_at))
                           <td><a href="{{ route('admin.user.info', ['id' => $zoom_reservation->user_id])}}">{{$zoom_reservation->user_name}}({{$zoom_reservation->user_id}})</a></td>
                         @else
                           <td>{{$zoom_reservation->user_name}}(停止)</td>

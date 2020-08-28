@@ -242,7 +242,7 @@ class PointController extends Controller
                                                             'courses.name as course_name',
                                                             'courses.price as course_price',
                                                             'schedules.start as start'  ]);   
-
+   
 
         $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
                                     ->join('staff', 'schedules.staff_id', '=', 'staff.id')
@@ -311,6 +311,8 @@ class PointController extends Controller
                                                             'courses.name as course_name',
                                                             'courses.price as course_price',
                                                             'schedules.start as start'  ]);   
+                                                           
+        
 
 
         $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')

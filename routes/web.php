@@ -106,18 +106,22 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         Route::get('user/{id?}/info', 'UserController@info')->name('user.info');
 
-        Route::post('message/user/classuser_send', 'MessageController@classuser_send')->name('message.class_user_send');
+
         Route::get('message/user', 'MessageController@user_index')->name('message.user_index');
-        Route::get('message/user/edit', 'MessageController@user_edit')->name('message.user_edit');
+
+        Route::get('message/class_user/edit', 'MessageController@class_user_edit')->name('message.class_user_edit');
+        Route::post('message/class_user/send', 'MessageController@classuser_send')->name('message.class_user_send');
+        Route::get('message/admin/edit', 'MessageController@admin_edit')->name('message.admin_edit');
+        Route::post('message/admin/send', 'MessageController@admin_send')->name('message.admin_send');
 
         Route::get('message/user/search', 'MessageController@user_search')->name('message.user_search');
         Route::post('message/user/search', 'MessageController@user_search')->name('message.user_search');
 
         Route::get('message/user/{id?}/send', 'MessageController@user_send')->name('message.user_send');
 
-        Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
-        Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
-        Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
+//        Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
+//        Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
+ //       Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
     });
 });
 
@@ -140,9 +144,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         // Roomページ
         Route::resource('room', 'RoomController', ['only' => 'index']);
 
-//        Route::resource('point', 'PointController');
         Route::get('point', 'PointController@index')->name('point.index');
         Route::get('point/user', 'PointController@user')->name('point.user');
+        Route::post('point/user', 'PointController@user')->name('point.user');
         Route::post('point/reservation_search', 'PointController@reservation_search')->name('point.reservation_search');
 
         Route::get('point/user/{id?}/edit', 'PointController@user_edit')->name('point.user_edit');
@@ -157,6 +161,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('point/staff/{id?}/export_zoom/{date?}', 'PointController@staff_export_zoom')->name('point.staff_export_zoom');
         Route::get('point/export/{date?}', 'PointController@export_point')->name('point.export_point');
 
+        Route::get('user/check', 'UserController@check')->name('user.check');
         Route::get('user/search', 'UserController@search')->name('user.search');
         Route::post('user/search', 'UserController@search')->name('user.search');
 
@@ -183,9 +188,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('staff/restore', 'StaffController@restore')->name('staff.restore');
         Route::post('staff/restore', 'StaffController@restore')->name('staff.restore');
 
-        Route::get('message/staff_search', 'MessageController@staff_show')->name('message.staff_search');
-        Route::post('message/staff_search', 'MessageController@staff_search')->name('message.staff_search');
-        Route::post('message/staff/send/message', 'MessageController@send_to_staff_message')->name('message.send_to_staff_message');
+        Route::get('message/staff/search', 'MessageController@staff_show')->name('message.staff_search');
+        Route::post('message/staff/search', 'MessageController@staff_search')->name('message.staff_search');
+        Route::post('message/staff/send', 'MessageController@send_to_staff_message')->name('message.send_to_staff_message');
+        Route::post('message/staff/send', 'MessageController@send_to_staff_message')->name('message.send_to_staff_message');
+        Route::get('message/staff/{id?}/delete', 'MessageController@delete_staff_message')->name('message.delete_staff_message');
+
         Route::get('message/user_search', 'MessageController@user_show')->name('message.user_search');
         Route::post('message/user_search', 'MessageController@user_search')->name('message.user_search');
         Route::post('message/user/send/message', 'MessageController@send_to_user_message')->name('message.send_to_user_message');

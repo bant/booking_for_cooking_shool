@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
 
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\StaffMessage;
-use App\Models\AdminMessage;
 use App\Models\Reservation;
 
 class MessageController extends Controller
@@ -75,13 +75,16 @@ class MessageController extends Controller
     }
 
     /**
-     * 
+     *  一括メッセージの作成
      */
-    public function user_edit()
+    public function class_user_edit()
     {
-        return view('staff.message.user_edit');
+        return view('staff.message.class_user_edit');
     }
 
+    /**
+     *  一括メッセージの送信
+     */
     public function classuser_send(Request $request)
     {
         $staff = Auth::user();
@@ -101,17 +104,46 @@ class MessageController extends Controller
         foreach($class_reservations as $class_reservation)
         {
             /* メッセージテープルに記録 */
-            $staff_message = new StaffMessage();
-            $staff_message->direction = 'ToUser';
-            $staff_message->staff_id = $staff->id;
-            $staff_message->user_id = $class_reservation->user_id;
-            $staff_message->message = $request->message;
-            $staff_message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
-            $staff_message->save();
+            $message = new StaffMessage();
+            $message->direction = 'to_user';
+            $message->staff_id = $staff->id;
+            $message->user_id = $class_reservation->user_id;
+            $message->message = $request->message;
+            $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
+            $message->save();
         }
         return back()->with('success', $class_reservations->count().'件のメッセージを送信');
-
     }
+
+
+    /**
+     *  管理者へのメッセージの作成
+     */
+    public function admin_edit()
+    {
+        return view('staff.message.admin_edit');
+    }
+
+    /**
+     *  管理者へメッセージの送信
+     */
+    public function admin_send(Request $request)
+    {
+        $staff = Auth::user();
+
+        /* メッセージテープルに記録 */
+        $message = new StaffMessage();
+        $message->direction = 'to_admin';
+        $message->staff_id = $staff->id;
+//        $message->admin_id = Admin::find(1)->id;
+        $message->admin_id = 1;
+        $message->message = $request->message;
+        $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
+        $message->save();
+
+        return back()->with('success', '1件のメッセージを送信');
+    }
+
 
     /**
      * 

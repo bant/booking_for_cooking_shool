@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //use App\Models\Schedule;
 use App\Models\Reservation;
 use App\Models\AdminMessage;
+use App\Models\StaffMessage;
 use Auth;
 use Carbon\Carbon;
 
@@ -72,7 +73,7 @@ class MessageController extends Controller
     {
         /* メッセージテープルに記録 */
         $message = new AdminMessage();
-        $message->direction = 'ToStaff';
+        $message->direction = 'to_staff';
         $message->admin_id =  Auth::user()->id;
         $message->reservation_id = $request->reservation_id;
         $message->staff_id = $request->staff_id;
@@ -83,6 +84,14 @@ class MessageController extends Controller
         return back()->with('success', $request->staff_name.'先生へメッセージを送信');
     }
 
+    /**
+     * 
+     */
+    public function delete_staff_message($id)
+    {
+        StaffMessage::find($id)->delete();
+        return back()->with('success', 'メッセージを削除しました');
+    }
 
     /**
      * 
@@ -133,7 +142,7 @@ class MessageController extends Controller
     {
         /* メッセージテープルに記録 */
         $message = new AdminMessage();
-        $message->direction = 'ToUser';
+        $message->direction = 'to_user';
         $message->admin_id =  Auth::user()->id;
         $message->reservation_id = $request->reservation_id;
         $message->user_id = $request->user_id;

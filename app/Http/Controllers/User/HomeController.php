@@ -43,13 +43,13 @@ class HomeController extends Controller
      
 
             $admin_messages = AdminMessage::where('user_id',$user->id)
-                            ->where('direction','ToUser')
+                            ->where('direction','to_user')
     //                        ->whereNull('user_id')
                             ->where('expired_at','>',Carbon::now())
                             ->get();
     
             $staff_messages = StaffMessage::where('user_id',$user->id)
-                            ->where('direction','ToUser')
+                            ->where('direction','to_user')
     //                        ->whereNull('user_id')
                             ->where('expired_at','>',Carbon::now())
                             ->get();

@@ -34,7 +34,7 @@ class HomeController extends Controller
         $staff = Auth::user();
 
         $admin_messages = AdminMessage::where('staff_id',$staff->id)
-        ->where('direction','ToStaff')
+        ->where('direction','to_staff')
         ->where('expired_at','>',Carbon::now())
         ->get();
 
