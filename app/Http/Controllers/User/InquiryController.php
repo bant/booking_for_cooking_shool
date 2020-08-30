@@ -42,8 +42,6 @@ class InquiryController extends Controller
             $start = new Carbon($schedule->start);
             if ($start > $now)
             {
-//                if ($schedule->capacity > 0) 
-//                {
                     $ev = [ 'id'=>$schedule->id, 
                         'title'     => $title = $schedule->course->name .":残".$schedule->capacity, 
                         'start'     => str_replace(' ', 'T', $schedule->start), 
@@ -56,23 +54,6 @@ class InquiryController extends Controller
                             'schedule_capacity' => $schedule->capacity,
                         ]
                     ];
- //               }
- /*
-                else 
-                {
-                    $ev = [ 'id'=>$schedule->id, 
-                    'title'     => $title = $schedule->course->name .":残".$schedule->capacity, 
-                    'start'     => str_replace(' ', 'T', $schedule->start), 
-                    'end'       => str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'blue', 
-                    'extendedProps' => [
-                        'schedule_id'       => $schedule->id,
-                        'schedule_name'     => $schedule->name,
-                        'schedule_capacity' => $schedule->capacity,
-                    ]
-                ];
-                }
-*/
             }
             else
             {
