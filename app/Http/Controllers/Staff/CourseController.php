@@ -103,6 +103,6 @@ class CourseController extends Controller
     public function destroy($id)
     {
         Course::where('id', $id)->delete();
-        return redirect()->route('staff.course.index')->with('success', '削除完了しました');
+        return redirect()->route('staff.course.index')->with('success', '停止しました');
     }
 }

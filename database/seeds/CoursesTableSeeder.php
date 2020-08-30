@@ -98,7 +98,7 @@ class CoursesTableSeeder extends Seeder
         DB::table('courses')->insert(
             [
                 'staff_id'          => 1,
-                'name'              => '講師養成',
+                'name'              => '講師養成(オンライン)',
                 'price'             => 150000,
             ]
         );
@@ -191,11 +191,11 @@ class CoursesTableSeeder extends Seeder
             ]
         );
 
-                DB::table('courses')->insert(
+        DB::table('courses')->insert(
             [
                 'staff_id'          => 3,
-                'name'              => '美味しいおうち薬膳(リアル教室)',
-                'price'             => 6000,
+                'name'              => 'ナチュラル(リアル教室)',
+                'price'             => 5000,
             ]
         );
 
