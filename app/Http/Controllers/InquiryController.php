@@ -28,7 +28,7 @@ class InquiryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getClassrommSchedule(Request $request, $id)
+    public function getClassroomSchedule(Request $request, $id)
     {
         $data = [];
 

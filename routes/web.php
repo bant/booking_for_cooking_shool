@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 Route::get('classroom/{id?}/calendar', 'HomeController@classroom_calendar')->name('classroom_calendar');
 Route::get('zoom/{id?}/calendar', 'HomeController@zoom_calendar')->name('zoom_calendar');
-Route::get('api/inquiry/{id?}/getClassrommSchedule', 'InquiryController@getClassrommSchedule');
+Route::get('api/inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule');
 Route::get('api/inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule');
 
 // ユーザー
