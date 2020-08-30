@@ -42,8 +42,8 @@ class InquiryController extends Controller
             $start = new Carbon($schedule->start);
             if ($start > $now)
             {
-                if ($schedule->capacity > 0) 
-                {
+//                if ($schedule->capacity > 0) 
+//                {
                     $ev = [ 'id'=>$schedule->id, 
                         'title'     => $title = $schedule->course->name .":残".$schedule->capacity, 
                         'start'     => str_replace(' ', 'T', $schedule->start), 
@@ -56,7 +56,8 @@ class InquiryController extends Controller
                             'schedule_capacity' => $schedule->capacity,
                         ]
                     ];
-                }
+ //               }
+ /*
                 else 
                 {
                     $ev = [ 'id'=>$schedule->id, 
@@ -71,6 +72,7 @@ class InquiryController extends Controller
                     ]
                 ];
                 }
+*/
             }
             else
             {
@@ -130,13 +132,12 @@ class InquiryController extends Controller
                     'start'     => str_replace(' ', 'T', $schedule->start), 
                     'end'       => str_replace(' ', 'T', $schedule->end), 
                     'color'     => 'lightpink', 
-                    'identifier'=> $schedule->identifier
+                    'identifier'=> $schedule->identifier,
                 ];         
             }
             array_push($data,$ev);
         }
 
-//        dd($data);
         return response()->json($data);
     }
 }

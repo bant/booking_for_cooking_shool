@@ -48,6 +48,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::post('classroom/reservation/store', 'ClassRoomReservationController@store')->name('classroom_reservation.store');
         Route::post('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
         Route::delete('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
+        Route::delete('classroom/reservation/{id?}/cancel_destroy', 'ClassRoomReservationController@cancel_destroy')->name('classroom_reservation.cancel_destroy');
 
         // ZOOM予約関係
         Route::get('zoom/reservation', 'ZoomReservationController@index')->name('zoom_reservation.index');
@@ -59,6 +60,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     
         Route::get('inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule')->name('inquiry.get_classroom_schedule');
         Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
+
+        Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
     });
 });
 
@@ -121,7 +124,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
 //        Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
 //        Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
- //       Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
+        Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
     });
 });
 

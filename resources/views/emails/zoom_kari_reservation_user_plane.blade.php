@@ -1,13 +1,12 @@
 {{$data['user_name']}} 様
 
-栗田クッキングサロン {{$data['room_name']}} です。
+栗田クッキングサロン オンライン教室"{{$data['zoom_name']}}" です。
 仮予約を受け付けましたので、ご連絡いたします。
 
 --- 
 
 予約番号: {{$data['reservation_id']}}
-教　　室: {{$data['room_name']}}
-場　　所: {{$data['room_address']}}
+教　　室: {{$data['zoom_name']}}
 講　　師: {{$data['staff_name']}}先生
 コース名: {{$data['course_name']}}
 開催日時: {{$data['start']}}
@@ -81,7 +80,7 @@ https://www.kuritacooking.com/recipe/
 ・タッパー
 ・印刷したレシピ
 
-では、{{$data['start']}} に、材料を用意して、{{$data['room_name']}} でお待ちしております。
+では、{{$data['start']}} に、材料を用意して、{{$data['zoom_name']}} でお待ちしております。
 よろしくお願いいたしします。
 
 ----------------------------------------------

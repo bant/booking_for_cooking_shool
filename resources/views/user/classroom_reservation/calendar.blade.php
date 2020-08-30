@@ -18,7 +18,7 @@
 
                     <div id='calendar'></div>
                     <div style='clear:both'></div>
-
+                    ※残り0のときは、キャンセル待ちになります。
                     <br/>
                     @foreach ($rooms as $room)
                         <a href="{{route('user.classroom_reservation.calendar', ['id' => $room->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$room->name}}</button></a>
@@ -33,9 +33,10 @@
         <table class="table table-sm table-striped">
             <thead>
                 <tr>
-                    <th class="text-center">#</th>
-                    <th>コース名</th>
+                    <th>予約番号</th>
+                    <th>状態</th>
                     <th>教室</th>
+                    <th>コース名</th>
                     <th>先生</th>
                     <th>価格</th>
                     <th>開始時間</th>
@@ -46,13 +47,14 @@
             <tbody>
             @foreach($reservations as $reservation)
                 <tr>
+                <td>{{$reservation->id}}</td>
                 @if ($reservation->is_contract)
                     <td class="text-center text-white bg-success"><strong>確</strong></td>
                 @else
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                 @endif
-                <td>{{$reservation->course_name}}</td>
                 <td>{{$reservation->room_name}}</td>
+                <td>{{$reservation->course_name}}</td>
                 <td>{{$reservation->staff_name}}</td>
                 <td>{{ number_format($reservation->course_price) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
@@ -70,6 +72,42 @@
         </table>
     @else
         <div class="text-center alert alert-info">予約はありません。</div>
+    @endif
+
+    @if($wait_list_reservations->count())
+    <h3> {{ Auth::user()->name }}さんのキャンセル待ち状況</h3>
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>教室</th>
+                    <th>コース名</th>
+                    <th>先生</th>
+                    <th>価格</th>
+                    <th>開始時間</th>
+                    <th class="text-right"> アクション</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach($wait_list_reservations as $wait_list_reservation)
+                <tr>
+                <td>{{$wait_list_reservation->course_name}}</td>
+                <td>{{$wait_list_reservation->room_name}}</td>
+                <td>{{$wait_list_reservation->staff_name}}</td>
+                <td>{{ number_format($wait_list_reservation->course_price) }}円</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($wait_list_reservation->start))}}</td>
+                <td class="text-right">
+                    <form action="{{route('user.classroom_reservation.cancel_destroy',$wait_list_reservation->id)}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('キャンセル待ちを取り消しても良いですか?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                    </form>
+                </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     @endif
     </section>
 </div>
@@ -113,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 list: 'リスト'
             },
         events:'{{route('user.inquiry.get_classroom_schedule',$staff->id)}}',
-//        events:'/user/inquiry/{{ $staff->id }}/getClassroomSchedule',
 
         dayRender: function(info) {
             date.setFullYear(

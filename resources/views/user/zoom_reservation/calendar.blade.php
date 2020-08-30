@@ -17,56 +17,99 @@
                 @endif
                     <div id='calendar'></div>
                     <div style='clear:both'></div>
+
+                    <br/>
+                    @foreach ($zooms as $zoom)
+                        <a href="{{route('user.zoom_reservation.calendar', ['id' => $zoom->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$zoom->name}}</button></a>
+                    @endforeach
+
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
             </div>
         </div>
     </div>
-
-
     <h3> {{ Auth::user()->name }}さんのご予約状況</h3>
     @if($reservations->count())
-                    <table class="table table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>zoom</th>
-                            <th>コース名</th>
-                            <th>先生</th>
-                            <th>価格</th>
-                            <th>開始時間</th>
-                            <th class="text-right">アクション</th>
-                        </tr>
-                    </thead>
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>予約番号</th>
+                    <th>状態</th>
+                    <th>教室</th>
+                    <th>コース名</th>
+                    <th>先生</th>
+                    <th>価格</th>
+                    <th>開始時間</th>
+                    <th class="text-right"> アクション</th>
+                </tr>
+            </thead>
 
-                    <tbody>
-                    @foreach($reservations as $reservation)
-                        <tr>
-                    @if ($reservation->is_contract)
-                        <td class="text-center text-white bg-success"><strong>確</strong></td>
-                    @else
-                        <td class="text-center text-white bg-danger"><strong>仮</strong></td>
-                    @endif
-                        <td>{{$reservation->zoom_name}}</td>
-                        <td>{{$reservation->course_name}}</td>
-                        <td>{{$reservation->staff_name}}</td>
-                        <td>{{ number_format($reservation->course_price) }}円</td>
-                        <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
-                        <td class="text-right">
-                            <form action="{{route('user.zoom_reservation.destroy', ['id' => $reservation->id])}}" method="POST" style="display: inline;"
+            <tbody>
+            @foreach($reservations as $reservation)
+                <tr>
+                <td>{{$reservation->id}}</td>
+                @if ($reservation->is_contract)
+                    <td class="text-center text-white bg-success"><strong>確</strong></td>
+                @else
+                    <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                @endif
+                <td>{{$reservation->room_name}}</td>
+                <td>{{$reservation->course_name}}</td>
+                <td>{{$reservation->staff_name}}</td>
+                <td>{{ number_format($reservation->course_price) }}円</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
+                <td class="text-right">
+                    <form action="{{route('user.classroom_reservation.destroy',$reservation->id)}}" method="POST" style="display: inline;"
                                 onsubmit="return confirm('予約を取り消しても良いですか?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
-                            </form>
-                          </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    </table>
-                    @else
-                        <h3 class="text-center alert alert-info">予約はありません。</h3>
-                    @endif
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                    </form>
+                </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @else
+        <div class="text-center alert alert-info">予約はありません。</div>
+    @endif
+
+    @if($wait_list_reservations->count())
+    <h3> {{ Auth::user()->name }}さんのキャンセル待ち状況</h3>
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>教室</th>
+                    <th>コース名</th>
+                    <th>先生</th>
+                    <th>価格</th>
+                    <th>開始時間</th>
+                    <th class="text-right"> アクション</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach($wait_list_reservations as $wait_list_reservation)
+                <tr>
+                <td>{{$wait_list_reservation->course_name}}</td>
+                <td>{{$wait_list_reservation->room_name}}</td>
+                <td>{{$wait_list_reservation->staff_name}}</td>
+                <td>{{ number_format($wait_list_reservation->course_price) }}円</td>
+                <td>{{ date('Y年m月d日 H時i分', strtotime($wait_list_reservation->start))}}</td>
+                <td class="text-right">
+                    <form action="{{route('user.classroom_reservation.cancel_destroy',$wait_list_reservation->id)}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('キャンセル待ちを取り消しても良いですか?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                    </form>
+                </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @endif
+
  </section>
 </div>
 @endsection

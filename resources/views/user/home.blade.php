@@ -7,66 +7,68 @@
         <div id="main">
 
         <h2>お知らせ</h2>
-        @if($staff_messages->count())
-        <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th class="text-center">#</th>
-                <th>先生名</th>
-                <th>メッセージ</th>
-                <th>表示期限</th>
-            </tr>
-        </thead>
+        @if(!($staff_messages->count()==0 and $admin_messages->count()==0))
+            @if($staff_messages->count())
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>先生名</th>
+                            <th>メッセージ</th>
+                            <th>表示期限</th>
+                            <th>アクション</th>
+                        </tr>
+                    </thead>
 
-        <tbody>
-        @foreach($staff_messages as $staff_message)
-            <tr>
-                <td>{{$staff_message->id}}</td>
-                <td>{{$staff_message->staff->name}}</td>
-                <td>{{$staff_message->message}}</td>
-                <td>{{ date('Y年m月d日 H時i分', strtotime($staff_message->expired_at))}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-        </table>
+                    <tbody>
+                    @foreach($staff_messages as $staff_message)
+                        <tr>
+                            <td>{{$staff_message->id}}</td>
+                            <td>{{$staff_message->staff->name}}</td>
+                            <td>{{$staff_message->message}}</td>
+                            <td>{{ date('Y年m月d日 H時i分', strtotime($staff_message->expired_at))}}</td>
+                            <td><a class="float-right btn btn-sm btn-warning" href="{{ route('user.message.staff_delete', $staff_message->id) }}"> メッセージ削除</a> </td>         
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endif
+
+            @if($admin_messages->count())
+                <h3>管理者からのお知らせ</h3>
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>予約番号</th>
+                            <th>メッセージ</th>
+                            <th>表示期限</th>
+                            <th>アクション</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach($admin_messages as $admin_message)
+                        <tr>
+                            <td>{{$admin_message->reservation_id}}</td>
+                            <td>{{$admin_message->message}}</td>
+                            <td>{{ date('Y年m月d日 H時i分', strtotime($admin_message->expired_at))}}</td>
+                            <td><a class="float-right btn btn-sm btn-warning" href="{{ route('user.message.admin_delete', $admin_message->id) }}"> メッセージ削除</a> </td>         
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endif
         @else
-        <div class="text-center alert alert-info">
-            先生からメッセージはありません。
-        </div>
+        <div class="text-center alert alert-info">メッセージはありません。</div>
         @endif
-
-        <h3>管理者からのお知らせ</h3>
-        @if($admin_messages->count())
-        <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th>予約番号</th>
-                <th>メッセージ</th>
-                <th>表示期限</th>
-            </tr>
-        </thead>
-
-        <tbody>
-        @foreach($admin_messages as $admin_message)
-            <tr>
-                <td>{{$admin_message->reservation_id}}</td>
-                <td>{{$admin_message->message}}</td>
-                <td>{{ date('Y年m月d日 H時i分', strtotime($admin_message->expired_at))}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-        </table>
-        @else
-
-        @endif
-
 
         <h2>教室の予約状況</h2>
         @if($classroom_reservations->count())
         <table class="table table-sm table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
+                <th>予約番号</th>
+                <th>確定</th>
                 <th>コース名</th>
                 <th>教室</th>
                 <th>先生</th>
@@ -78,7 +80,8 @@
         <tbody>
         @foreach($classroom_reservations as $classroom_reservation)
             <tr>
-             @if ($classroom_reservation->is_contract)
+　              <td>{{$classroom_reservation->id}}</td>
+            @if ($classroom_reservation->is_contract)
                 <td class="text-center text-white bg-success"><strong>確</strong></td>
             @else
                 <td class="text-center text-white bg-danger"><strong>仮</strong></td>
@@ -103,7 +106,8 @@
         <table class="table table-sm table-striped">
         <thead>
             <tr>
-                <th class="text-center">#</th>
+                <th>予約番号</th>
+                <th>確定</th>
                 <th>コース名</th>
                 <th>教室</th>
                 <th>先生</th>
@@ -115,6 +119,7 @@
         <tbody>
         @foreach($zoom_reservations as $zoom_reservation)
             <tr>
+                <td>{{$zoom_reservation->id}}</td>
             @if ($zoom_reservation->is_contract)
                 <td class="text-center text-white bg-success"><strong>確</strong></td>
             @else

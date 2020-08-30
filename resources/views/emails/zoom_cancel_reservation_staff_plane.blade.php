@@ -1,11 +1,11 @@
 {{$data['staff_name']}} 先生
 
-{{$data['user_name']}} 様から {{$data['course_name']}} ({{$data['start']}})のキャンセル待ちがありました。
+{{$data['user_name']}} 様から オンライン教室"{{$data['course_name']}} ({{$data['start']}})"のキャンセル待ちがありました。
 
 --- 
 
 待ち番号: {{$data['cancel_rank']}}
-教　　室: {{$data['room_name']}}
+教　　室: {{$data['zoom_name']}}
 コース名: {{$data['course_name']}}
 開催日時: {{$data['start']}}
 料　　金: {{$data['price']}}

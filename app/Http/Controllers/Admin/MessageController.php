@@ -72,7 +72,7 @@ class MessageController extends Controller
     public function send_to_staff_message(Request $request)
     {
         /* メッセージテープルに記録 */
-        $message = new AdminMessage();
+        $message = new AdminMessage;
         $message->direction = 'to_staff';
         $message->admin_id =  Auth::user()->id;
         $message->reservation_id = $request->reservation_id;
@@ -141,7 +141,7 @@ class MessageController extends Controller
     public function send_to_user_message(Request $request)
     {
         /* メッセージテープルに記録 */
-        $message = new AdminMessage();
+        $message = new AdminMessage;
         $message->direction = 'to_user';
         $message->admin_id =  Auth::user()->id;
         $message->reservation_id = $request->reservation_id;

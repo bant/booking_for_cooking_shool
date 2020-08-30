@@ -54,7 +54,7 @@ class ClassRoomReservationUserEmail extends Mailable
                     ->with(['data' => $this->data]);
 
             case 'cancel_machi':      /* キャンセル待ち */
-                        return $this->text('emails.class_room_cancel_reservation_user_plane')
+                return $this->text('emails.class_room_cancel_reservation_user_plane')
         //                    ->view('emails.class_room_cancel_reservation_user')
                             ->subject($this->title)
                             ->with(['data' => $this->data]);

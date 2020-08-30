@@ -8,10 +8,9 @@ use App\Models\Schedule;
 use App\Models\Course;
 use App\Models\Zoom;
 use Auth;
-
 use Carbon\Carbon;
-
 use App\Http\Requests\StoreSchedule;
+use Session;
 
 class ZoomScheduleController extends Controller
 {
@@ -32,6 +31,8 @@ class ZoomScheduleController extends Controller
      */
     public function index()
     {
+        Session::forget('status');
+        Session::forget('success');
         return redirect()->route('staff.schedule.index');
     }
 
@@ -70,7 +71,7 @@ class ZoomScheduleController extends Controller
 
         $schedule->save();
 
-        return redirect()->route('staff.schedule.index')->with('status', 'ZOOMスケジュールを登録しました');
+        return redirect()->route('staff.schedule.index')->with('status', 'オンライン教室のスケジュールを登録しました');
     }
 
     /**

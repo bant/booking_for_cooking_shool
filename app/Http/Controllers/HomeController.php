@@ -41,9 +41,8 @@ class HomeController extends Controller
     */
     public function classroom_calendar($id)
     {
-
-            $staff = Staff::find($id);
+        $staff = Staff::find($id);
    
-            return view('home.staff_calendar')->with(["staff" => $staff]);
+        return view('home.staff_calendar')->with(["staff" => $staff]);
     }
 }

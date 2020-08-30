@@ -10,6 +10,7 @@ use App\Models\Room;
 use App\Models\AdminMessage;
 use App\Models\StaffMessage;
 use Auth;
+use Session;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -31,6 +32,8 @@ class HomeController extends Controller
     */
     public function index()
     {
+        Session::forget('status');
+        Session::forget('success');
         $user = Auth::user();
 
         if (!$user->checkProfile())

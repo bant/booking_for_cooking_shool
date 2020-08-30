@@ -11,6 +11,7 @@ use App\Models\Zoom;
 use Auth;
 use Carbon\Carbon;
 use App\Models\AdminMessage;
+use Session;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,8 @@ class HomeController extends Controller
     */
     public function index()
     {
+        Session::forget('status');
+        Session::forget('success');
         $staff = Auth::user();
 
         $admin_messages = AdminMessage::where('staff_id',$staff->id)
