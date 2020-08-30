@@ -64,7 +64,7 @@ class ClassRoomScheduleController extends Controller
         $schedule->capacity = $request->capacity;
         $schedule->start = str_replace('T', ' ', $request->start);
         $dt = new Carbon($schedule->start);
-        $schedule->end = $dt->addHours(1)->toDateTimeString();
+        $schedule->end = $dt->addMinutes(150)->toDateTimeString();  // 二時間半
         $schedule->is_zoom = $request->is_zoom;
         $schedule->zoom_invitation = $request->zoom_invitation;
 
