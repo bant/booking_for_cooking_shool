@@ -18,6 +18,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
+
     <title>管理者のダッシュボード</title>
 
     <!-- Scripts -->
@@ -65,9 +67,6 @@
           <article>
             @yield('content')
           </article>
-          <aside>
-            @include('layouts.admin.aside')
-          </aside>
         </div><!-- #container -->
   
         <footer>

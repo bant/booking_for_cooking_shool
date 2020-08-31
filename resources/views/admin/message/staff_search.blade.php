@@ -9,6 +9,10 @@
 
     <section>
     <h1>振込通知</h1>
+
+
+
+    
     <h2>予約番号による検索</h2>
     <form action="{{ route('admin.message.staff_search') }}" method="POST">
         @csrf

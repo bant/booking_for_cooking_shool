@@ -21,6 +21,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -66,9 +68,6 @@
           <article>
             @yield('content')
           </article>
-          <aside>
-            @include('layouts.user.aside')
-          </aside>
         </div><!-- #container -->
   
         <footer>
