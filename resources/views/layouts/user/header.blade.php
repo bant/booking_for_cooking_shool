@@ -1,6 +1,6 @@
 <div id="header">
     <section>
-        <h1><a href="{{route('user.home.index')}}" title="生徒ホームへ戻る">生徒ホーム</a></h1>
+        <h1><a href="{{route('user.home.index')}}" title="マイページへ戻る">マイページ</a></h1>
         <div id="a-tel">
             <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->

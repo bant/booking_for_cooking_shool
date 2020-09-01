@@ -253,6 +253,7 @@ class ReservationController extends Controller
             'reservation_id'    => $reservation->id,
             'course_name'       => $reservation->course_name,
             'user_name'         => $reservation->user_name,
+            'user_id'           => $reservation->user_id,
             'user_email'        => $reservation->user_email,
             'user_address'      => "〒" . $reservation->user_zip_code . " ". $reservation->user_pref . $reservation->user_address,
             'user_tel'          => $reservation->user_tel,

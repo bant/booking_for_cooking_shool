@@ -29,13 +29,11 @@ class Reservation extends Model
 
     Public function user()
     {
-//        return $this->hasOne('App\Models\User','id','user_id');
         return $this->belongsTo('App\Models\User','user_id','id');
     }
 
     Public function schedule()
     {
-  //      return $this->hasMany('App\Models\Schedule','id','schedule_id');
-        return $this->belongsTo('App\Models\Staff','staff_id','id');
+        return $this->belongsTo('App\Models\Schedule','schedule_id','id');
     }
 }

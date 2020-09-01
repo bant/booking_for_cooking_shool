@@ -311,10 +311,7 @@ class PointController extends Controller
                                                             'courses.name as course_name',
                                                             'courses.price as course_price',
                                                             'schedules.start as start'  ]);   
-                                                           
-        
-
-
+         
         $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
                                     ->join('staff', 'schedules.staff_id', '=', 'staff.id')
                                     ->join('users', 'reservations.user_id', '=', 'users.id')
@@ -451,8 +448,6 @@ class PointController extends Controller
         return \Excel::download(new Export($view), $export_name);
     }
 
-
-
     /**
      * 
      */
@@ -577,8 +572,4 @@ class PointController extends Controller
         $export_name = date('Y-m', strtotime($date)) ."_ポイントの追加状況.xlsx";
         return \Excel::download(new Export($view), $export_name);
     }
-
-
-
-
 }

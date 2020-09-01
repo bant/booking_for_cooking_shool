@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Http\Requests\StoreUserProfile;
 use Auth;
 use Carbon\Carbon;
-
+use App\Models\Room;
+use App\Models\Zoom;
 
 class ProfileController extends Controller
 {
@@ -28,12 +29,17 @@ class ProfileController extends Controller
     public function showForm()
     {
         $user = Auth::user();
+        $rooms = Room::all();
+        $zooms = Zoom::all();
+
         $birthday = new Carbon($user->birthday);
         return view('user.profile.edit')->with([
             'birthday_year'  => $birthday->year,
             'birthday_month' => $birthday->month,
             'birthday_day'   => $birthday->day,
-            'user'  => $user 
+            'user'           => $user,
+            'rooms'         => $rooms,
+            'zooms'         => $zooms
         ]);
     }
 
@@ -59,6 +65,4 @@ class ProfileController extends Controller
         User::where('id', $id)->update($update);
         return back()->with('success', 'プロフィールを更新しました');
     }
-
-
 }

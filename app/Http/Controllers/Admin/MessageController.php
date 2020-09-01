@@ -26,24 +26,42 @@ class MessageController extends Controller
     /**
      * 
      */
-    public function staff_show()
+    public function reservation_id_list()
     {
-        /* ユーザ検索一覧ビュー表示 */
-        return view('admin.message.staff_search')->with(["reservation" => null]);
+        $reservations = Reservation::where('is_contract',false)->orderBy('created_at', 'desc')->get();
+        return view('admin.message.reservation_id_list')->with(["reservations" => $reservations]);
     }
 
     /**
-     * (Request $request)
+     * 
      */
-    public function staff_search(Request $request)
+    public function reservation_id_search(Request $request)
     {
-        $reservation = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-        ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-        ->join('users', 'reservations.user_id', '=', 'users.id')
-        ->join('courses', 'schedules.course_id', '=', 'courses.id')
-        ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
-        ->where('reservations.id','=',$request->reservation_id)
-        ->get( [
+        if (!is_null($request->reservation_id))
+        {
+            $reservations = Reservation::where('id',$request->reservation_id)->where('is_contract',false)->orderBy('created_at', 'desc')->get();
+        }
+        else
+        {
+            $reservations = Reservation::where('is_contract',false)->orderBy('created_at', 'desc')->get();
+        }
+        return view('admin.message.reservation_id_list')->with(["reservations" => $reservations]);
+    }
+
+
+    /**
+     * 
+     */
+    public function reservation_user_list()
+    {
+        $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+            ->join('users', 'reservations.user_id', '=', 'users.id')
+            ->join('courses', 'schedules.course_id', '=', 'courses.id')
+            ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+            ->where('reservations.is_contract','=',false)
+            ->orderBy('reservations.created_at', 'desc')
+            ->get( [
                 'reservations.id as id',
                 'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
@@ -58,15 +76,75 @@ class MessageController extends Controller
                 'courses.price as course_price',
                 'schedules.is_zoom as is_zoom',
                 'schedules.start as start'
-            ])->first();
+            ]);
 
-        /* ユーザ検索一覧ビュー表示 */
-        return view('admin.message.staff_search')->with(["reservation" => $reservation]);
+        return view('admin.message.reservation_user_list')->with(["reservations" => $reservations]);
     }
 
+    /**
+     * 
+     */
+    public function reservation_user_search(Request $request)
+    {
+        $sql = $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
+            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+            ->join('users', 'reservations.user_id', '=', 'users.id')
+            ->join('courses', 'schedules.course_id', '=', 'courses.id')
+            ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+            ->where('reservations.is_contract','=',false);
 
+        if (!is_null($request->name))
+        {
+            $sql = $sql->where('users.name', 'like', "%$request->name%");
+        }
+        else if (!is_null($request->kana))
+        {
+            $sql = $sql->where('users.kana', 'like', "%$request->kana%");
+        }
 
-     /**
+        $reservations = $sql
+            ->orderBy('reservations.created_at', 'desc')
+            ->get( [
+                'reservations.id as id',
+                'reservations.is_contract as is_contract',
+                'reservations.is_pointpay as is_pointpay',
+                'users.id as user_id',
+                'users.name as user_name',
+                'users.pref as user_pref',
+                'users.address as user_address',
+                'rooms.name as room_name',
+                'courses.name as course_name',
+                'staff.id as staff_id',
+                'staff.name as staff_name',
+                'courses.price as course_price',
+                'schedules.is_zoom as is_zoom',
+                'schedules.start as start'
+        ]);
+
+        return view('admin.message.reservation_user_list')->with(["reservations" => $reservations]);
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function edit_to_user_message($id)
+    {
+        $reservation = Reservation::find($id);
+        return view('admin.message.edit_to_user_message')->with(["reservation" => $reservation]);
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function edit_to_staff_message($id)
+    {
+        $reservation = Reservation::find($id);
+        return view('admin.message.edit_to_staff_message')->with(["reservation" => $reservation]);
+    }
+
+    /**
      * (Request $request)
      */
     public function send_to_staff_message(Request $request)
@@ -81,7 +159,7 @@ class MessageController extends Controller
         $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
         $message->save();
 
-        return back()->with('success', $request->staff_name.'先生へメッセージを送信');
+        return back()->with('success', $request->staff_name.'先生へメッセージを送信しました');
     }
 
     /**
@@ -92,48 +170,6 @@ class MessageController extends Controller
         StaffMessage::find($id)->delete();
         return back()->with('success', 'メッセージを削除しました');
     }
-
-    /**
-     * 
-     */
-    public function user_show()
-    {
-        /* ユーザ検索一覧ビュー表示 */
-        return view('admin.message.user_search')->with(["reservation" => null]);
-    }
-
-    /**
-     * (Request $request)
-     */
-    public function user_search(Request $request)
-    {
-        $reservation = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-        ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-        ->join('users', 'reservations.user_id', '=', 'users.id')
-        ->join('courses', 'schedules.course_id', '=', 'courses.id')
-        ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
-        ->where('reservations.id','=',$request->reservation_id)
-        ->get( [
-                'reservations.id as id',
-                'reservations.is_contract as is_contract',
-                'reservations.is_pointpay as is_pointpay',
-                'users.id as user_id',
-                'users.name as user_name',
-                'users.pref as user_pref',
-                'users.address as user_address',
-                'rooms.name as room_name',
-                'courses.name as course_name',
-                'staff.id as staff_id',
-                'staff.name as staff_name',
-                'courses.price as course_price',
-                'schedules.is_zoom as is_zoom',
-                'schedules.start as start'
-            ])->first();
-
-        /* ユーザ検索一覧ビュー表示 */
-        return view('admin.message.user_search')->with(["reservation" => $reservation]);
-    }
-
 
     /**
      * (Request $request)
@@ -150,6 +186,6 @@ class MessageController extends Controller
         $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
         $message->save();
 
-        return back()->with('success', $request->staff_name.'先生へメッセージを送信');
+        return back()->with('success', $request->user_name.'さんへメッセージを送信しました');
     }
 }

@@ -41,7 +41,6 @@ class Staff extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     /**
      * ユーザーに関連する教室レコードを取得
      */
@@ -60,6 +59,13 @@ class Staff extends Authenticatable
        return $this->hasOne('App\Models\Zoom','staff_id', 'id');
     }
 
+    /**
+     * ユーザーに関連する教室レコードを取得
+     */
+    public function courses()
+    {
+       return $this->hasMany('App\Models\Course','staff_id', 'id');
+    }
 
     /**
      * Override to send for password reset notification.

@@ -4,106 +4,72 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        生徒のポイント管理(生徒の検索)
-    </div>  
-
+        振込通知
+    </div>      
     <section>
-    <h1>振込通知</h1>
-
-
-
-    
-    <h2>予約番号による検索</h2>
+    <h1>管理者のダッシュボード</h1>
+    <h2>振込通知</h2>
+    <h3>生徒の検索</h3>
     <form action="{{ route('admin.message.staff_search') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="reservation_id-field">予約番号</label>
-            <input class="form-control" type="text" name="reservation_id" id="reservation_id-field" value="{{old('reservation_id')}}" />
+            <label for="user_id-field">生徒IDで検索</label>
+            <input class="form-control" type="text" name="user_id" id="user_id-field" value="{{old('user_id')}}" />
         </div>
-        <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>検索</button>
-        </div>
-    </form>
-    <br/>
-
-    <h2>検索結果</h2>
-    @if(!is_null($reservation))
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i>予約の詳細</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{--成功時のメッセージ--}}
-                    @if (session('success'))
-                      <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    {{-- エラーメッセージ --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        </div>
-                    @endif
-
-                    {{-- 予約の詳細 --}}
-                    <dl class="row">
-                        <dt class="col-md-4">予約番号</dt>
-                        <dd class="col-md-8">{{ $reservation->id }}</dd>
-                        @if (!$reservation->is_zoom)
-                            <dt class="col-md-4">教室名</dt>
-                            <dd class="col-md-8">{{ $reservation->room_name }}</dd>
-                        @else
-                            <dt class="col-md-4">教室名</dt>
-                            <dd class="col-md-8">オンライン教室</dd>
-                        @endif
-                        <dt class="col-md-4">コース名</dt>
-                        <dd class="col-md-8">{{ $reservation->course_name }}</dd>
-                        <dt class="col-md-4">開催日時</dt>
-                        <dd class="col-md-8">{{ $reservation->start }}</dd>
-                        <dt class="col-md-4">担当先生</dt>
-                        <dd class="col-md-8">{{ $reservation->staff_name }}(ID:{{ $reservation->staff_id }})</dd>
-                        <dt class="col-md-4">生徒</dt>
-                        <dd class="col-md-8">{{ $reservation->user_name }}(ID:{{ $reservation->user_id }})</dd>
-                        <dt class="col-md-4">住所</dt>
-                        <dd class="col-md-8">{{ $reservation->user_pref }}{{ $reservation->user_address }}</dd>
-
-                     </dl>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <br/>
-    <h2>先生に通知</h2>
-    <form action="{{ route('admin.message.send_to_staff_message') }}" method="POST">
-        @csrf
-        <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
-        <input type="hidden" name="staff_id" value="{{$reservation->staff_id}}">
-        <input type="hidden" name="staff_name" value="{{$reservation->staff_name}}">
         <div class="form-group">
-            <label for="message-field">メッセージ</label>
-            <textarea name="message" id="message-field" class="form-control" rows="3">予約番号:{{$reservation->id}} 生徒:{{ $reservation->user_name }}(ID:{{ $reservation->user_id }}) に関するお知らせ</textarea>
+            <label for="name-field">生徒名(一部でも可)で検索</label>
+            <input class="form-control" type="text" name="name" id="name-field" value="{{old('name')}}" />
         </div>
+        <div class="form-group">
+            <label for="address-field">住所(一部でも可)で検索</label>
+            <textarea name="address" id="address-field" class="form-control" rows="3">{{old('address')}}</textarea>
+        </div>
+
         <div class="well well-sm">
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>検索</button>
         </div>
     </form>
 
-    @else
-        <div class="text-center alert alert-info">該当する予約はありません。</div>
-    @endif
-
     <br/>
-    </section>
+    <h3>検索結果</h3>
+    @if(!is_null($users))
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>生徒名</th>
+                <th>Email</th>
+                <th>住所</th>
+                <th>現ポイント</th>
+                <th>参加回数</th>
+                <th class="text-right">アクション</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach($users as $user)
+            <tr>
+                <td class="text-center"><strong>{{$user->id}}</strong></td>
+                <td><a href="{{route('admin.user.info',$user->id)}}">{{$user->name}}</a></td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->prof}}{{$user->address}}</td>
+                <td>{{number_format($user->point)}}pt</td>
+                <td>{{number_format($user->reservations()->count())}}回</td>
+                <td class="text-right">
+                    <form action="{{route('admin.user.destroy', ['id'=>$user->id])}}" method="POST" style="display: inline;"
+                                 onsubmit="return confirm('{{$user->name}}さんを停止しても良いですか!?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>生徒の停止</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    @else
+        <div class="text-center alert alert-info">該当する生徒はいません。</div>
+    @endif
+</section>
 </div>
 @endsection

@@ -13,8 +13,8 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert(
             [
-                'name'              => '神戸太郎',
-                'kana'              => 'こうべたろう',
+                'name'              => '神戸　太郎',
+                'kana'              => 'コウベ　タロウ',
                 'email'             => 'user1@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
@@ -30,8 +30,8 @@ class UsersTableSeeder extends Seeder
         );
         DB::table('users')->insert(
             [
-                'name'              => '神戸花子',
-                'kana'              => 'こうべはなこ',
+                'name'              => '神戸　花子',
+                'kana'              => 'コウベ　ハナコ',
                 'email'             => 'user2@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
@@ -47,8 +47,8 @@ class UsersTableSeeder extends Seeder
         );
         DB::table('users')->insert(
             [
-                'name'              => '大阪太郎',
-                'kana'              => 'おおさかたろう',
+                'name'              => '大阪　太郎',
+                'kana'              => 'オオサカ　タロウ',
                 'email'             => 'user3@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),
@@ -64,8 +64,8 @@ class UsersTableSeeder extends Seeder
         );
         DB::table('users')->insert(
             [
-                'name'              => '大阪花子',
-                'kana'              => 'おおさかはなこ',
+                'name'              => '大阪　花子',
+                'kana'              => 'オオサカ　ハナコ',
                 'email'             => 'user4@cooking.sumomo.ne.jp',
                 'password'          => Hash::make('pass0123456789'),
                 'remember_token'    => Str::random(10),

@@ -191,15 +191,23 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('staff/restore', 'StaffController@restore')->name('staff.restore');
         Route::post('staff/restore', 'StaffController@restore')->name('staff.restore');
 
-        Route::get('message/staff/search', 'MessageController@staff_show')->name('message.staff_search');
-        Route::post('message/staff/search', 'MessageController@staff_search')->name('message.staff_search');
-        Route::post('message/staff/send', 'MessageController@send_to_staff_message')->name('message.send_to_staff_message');
+//        Route::get('message/staff/yoyaku/search', 'MessageController@staff_yoyaku_show')->name('message.staff_yoyaku_search');
+//        Route::post('message/staff/yoyaku/search', 'MessageController@staff_yoyaku_search')->name('message.staff_yoyaku_search');
+
+    
         Route::post('message/staff/send', 'MessageController@send_to_staff_message')->name('message.send_to_staff_message');
         Route::get('message/staff/{id?}/delete', 'MessageController@delete_staff_message')->name('message.delete_staff_message');
 
-        Route::get('message/user_search', 'MessageController@user_show')->name('message.user_search');
-        Route::post('message/user_search', 'MessageController@user_search')->name('message.user_search');
         Route::post('message/user/send/message', 'MessageController@send_to_user_message')->name('message.send_to_user_message');
 
+        Route::get('message/reservation/id_list', 'MessageController@reservation_id_list')->name('message.reservation_id_list');
+        Route::post('message/reservation/id_search', 'MessageController@reservation_id_search')->name('message.reservation_id_search');
+        Route::get('message/reservation/user_list', 'MessageController@reservation_user_list')->name('message.reservation_user_list');
+        Route::post('message/reservation/user_search', 'MessageController@reservation_user_search')->name('message.reservation_user_search');
+
+
+        Route::get('message/user/edit/{id?}', 'MessageController@edit_to_user_message')->name('message.edit_to_user_message');
+        Route::get('message/staff/edit/{id?}', 'MessageController@edit_to_staff_message')->name('message.edit_to_staff_message');
+        Route::get('message/staff/{id?}/edit/{reservation_id?}', 'MessageController@edit_to_staff_message')->name('message.edit_to_staff_message');
     });
 });

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\WaitListReservation;
 use App\Models\Schedule;
-use App\Models\Zoom;
 use App\Models\Course;
 use App\Models\Admin;
 use App\Models\Staff;
@@ -41,6 +40,7 @@ class ZoomReservationController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         if (!$user->checkProfile())
         {
             return view('user.profile_error');
@@ -118,7 +118,9 @@ class ZoomReservationController extends Controller
             $mail_classification = "cancel_machi";
             $mail_title = "【".$schedule->staff->zoom->name."】". $schedule->course->name ."(". date('Y年m月d日 H時i分', strtotime($schedule->start)) . ")のキャンセル待ち予約を受け付けました。";
             $mail_data = [
+                'user_id'           => $user->id,
                 'user_name'         => $user->name,
+                'user_kana'         => $user->kana,
                 'user_email'        => $user->email,
                 'user_address'      => "〒" . $user->zip_code . " ". $user->pref . $user->address,
                 'user_tel'          => $user->tel,
@@ -183,7 +185,9 @@ class ZoomReservationController extends Controller
                 $mail_data = [
                     'reservation_id'    => $reservation->id,
                     'course_name'       => $schedule->course->name,
+                    'user_id'           => $user->id,
                     'user_name'         => $user->name,
+                    'user_kana'         => $user->kana,
                     'user_email'        => $user->email,
                     'user_address'      => "〒" . $user->zip_code . " ". $user->pref . $user->address,
                     'user_tel'          => $user->tel,
@@ -202,7 +206,9 @@ class ZoomReservationController extends Controller
                 $mail_data = [
                     'reservation_id'    => $reservation->id,
                     'course_name'       => $schedule->course->name,
+                    'user_id'           => $user->id,
                     'user_name'         => $user->name,
+                    'user_kana'         => $user->kana,
                     'user_email'        => $user->email,
                     'user_address'      => "〒" . $user->zip_code . " ". $user->pref . $user->address,
                     'user_tel'          => $user->tel,
@@ -252,8 +258,10 @@ class ZoomReservationController extends Controller
             $mail_title = "【予約キャンセル】".$schedule->staff->zoom->name."の予約のキャンセルを受付ました";
             $mail_data = [
                 'action'            => "--- ". $schedule->staff->zoom->name."の予約のキャンセルを受付ました ---",
+                'user_id'           => $user->id,
                 'user_name'         => $user->name,
-                'user_email'         => $user->email,
+                'user_kana'         => $user->kana,
+                'user_email'        => $user->email,
                 'reservation_id'    => $reservation->id,
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
@@ -267,7 +275,9 @@ class ZoomReservationController extends Controller
             $mail_title = "【仮予約キャンセル】".$schedule->staff->zoom->name."の仮予約のキャンセルを受付ました";
             $mail_data = [
                 'action'            => "--- ". $schedule->staff->zoom->name."の仮予約のキャンセルを受付ました ---",
+                'user_id'           => $user->id,
                 'user_name'         => $user->name,
+                'user_kana'         => $user->kana,
                 'user_email'        => $user->email,
                 'reservation_id'    => $reservation->id,
                 'course_name'       => $schedule->course->name,
@@ -345,7 +355,9 @@ class ZoomReservationController extends Controller
                 $mail_data = [
                     'reservation_id'    => $reservation->id,
                     'course_name'       => $schedule->course->name,
+                    'user_id'           => $wait_list_reservation->user->id,
                     'user_name'         => $wait_list_reservation->user->name,
+                    'user_kana'         => $wait_list_reservation->user->kana,
                     'user_email'        => $wait_list_reservation->user->email,
                     'user_address'      => "〒" . $wait_list_reservation->user->zip_code . " ". $wait_list_reservation->user->pref . $wait_list_reservation->user->address,
                     'user_tel'          => $wait_list_reservation->user->tel,
@@ -363,7 +375,9 @@ class ZoomReservationController extends Controller
                 $mail_data = [
                     'reservation_id'    => $reservation->id,
                     'course_name'       => $schedule->course->name,
+                    'user_id'           => $wait_list_reservation->user->id,
                     'user_name'         => $wait_list_reservation->user->name,
+                    'user_kana'         => $wait_list_reservation->user->kana,
                     'user_email'        => $wait_list_reservation->user->email,
                     'user_address'      => "〒" . $wait_list_reservation->user->zip_code . " ". $wait_list_reservation->user->pref . $wait_list_reservation->user->address,
                     'user_tel'          => $wait_list_reservation->user->tel,
@@ -423,7 +437,9 @@ class ZoomReservationController extends Controller
         $mail_title = "【".$schedule->staff->zoom->name."】".$schedule->course->name."(". date('Y年m月d日 H時i分', strtotime($schedule->start)).")のキャンセル待ちのキャンセルを受付ました";
         $mail_data = [
                 'action'            => "--- ". $schedule->staff->zoom->name."のキャンセル待ちのキャンセルを受付ました ---",
+                'user_id'           => $user->id,
                 'user_name'         => $user->name,
+                'user_kana'         => $user->kana,
                 'user_email'        => $user->email,
                 'reservation_id'    => $wait_list_reservation->id,
                 'course_name'       => $schedule->course->name,
@@ -454,7 +470,6 @@ class ZoomReservationController extends Controller
 
         /*先生情報を取り出す */
         $staff = Staff::find($id);
-        $zooms = Zoom::all();
         $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
             ->join('courses', 'schedules.course_id', '=', 'courses.id')
@@ -492,7 +507,6 @@ class ZoomReservationController extends Controller
    
         return view('user.zoom_reservation.calendar')->with(
             [
-                'zooms' => $zooms,
                 'staff' => $staff, 
                 'reservations'=> $reservations,
                 'wait_list_reservations' => $wait_list_reservations

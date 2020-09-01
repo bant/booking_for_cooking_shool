@@ -40,7 +40,7 @@
                             <input class="form-control" type="text" name="name" id="name-field"  value="{{$user->name}}" />
                         </div>
                         <div class="form-group">
-                            <label for="name-field">読み方</label>
+                            <label for="name-field">読み方(カタカナ)</label>
                             <input class="form-control" type="text" name="kana" id="kana-field"  value="{{$user->kana}}" />
                         </div>
 

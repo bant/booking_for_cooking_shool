@@ -19,16 +19,12 @@
                     <div id='calendar'></div>
                     <div style='clear:both'></div>
                     ※残り0のときは、キャンセル待ちになります。
-                    <br/>
-                    @foreach ($rooms as $room)
-                        <a href="{{route('user.classroom_reservation.calendar', ['id' => $room->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$room->name}}</button></a>
-                    @endforeach
                 </div>
             </div><!-- end card -->
         </div>
     </div>
 
-    <h3> {{ Auth::user()->name }}さんのご予約状況</h3>
+    <h3> {{ Auth::user()->name }}さんの教室のご予約状況</h3>
     @if($reservations->count())
         <table class="table table-sm table-striped">
             <thead>

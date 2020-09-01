@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Models\Room;
+use App\Models\Zoom;
 use App\Models\AdminMessage;
 use App\Models\StaffMessage;
 use Auth;
@@ -35,16 +36,19 @@ class HomeController extends Controller
         Session::forget('status');
         Session::forget('success');
         $user = Auth::user();
+        $rooms = Room::all();
+        $zooms = Zoom::all();
 
         if (!$user->checkProfile())
         {
-            return view('user.profile_error');
+            return view('user.profile_error')->with([
+                'rooms'                     => $rooms,
+                'zooms'                     => $zooms
+            ]);
         }
         else
         {
-            $rooms = Room::all();
-     
-
+   
             $admin_messages = AdminMessage::where('user_id',$user->id)
                             ->where('direction','to_user')
     //                        ->whereNull('user_id')
@@ -100,6 +104,7 @@ class HomeController extends Controller
                         'admin_messages'            => $admin_messages,
                         'staff_messages'            => $staff_messages,
                         'rooms'                     => $rooms,
+                        'zooms'                     => $zooms,
                         'classroom_reservations'    => $classroom_reservations, 
                         'zoom_reservations'         => $zoom_reservations 
                     ]);

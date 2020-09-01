@@ -221,7 +221,7 @@ class UserController extends Controller
 
         $user = User::where('id', $id)->first();
         $payment_descriptions = PaymentDescription::all();
-        $payments = Payment::where('user_id',$id)->orderBy('created_at', 'asc')->take(20)->get();
+        $payments = Payment::where('user_id',$id)->orderBy('created_at', 'desc')->take(20)->get();
         return view('admin.point.user_edit')
                     ->with(["user" => $user, 
                             'payments' => $payments,

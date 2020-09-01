@@ -17,18 +17,13 @@
                 @endif
                     <div id='calendar'></div>
                     <div style='clear:both'></div>
-
-                    <br/>
-                    @foreach ($zooms as $zoom)
-                        <a href="{{route('user.zoom_reservation.calendar', ['id' => $zoom->staff_id])}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-calendar"></i> {{$zoom->name}}</button></a>
-                    @endforeach
-
+                    ※残り0のときは、キャンセル待ちになります。
                 </div>
                 <!-- 先生のカレンダ用スロット終わり -->
             </div>
         </div>
     </div>
-    <h3> {{ Auth::user()->name }}さんのご予約状況</h3>
+    <h3> {{ Auth::user()->name }}さんのオンライン教室のご予約状況</h3>
     @if($reservations->count())
         <table class="table table-sm table-striped">
             <thead>
