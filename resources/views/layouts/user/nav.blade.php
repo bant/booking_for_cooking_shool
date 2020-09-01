@@ -7,7 +7,7 @@
         @endforeach
         </div><!-- .submenu -->
     </div>
-    <div class="menu"><a href="{{ route('user.zoom_reservation.index') }}" title="オンライン教室予約">オンライン教室予約</a>
+    <div class="menu"><a href="#" title="オンライン教室予約">オンライン教室予約</a>
         <div class="submenu">
         @php ($zoom_nav_list = \App\Models\Zoom::all())
         @foreach($zoom_nav_list as $zoom_nav)

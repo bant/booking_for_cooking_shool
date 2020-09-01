@@ -11,6 +11,7 @@ use App\Models\Course;
 use App\Models\Admin;
 use App\Models\Staff;
 use App\Models\User;
+use App\Models\Zoom;
 use App\Models\AdminMessage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ZoomReservationUserEmail;
