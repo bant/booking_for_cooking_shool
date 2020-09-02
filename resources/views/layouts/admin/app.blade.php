@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="format-detection" content="telephone=yes">
     <meta name="description" content="住吉教室(栗田クッキングサロン)予約">
- 	  <link rel="alternate" hreflang="ja">
+    <title>管理者のダッシュボード</title>
+	  <link rel="alternate" hreflang="ja">
 	  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,8 +21,6 @@
 
     <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
 
-    <title>管理者のダッシュボード</title>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -30,8 +29,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/kurita_style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/kurita_style.css') }}" rel="stylesheet">
 
     <!-- full calendar -->
     <link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />

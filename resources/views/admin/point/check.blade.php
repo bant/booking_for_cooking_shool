@@ -13,28 +13,6 @@
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.check_show', ['date' => $previous_first_month_day])}}"> << 前月</a>
     </h2>
 
-    @if (session('status'))
-         <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    {{--成功時のメッセージ--}}
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    
-    {{-- エラーメッセージ --}}
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            </ul>
-        </div>
-    @endif
-
     @if($payments->count())
         @php
            $sum_of_point = 0;

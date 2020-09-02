@@ -171,11 +171,11 @@ class UserController extends Controller
                 ];
 
                 User::where('id', $id)->update($update);
-                $request->session()->put('status', 'ポイント追加しました');
+                $request->session()->put('success', 'ポイント追加しました');
             }
             else
             {
-                $request->session()->put('status', '訂正時以外はマイナス入金できません');
+                $request->session()->put('success', '訂正時以外はマイナス入金できません');
             }
         }
         else    /* 訂正 */
@@ -211,11 +211,11 @@ class UserController extends Controller
 
                 Payment::create($insert);
                 User::where('id', $id)->update($update);
-                $request->session()->put('status', 'ポイント修正しました');
+                $request->session()->put('success', 'ポイント修正しました');
             }
             else
             {
-                $request->session()->put('status', '訂正時はマイナス入金してください');
+                $request->session()->put('success', '訂正時はマイナス入金してください');
             }
         }
 

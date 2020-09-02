@@ -16,12 +16,6 @@
     </h2>
 
     <h3>{{$staff->room->name}}のポイント状況</h3>
-    @if (session('status'))
-      <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-      </div>
-    @endif
-
     @if($class_reservations->count())
       <table class="table table-sm table-striped">
         <thead>

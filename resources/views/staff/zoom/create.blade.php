@@ -4,7 +4,7 @@
 <div id="content">
     <div id="breadcrumbs">
         <a href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        <a href="{{route('staff.room.index')}}">オンライン教室の確認</a>  >
+        <a href="{{route('staff.zoom.index')}}">オンライン教室の確認</a>  >
         オンライン教室の登録
     </div>  
     <section>

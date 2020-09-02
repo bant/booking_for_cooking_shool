@@ -62,16 +62,6 @@ h1, h2, h3, h4, #header, #nav, #tag, #main .btn:hover, #footer {
 	color: #fff;
 	position: relative;
 }
-#header h1 a:before {
-	background: url(images/logo.png) no-repeat;
-	background-size: contain;
-	content: "";
-	display: inline-block;
-	height: 1em;
-	margin: 0.1em auto auto -1em; 
-	position: absolute;
-	width: 1em;
-}
 h1 a:hover {
 	color: #005ab3;
 }
@@ -116,6 +106,7 @@ h1 a:hover {
 	margin-right: 2px;
 	padding: 0;
 	text-align: center;
+	text-decoration: none;
 }
 .submenu {
 	background-color: #ffffff;
@@ -130,6 +121,7 @@ a.subitem {
 	display: block;
 	margin-top: 2px;
 	position: relative;
+	text-decoration: none;
 }
 #nav .menu:last-child a {
 	margin-right: 0;
@@ -146,6 +138,11 @@ a.subitem {
 #nav .menu:hover .submenu, #nav .menu .submenu:hover {
 	display: block;
 	z-index: 9000;
+}
+/* aなしでも青くする */
+#nav .menu {
+	background-color: #005ab3;
+	color: #ffffff;
 }
 
 /* --- パンくずリスト --- */
@@ -192,8 +189,7 @@ img {
 	text-align: center;
 }
 h2 {
-	border-left: 5px solid #005ab3;
-	color: #005ab3;
+    color: #005ab3;
 	font-size: 1.4em;
 	margin: 2em 0 0.5em -0.5em;
 	padding-left: 0.3em;

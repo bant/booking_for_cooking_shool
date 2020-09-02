@@ -68,7 +68,8 @@
     @endif
 
     <br/>
-    <h3>オンライン教室予約一覧</h3>
+    @if (Auth::user()->is_zoom)
+    <h3>{{Auth::user()->zoom->name}}の予約一覧</h3>
     @if($zoom_reservations->count())
         <table class="table table-sm table-striped">
         <thead>
@@ -108,6 +109,7 @@
         <a class="btn btn-sm btn-warning" href="{{ route('staff.reservation.export_zoom', $now_first_month_day) }}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
     @else
       <div class="text-center alert alert-info">オンライン教室の予約はありません。</div>
+    @endif
     @endif
   </section>
 </div>

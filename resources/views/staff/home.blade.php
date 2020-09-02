@@ -3,8 +3,7 @@
 @section('content')
 <div id="content">
     <div id="breadcrumbs">
-        <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-            予約確認
+        <i class="fas fa-home"></i> トップページ
     </div>  
     <section>
     <h1>{{$staff->name}}先生のダッシュボード</h1>
