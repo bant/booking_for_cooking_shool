@@ -2,7 +2,12 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        {{ $staff->room->name }}の予約
+    </div>  
 <section>    
+
     <h2> {{ $staff->room->name }}の予約</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">

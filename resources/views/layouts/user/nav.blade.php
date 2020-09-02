@@ -1,13 +1,13 @@
   <div id="nav">
-    <div class="menu">教室予約
-        <div class="submenu">
+    <div class="menu"><div class="menu"><a class="slite" href="#">教室予約</a>
+      <div class="submenu">
         @php ($room_nav_list = \App\Models\Room::all())
         @foreach($room_nav_list as $room_nav)
           <a class="subitem" href="{{ route('user.classroom_reservation.calendar',$room_nav->id) }}" title="{{$room_nav->name}}の予約">{{$room_nav->name}}の予約</a>
         @endforeach
         </div><!-- .submenu -->
     </div>
-    <div class="menu">オンライン教室予約
+    <div class="menu"><div class="menu"><a class="slite" href="#">オンライン教室予約</a>
         <div class="submenu">
         @php ($zoom_nav_list = \App\Models\Zoom::all())
         @foreach($zoom_nav_list as $zoom_nav)

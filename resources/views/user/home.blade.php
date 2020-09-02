@@ -2,6 +2,9 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <i class="fas fa-home"></i> トップページ
+    </div>  
     <section>
         <h1>{{ Auth::user()->name }}さんのホーム</h1>
         <div id="main">
