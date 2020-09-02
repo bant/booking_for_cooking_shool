@@ -7,8 +7,9 @@
         {{ $staff->room->name }}の予約
     </div>  
 <section>    
+    <h1> {{ $staff->room->name }}の予約</h1>
 
-    <h2> {{ $staff->room->name }}の予約</h2>
+    <h2> {{ $staff->room->name }}の予定カレンダ</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <!-- 先生のカレンダ用スロット始まり -->
@@ -29,7 +30,7 @@
         </div>
     </div>
 
-    <h3> {{ Auth::user()->name }}さんの教室のご予約状況</h3>
+    <h2> {{ Auth::user()->name }}さんの教室のご予約状況</h2>
     @if($reservations->count())
         <table class="table table-sm table-striped">
             <thead>

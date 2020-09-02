@@ -1,5 +1,5 @@
   <div id="nav">
-    <div class="menu"><div class="menu"><a class="slite" href="#">教室予約</a>
+    <div class="menu"><a class="slite" href="#">教室予約</a>
       <div class="submenu">
         @php ($room_nav_list = \App\Models\Room::all())
         @foreach($room_nav_list as $room_nav)
@@ -7,7 +7,7 @@
         @endforeach
         </div><!-- .submenu -->
     </div>
-    <div class="menu"><div class="menu"><a class="slite" href="#">オンライン教室予約</a>
+    <div class="menu"><a class="slite" href="#">オンライン教室予約</a>
         <div class="submenu">
         @php ($zoom_nav_list = \App\Models\Zoom::all())
         @foreach($zoom_nav_list as $zoom_nav)

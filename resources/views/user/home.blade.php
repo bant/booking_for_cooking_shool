@@ -6,12 +6,10 @@
         <i class="fas fa-home"></i> トップページ
     </div>  
     <section>
-        <h1>{{ Auth::user()->name }}さんのホーム</h1>
-        <div id="main">
-
-        <h2>お知らせ</h2>
+        <h1>お知らせ</h1>
         @if(!($staff_messages->count()==0 and $admin_messages->count()==0))
             @if($staff_messages->count())
+                <h2>先生からのお知らせ</h2>
                 <table class="table table-sm table-striped">
                     <thead>
                         <tr>
@@ -38,7 +36,7 @@
             @endif
 
             @if($admin_messages->count())
-                <h3>管理者からのお知らせ</h3>
+                <h2>管理者からのお知らせ</h2>
                 <table class="table table-sm table-striped">
                     <thead>
                         <tr>
@@ -61,8 +59,6 @@
                     </tbody>
                 </table>
             @endif
-        @else
-        <div class="text-center alert alert-info">メッセージはありません。</div>
         @endif
 
         <h2>教室の予約状況</h2>
