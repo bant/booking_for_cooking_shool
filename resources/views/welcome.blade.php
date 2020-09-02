@@ -82,12 +82,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    料理教室システム<br/>
-                    (鋭意作成中!!!)
+                    料理教室予約システム
                 </div>
 
                 <div class="links">
-                   <a href="/classroom/1/calendar"><button class='btn btn-default'>栗田</button></a>
+                   <a href="/classroom/1/calendar"><button class='btn btn-default'>確認</button></a>
                     <a href="{{ route('user.login') }}"><button class='btn btn-primary'>ユーザ・ログイン</button></a>
                     <a href="{{ route('staff.login') }}"><button class='btn btn-success'>スタッフ・ログイン</button></a>
                     <a href="{{ route('admin.login') }}"><button class='btn btn-info'>管理者・ログイン</button></a>

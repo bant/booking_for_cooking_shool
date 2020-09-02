@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Zoom;
+use App\Models\Staff;
 use Auth;
 use App\Http\Requests\StoreZoom;
 
@@ -50,6 +51,12 @@ class ZoomController extends Controller
      */
     public function store(StoreZoom $request)
     {
+        $staff = Auth::user();
+        $update = [
+            'is_zoom' => true,
+        ];
+        Staff::where('id', $staff->id)->update($update);
+
         Zoom::create($request->all());
         return redirect()->route('staff.zoom.index')->with('success', '新規登録完了しました');
     }
@@ -87,6 +94,12 @@ class ZoomController extends Controller
      */
     public function update(StoreZoom $request, $id)
     {
+        $staff = Auth::user();
+        $update2 = [
+            'is_zoom' => true,
+        ];
+        Staff::where('id', $staff->id)->update($update2);
+
         $update = [
             'name' => $request->name,
             'description' => $request->description
@@ -103,6 +116,11 @@ class ZoomController extends Controller
      */
     public function destroy($id)
     {
+        $staff = Auth::user();
+        $update = [
+            'is_zoom' => false,
+        ];
+        Staff::where('id', $staff->id)->update($update);
    
         Zoom::where('id', $id)->delete();
         return redirect()->route('staff.zoom.index')->with('success', 'オンライン教室を閉鎖しました。');

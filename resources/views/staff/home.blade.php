@@ -110,8 +110,8 @@
         @endif
         <!-- 教室の予約の終わり -->
    
-
-        <h2>オンライン教室の予約状況</h2>
+        @if ($staff->is_zoom)
+        <h2>{{$staff->zoom->name}}の予約状況</h2>
 
         <!-- オンライン教室の予約状況の始まり -->
         @if($zoom_reservations->count())
@@ -149,6 +149,7 @@
             </table>
         @else
             <div class="text-center alert alert-info">オンライン教室の予約はありません。</div>
+        @endif
         @endif
     @endif
 
