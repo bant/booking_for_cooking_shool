@@ -2,8 +2,14 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a  href="{{ route('user.zoom_reservation.calendar',$schedule->staff->zoom->id) }}">{{ $schedule->staff->zoom->name }}の予約</a>  >
+        レッスンの予約
+    </div>
 <section>
-    <h3>オンライン教室の詳細</h3>
+    <h1> {{ $schedule->staff->zoom->name }}のレッスンの確認と予約</h1>
+    <h2>選択したコースの確認と予約</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -33,7 +39,7 @@
 
                     {{-- の情報 --}}
                     <dl class="row">
-                        <dt class="col-md-2">ZOOM名</dt>
+                        <dt class="col-md-2">オンライン教室名</dt>
                         <dd class="col-md-10">{{ $schedule->staff->zoom->name }}</dd>
                         <dt class="col-md-2">担当先生</dt>
                         <dd class="col-md-10">{{ $schedule->staff->name }}</dd>
@@ -64,6 +70,7 @@
             </div>
         </div>
     </div>
+    <br/>
     </section>
 </div>
 @endsection

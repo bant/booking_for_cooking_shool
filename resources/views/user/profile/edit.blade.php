@@ -1,9 +1,14 @@
 @extends('layouts.user.app')
 
 @section('content')
+<div id="breadcrumbs">
+        <a  href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        プロフィール
+    </div>  
 <div id="content">
   <section>
     <h2>プロフィール</h2>
+    <h2>編集</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">

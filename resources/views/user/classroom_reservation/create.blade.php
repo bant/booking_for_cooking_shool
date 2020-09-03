@@ -2,12 +2,18 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a  href="{{ route('user.classroom_reservation.calendar',$schedule->staff->room->id) }}">{{ $schedule->staff->room->name }}の予約</a>  >
+        レッスンの確認と予約
+    </div>  
 <section>
-    <h2>レッスンの予約・確認</h2>
+    <h1> {{ $schedule->staff->room->name }}のレッスンの確認と予約</h1>
+    <h2>選択したコースの確認と予約</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"><i class="fas fa-align-justify"></i>レッスンの詳細</div>
+                <div class="card-header"><i class="fas fa-align-justify"></i>{{ $schedule->course->name }}の確認と予約</div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -68,6 +74,7 @@
             </div>
         </div>
     </div>
+    <br/>
     </section>
 </div>
 @endsection

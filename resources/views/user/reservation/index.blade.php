@@ -49,7 +49,7 @@
                           <td>{{$teacher->name}}</td>
                           <td>{{$teacher->room->name}}</td>
                           <td>{{$teacher->room->address}}</td>
-                          <td><a class="btn btn-link pull-right" href="/user/ClassroomSchedule/calendar/{{$teacher->id}}"><i class="fas fa-backward"></i> 予約カレンダへ</a></td>
+                          <td><a class="btn btn-link pull-right" href="/user/ClassroomSchedule/calendar/{{$teacher->id}}"><i class="fas fa-backward"></i> 予約カレンダーへ</a></td>
                         </tr>
                         @endforeach
                        </tbody>

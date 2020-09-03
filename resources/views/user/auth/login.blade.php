@@ -55,8 +55,8 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-3">
                                 <div class="form-password_reset">
-                                    パスワードを忘れた方は<a  href="{{route('user.password.request')}}" title="こちら">こちら</a>へ<br/>
-                                    登録がお済みでない方は<a  href="{{route('user.register')}}" title="こちら">こちら</a>へ
+                                    パスワードを忘れた方は<a  href="{{route('user.password.request')}}" title="パスワードリセット">こちら</a>へ<br/>
+                                    登録がお済みでない方は<a  href="{{route('user.register')}}" title="生徒登録">こちら</a>へ
                                  </div>
                             </div>
                         </div>
@@ -71,6 +71,8 @@
                     </form>
                 </div>
             </div>
+            <a  href="https://kuritacooking.com" title="栗田クッキングサロンへ戻る">栗田クッキングサロンへ戻る</a>
+           
         </div>
     </div>
 </div>

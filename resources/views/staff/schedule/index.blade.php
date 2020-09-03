@@ -65,7 +65,7 @@
                       </tbody>
                       </table>
                       <a class="btn btn-primary" href="{{ route('staff.schedule.create') }}"><i class="fas fa-edit"></i> 追加</a>
-                      <a class="btn btn-link pull-right" href="/staff/home"><i class="fas fa-backward"></i> カレンダに戻る</a>
+                      <a class="btn btn-link pull-right" href="/staff/home"><i class="fas fa-backward"></i> カレンダーに戻る</a>
                     @else
                         <h3 class="text-center alert alert-info">スケジュールが未登録です。</h3>
                         <a href="/staff/schedule/create"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてスケジュールを登録してください。

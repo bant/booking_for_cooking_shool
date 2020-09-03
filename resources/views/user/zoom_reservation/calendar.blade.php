@@ -2,13 +2,18 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        {{ $staff->zoom->name }}の予約
+    </div>  
 <section>
-<h2>{{ $staff->zoom->name }}の予約</h2>
+<h1> {{ $staff->zoom->name }}の予約</h1>
+<h2>{{ $staff->zoom->name }}の予定カレンダー</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <!-- 先生のカレンダ用スロット始まり -->
+            <!-- 先生のカレンダー用スロット始まり -->
             <div class="card">
-                <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->zoom->name }}のカレンダ</div>
+                <div class="card-header"><i class="fas fa-id-card"></i> {{ $staff->zoom->name }}のカレンダー</div>
                 <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -19,7 +24,7 @@
                     <div style='clear:both'></div>
                     ※残り0のときは、キャンセル待ちになります。
                 </div>
-                <!-- 先生のカレンダ用スロット終わり -->
+                <!-- 先生のカレンダー用スロット終わり -->
             </div>
         </div>
     </div>

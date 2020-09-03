@@ -32,6 +32,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-3">
+                                    登録したメールアドレスを入力してください。
+                                    <br/>パスワードリセットメールが届きます。
+                               </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-3">
                                 <button type="submit" class="btn btn-primary">

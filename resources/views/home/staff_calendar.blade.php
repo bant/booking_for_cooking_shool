@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-        <!-- 先生のカレンダ用スロット始まり -->
+        <!-- 先生のカレンダー用スロット始まり -->
             <div class="card">
                 <div class="card-header justify-content-left"><i class="fas fa-id-card"></i> {{ $staff->room->name }}({{ $staff->name }}先生)のスケジュール</div>
                 <div class="card-body">
@@ -18,7 +18,7 @@
                     <div style='clear:both'></div>
 
                 </div>
-                <!-- 先生のカレンダ用スロット終わり -->
+                <!-- 先生のカレンダー用スロット終わり -->
 
             </div><!-- end card -->
         </div>
