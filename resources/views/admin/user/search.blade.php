@@ -7,9 +7,8 @@
         生徒の停止
     </div>      
     <section>
-    <h1>管理者のダッシュボード</h1>
-    <h2>生徒の停止</h2>
-    <h3>生徒の検索</h3>
+    <h1>生徒の停止</h1>
+    <h2>生徒の検索</h2>
     <form action="{{ route('admin.user.search') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -31,7 +30,7 @@
     </form>
 
     <br/>
-    <h3>検索結果</h3>
+    <h2>検索結果</h2>
     @if(!is_null($users))
     <table class="table table-sm table-striped">
         <thead>

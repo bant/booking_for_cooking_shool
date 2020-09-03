@@ -4,11 +4,11 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        生徒のポイント管理(生徒の検索)
+        生徒のポイントの追加/修正
     </div>  
 
     <section>
-    <h1>生徒のポイント管理</h1>
+    <h1>生徒のポイントの追加/修正</h1>
     <h2>生徒の検索</h2>
     <form action="{{ route('admin.point.user') }}" method="POST">
         @csrf

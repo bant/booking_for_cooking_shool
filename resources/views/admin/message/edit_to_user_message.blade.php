@@ -2,15 +2,15 @@
 
 @section('content')
 <div id="content">
-    <div id="breadcrumbs">
+<div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        生徒のポイント管理(生徒の検索)
+        生徒に入金確認メッセージの送付
     </div>  
 
     <section>
-    <h1>振込通知</h1>
+    <h1>生徒に入金確認メッセージの送付</h1>
 
-    <h2>検索結果</h2>
+    <h2>予約情報</h2>
     @if(!is_null($reservation))
     <div class="row justify-content-center">
         <div class="col-md-10">

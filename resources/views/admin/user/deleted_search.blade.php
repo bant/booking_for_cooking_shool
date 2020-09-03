@@ -7,9 +7,8 @@
         生徒の復元
     </div>     
     <section>
-    <h1>管理者のダッシュボード</h1>
-    <h2>生徒の復元</h2>
-    <h3>停止中の生徒一覧</h3>
+    <h1>生徒の復元</h1>
+    <h2>停止中の生徒一覧</h2>
     @if($users->count())
         <table class="table table-sm table-striped">
             <thead>

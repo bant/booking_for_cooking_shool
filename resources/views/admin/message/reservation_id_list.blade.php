@@ -4,10 +4,10 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        振込通知
+        予約番号で入金確認メッセージ送信
     </div>      
     <section>
-    <h1>管理者のダッシュボード</h1>
+    <h1>予約番号で入金確認メッセージ送信</h1>
     <h2>振込通知</h2>
     <h3>絞り込み</h3>
     <form action="{{route('admin.message.reservation_id_search')}}" method="POST">

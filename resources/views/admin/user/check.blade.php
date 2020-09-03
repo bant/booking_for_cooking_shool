@@ -7,9 +7,9 @@
         生徒の確認
     </div>  
     <section>
-    <h1>管理者のダッシュボード</h1>
+    <h1>生徒の確認</h1>
 
-    <h2>生徒の確認</h2>
+    <h2>生徒の情報</h2>
         <h3>生徒の状況(過去1年)</h3>
         <table class="table table-sm table-striped">
             <thead>
@@ -33,8 +33,10 @@
         </tbody>
         </table>
 
-        <h3>生徒の一覧出力</h3>
+        <h3>生徒の一覧ダウンロード</h3>
+            生徒一覧は
             <a class="btn btn-sm btn-danger" href="{{route('admin.user.export_users')}}"><i class="fas fa-edit"></i> 生徒一覧ダウンロード</a>
+            をクリックすればダウンロードできます。
     </section>
 </div>
 @endsection

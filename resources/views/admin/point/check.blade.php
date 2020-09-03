@@ -4,10 +4,10 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        生徒の月間ポイント確認(生徒の検索)
+        生徒の月間ポイントの確認
     </div>  
     <section>
-    <h1>追加ポイントの確認</h1>
+    <h1>生徒の月間ポイントの確認</h1>
     <h2>{{date('Y年m月', strtotime($now_first_month_day)) }}に生徒に追加したポイント
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.check_show', ['date' => $next_first_month_day])}}"> 次月 >></a>
         <a class="float-right btn btn-sm btn-primary" href="{{ route('admin.point.check_show', ['date' => $previous_first_month_day])}}"> << 前月</a>

@@ -4,7 +4,8 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        <a  href="{{route('admin.point.user')}}">生徒のポイント管理(生徒の検索)</a> > 生徒のポイントの追加
+        <a  href="{{route('admin.point.user')}}">生徒のポイントの追加/修正</a> >
+        生徒のポイントの追加
     </div>  
     <section>
     <h1>生徒のポイントの追加</h1>

@@ -4,7 +4,7 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        先生の月間獲得ポイント確認(先生の一覧)
+        先生の月間獲得ポイント確認
     </div>  
     <section>
     <h1>先生の月間獲得ポイント確認</h1>
