@@ -7,7 +7,6 @@
 
 予約番号: {{$data['reservation_id']}}
 教　　室: {{$data['zoom_name']}}
-場　　所: {{$data['room_address']}}
 講　　師: {{$data['staff_name']}}先生
 コース名: {{$data['course_name']}}
 開催日時: {{$data['start']}}
@@ -30,7 +29,7 @@
 ・調理器具　他
 ・印刷したレシピ
 
-では、{{$data['start']}} に、オンライン教室"{{$data['room_name']}}" でお待ちしております。
+では、{{$data['start']}} に、オンライン教室"{{$data['zoom_name']}}" でお待ちしております。
 よろしくお願いいたしします。
 
 ----------------------------------------------

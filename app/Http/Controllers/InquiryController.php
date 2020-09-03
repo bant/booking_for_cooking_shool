@@ -118,7 +118,7 @@ class InquiryController extends Controller
                     'title'     =>$title, 
                     'start'     =>str_replace(' ', 'T', $schedule->start), 
                     'end'       =>str_replace(' ', 'T', $schedule->end), 
-                    'color'     =>'lightpink', 
+                    'color'     => 'maroon', 
                     'identifier'=>$schedule->identifier,
                     'url'       => route('user.zoom_reservation.create', $schedule->id),
                 ];
@@ -129,7 +129,7 @@ class InquiryController extends Controller
                     'title'     => $title, 
                     'start'     => str_replace(' ', 'T', $schedule->start), 
                     'end'       => str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'lightpink', 
+                    'color'     => 'orange', 
                     'identifier'=> $schedule->identifier
                 ];         
             }
