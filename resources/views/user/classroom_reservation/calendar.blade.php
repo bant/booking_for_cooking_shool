@@ -42,7 +42,6 @@
                     <th>先生</th>
                     <th>価格</th>
                     <th>開始時間</th>
-                    <th class="text-right"> アクション</th>
                 </tr>
             </thead>
 
@@ -60,14 +59,6 @@
                 <td>{{$reservation->staff_name}}</td>
                 <td>{{ number_format($reservation->course_price) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
-                <td class="text-right">
-                    <form action="{{route('user.classroom_reservation.destroy',$reservation->id)}}" method="POST" style="display: inline;"
-                                onsubmit="return confirm('予約を取り消しても良いですか?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
-                    </form>
-                </td>
                 </tr>
             @endforeach
             </tbody>
