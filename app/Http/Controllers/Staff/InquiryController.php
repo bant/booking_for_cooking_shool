@@ -24,26 +24,6 @@ class InquiryController extends Controller
 
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -140,7 +120,7 @@ class InquiryController extends Controller
                     'title'     => $title, 
                     'start'     => str_replace(' ', 'T', $schedule->start), 
                     'end'       => str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'lightpink', 
+                    'color'     => 'orange', 
                     'extendedProps' => [
                         'schedule_id'   => $schedule->id,
                         'staff_id'      => $schedule->staff_id, 

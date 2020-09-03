@@ -8,7 +8,7 @@
         教室設定の更新
     </div>  
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h1>教室の設定</h1>
     <h2>教室設定の更新</h2>
  
     @if (session('status'))

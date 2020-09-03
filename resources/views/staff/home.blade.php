@@ -6,7 +6,7 @@
         <i class="fas fa-home"></i> トップページ
     </div>  
     <section>
-    <h1>{{$staff->name}}先生のダッシュボード</h1>
+    <h1>お知らせ</h1>
     @if ($room_count == 0 or $course_count == 0)
         @if (session('status'))
             <div class="alert alert-success" role="alert">

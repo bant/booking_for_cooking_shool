@@ -4,11 +4,11 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        予約状況の確認
+        予約管理
     </div>  
 
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h1>予約管理</h1>
     <h2>{{date('Y年m月', strtotime($now_first_month_day)) }}の予約状況
         <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $next_first_month_day) }}"> 次月>></a>
         <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.show', $previous_first_month_day) }}"> <<前月</a>

@@ -8,7 +8,7 @@
             コースの作成
     </div>  
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h1> コース設定</h1>
     <h2>コースの作成</h2>
 
     @if (session('status'))

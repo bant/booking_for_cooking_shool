@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 list: 'リスト'
             },
         events:'{{route('user.inquiry.get_zomm_schedule',$staff->id)}}',
-//        events:'/user/inquiry/{{ $staff->id }}/getZoomSchedule',
 
         dayRender: function(info) {
             date.setFullYear(

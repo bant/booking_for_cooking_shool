@@ -2,12 +2,12 @@
 
 @section('content')
 <div id="content">
-    <div id="breadcrumbs">
+<div id="breadcrumbs">
         <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-            教室設定の確認
-    </div>  
+            教室設定
+    </div>
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h1>教室の設定</h1>
     <h2>教室設定の確認</h2>
     @if (session('status'))
         <div class="alert alert-success" role="alert">

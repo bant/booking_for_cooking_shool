@@ -2,13 +2,13 @@
 
 @section('content')
 <div id="content">
-    <div id="breadcrumbs">
+<div id="breadcrumbs">
         <a href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        <a href="{{route('staff.room.index')}}">オンライン教室の確認</a>  >
-        オンライン教室の作成
+        <a href="{{ route('staff.room.index') }}">教室設定の確認</a> >
+        オンライン教室設定の更新
     </div>  
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h1>教室の設定</h1>
     <h2>オンライン教室の情報更新</h2>
 
     @if (session('status'))
@@ -46,7 +46,7 @@
         </div>
         <div class="well well-sm">
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>情報更新</button>
-            <a class="btn btn-link pull-right" href="{{ route('staff.zoom.index') }}"><i class="fas fa-backward"></i> 詳細へ戻る</a>
+            <a class="btn btn-link pull-right" href="{{ route('staff.zoom.index') }}"><i class="fas fa-backward"></i> 確認へ戻る</a>
         </div>
     </form>
     </section>

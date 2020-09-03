@@ -7,8 +7,8 @@
         管理者さんへメッセージの送信
     </div>  
     <section>
-    <h1>{{Auth::user()->name}}先生のダッシュボード</h1>
-    <h2>管理者さんへメッセージ送信</h2>
+    <h1>管理者さんへメッセージ送信</h1>
+    <h2>メッセージ作成</h2>
 
     @if (session('status'))
     <div class="alert alert-success" role="alert">

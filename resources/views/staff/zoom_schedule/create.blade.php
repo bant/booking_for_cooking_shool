@@ -2,16 +2,16 @@
 
 @section('content')
 <div id="content">
+    <div id="breadcrumbs">
+        <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a  href="{{route('staff.schedule.index')}}"> スケジュール管理</a>  >
+        オンライン教室スケジュール/追加
+    </div>  
 <section>
+    <h1> スケジュール管理</h1>
     <h2>オンライン教室スケジュール/追加</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-plus"></i> 教室スケジュール/追加</div>
-
-                <div class="card-body">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
+    @if (session('status'))
+    <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
@@ -62,10 +62,6 @@
                             <a class="btn btn-link pull-right" href="{{ route('staff.zoom_schedule.index') }}"><i class="fas fa-backward"></i> 戻る</a>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 </div>
 @endsection

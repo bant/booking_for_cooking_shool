@@ -4,10 +4,10 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-        スケジュール登録
+        スケジュール管理
     </div>  
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
+    <h1> スケジュール管理</h1>
     <h2>スケジュール登録</h2>
 
     <div class="row justify-content-center">
@@ -26,7 +26,7 @@
 
                 <br/>
             @if ($room_count != 0)
-                <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 教室スケジュール新規登録</button></a>
+                <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-primary"><i class="fas fa-edit"></i> 教室スケジュール新規登録</button></a>
             @endif
             @if ($zoom_count != 0)
                 <a href="{{route('staff.zoom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> オンライン教室スケジュール新規登録</button></a>

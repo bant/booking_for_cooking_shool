@@ -4,12 +4,11 @@
 <div id="content">
     <div id="breadcrumbs">
         <a  href="{{route('staff.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
-            オンライン教室の確認
+            オンライン教室設定
     </div>  
 
     <section>
-    <h1>{{ Auth::user()->name }}先生のダッシュボード</h1>
-    
+    <h1>オンライン教室の設定</h1>
     <h2>オンライン教室の確認</h2>
     @if (session('status'))
         <div class="alert alert-success" role="alert">
