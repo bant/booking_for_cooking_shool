@@ -28,7 +28,22 @@
             </div>
         </div>
     </div>
+
     <h3> {{ Auth::user()->name }}さんのオンライン教室のご予約状況</h3>
+    {{--成功時のメッセージ--}}
+                    @if (session('success'))
+                      <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    {{-- エラーメッセージ --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        </div>
+                    @endif
     @if($reservations->count())
         <table class="table table-sm table-striped">
             <thead>
@@ -53,17 +68,16 @@
                 @else
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                 @endif
-                <td>{{$reservation->room_name}}</td>
+                <td>{{$reservation->zoom_name}}</td>
                 <td>{{$reservation->course_name}}</td>
                 <td>{{$reservation->staff_name}}</td>
                 <td>{{ number_format($reservation->course_price) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
                 <td class="text-right">
-                    <form action="{{route('user.classroom_reservation.destroy',$reservation->id)}}" method="POST" style="display: inline;"
-                                onsubmit="return confirm('予約を取り消しても良いですか?');">
+                    <form action="{{route('user.message.send_cancel_message',$reservation->id)}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('予約の取り消し依頼を送信しますか?');">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　取り消しメッセージ</button>
                     </form>
                 </td>
                 </tr>
@@ -92,16 +106,15 @@
             @foreach($wait_list_reservations as $wait_list_reservation)
                 <tr>
                 <td>{{$wait_list_reservation->course_name}}</td>
-                <td>{{$wait_list_reservation->room_name}}</td>
+                <td>{{$wait_list_reservation->zoom_name}}</td>
                 <td>{{$wait_list_reservation->staff_name}}</td>
                 <td>{{ number_format($wait_list_reservation->course_price) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($wait_list_reservation->start))}}</td>
                 <td class="text-right">
-                    <form action="{{route('user.classroom_reservation.cancel_destroy',$wait_list_reservation->id)}}" method="POST" style="display: inline;"
-                                onsubmit="return confirm('キャンセル待ちを取り消しても良いですか?');">
+                    <form action="{{route('user.message.send_cancel_message',$wait_list_reservation->id)}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('キャンセル待ちの取り消し依頼をしますか?');">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>取り消し</button>
+                         <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　取り消しメッセージ</button>
                     </form>
                 </td>
                 </tr>

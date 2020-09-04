@@ -46,22 +46,24 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::get('classroom/reservation/{id?}/calendar', 'ClassRoomReservationController@calendar')->name('classroom_reservation.calendar');
         Route::get('classroom/reservation/{id?}/create', 'ClassRoomReservationController@create')->name('classroom_reservation.create');  
         Route::post('classroom/reservation/store', 'ClassRoomReservationController@store')->name('classroom_reservation.store');
-        Route::post('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
-        Route::delete('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
-        Route::delete('classroom/reservation/{id?}/cancel_destroy', 'ClassRoomReservationController@cancel_destroy')->name('classroom_reservation.cancel_destroy');
+     //   Route::delete('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
+     //   Route::delete('classroom/reservation/{id?}/cancel_destroy', 'ClassRoomReservationController@cancel_destroy')->name('classroom_reservation.cancel_destroy');
 
         // ZOOM予約関係
         Route::get('zoom/reservation', 'ZoomReservationController@index')->name('zoom_reservation.index');
         Route::get('zoom/reservation/{id?}/calendar', 'ZoomReservationController@calendar')->name('zoom_reservation.calendar');
         Route::get('zoom/reservation/{id?}/create', 'ZoomReservationController@create')->name('zoom_reservation.create');  
         Route::post('zoom/reservation/store', 'ZoomReservationController@store')->name('zoom_reservation.store');
-        Route::post('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
-        Route::delete('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
+    //    Route::post('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
+    //    Route::delete('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
     
         Route::get('inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule')->name('inquiry.get_classroom_schedule');
         Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
 
+        Route::post('message/send_cancel_message/{id?}', 'MessageController@send_cancel_message')->name('message.send_cancel_message');
+        Route::post('message/send_wait_list_cancel_message/{id?}', 'MessageController@send_wait_list_cancel_message')->name('message.send_wait_list_cancel_message');
         Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
+        Route::get('message/staff/delete/{id?}', 'MessageController@staff_delete')->name('message.staff_delete');
     });
 });
 
@@ -125,6 +127,10 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 //        Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
 //        Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
         Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
+
+        Route::delete('cancel/{message_id?}/reservation/{id?}', 'CancelController@do_reservation')->name('cancel.do_reservation');
+        Route::delete('cancel/{message_id?}/wait_list/{id?}', 'CancelController@do_wait_list')->name('cancel.do_wait_list');
+  
     });
 });
 

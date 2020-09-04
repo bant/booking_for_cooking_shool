@@ -479,6 +479,7 @@ class ClassRoomReservationController extends Controller
                             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
                             ->where('reservations.user_id','=',$user->id)
                             ->where('schedules.is_zoom','=',false)
+                            ->where('schedules.start','>',Carbon::now())
                             ->orderBy('schedules.start')
                             ->get( [
                                 'reservations.id as id',
@@ -497,6 +498,7 @@ class ClassRoomReservationController extends Controller
                             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
                             ->where('wait_list_reservations.user_id','=',$user->id)
                             ->where('schedules.is_zoom','=',false)
+                            ->where('schedules.start','>',Carbon::now())
                             ->orderBy('schedules.start')
                             ->get( [
                                 'wait_list_reservations.id as id',

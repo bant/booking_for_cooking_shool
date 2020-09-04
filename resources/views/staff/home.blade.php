@@ -24,9 +24,7 @@
             <p><a href="{{route('staff.course.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> 登録</button></a>をクリックしてコースを登録してください。</p>
         @endif
     @else
-
-
-        <h2>管理者からのお知らせ</h2>
+        <h2>管理者からのメッセージ</h2>
             @if($admin_messages->count())
             <table class="table table-sm table-striped">
             <thead>
@@ -51,11 +49,97 @@
         </table>
         @else
         <div class="text-center alert alert-info">
-            管理者からメッセージはありません。
+            管理者からのメッセージはありません。
         </div>
         @endif
 
-        <h2>{{$staff->room->name}}の予約状況</h2>
+        <h2>生徒さんからのメッセージ</h2>
+            @if($user_booking_cancel_messages->count())
+            <h3>(仮)予約のキャンセル依頼</h3>
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th>予約番号</th>
+                    <th>確定</th>
+                    <th>コース名</th>
+                    <th>開催日時</th>
+                    <th>生徒(ID)</th>
+                    <th>メッセージ</th>
+                    <th>アクション</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @foreach($user_booking_cancel_messages as $user_booking_cancel_message)
+                    @php ($user_booking_cancel_reservation = \App\Models\Reservation::find($user_booking_cancel_message->reservation_id) )
+                <tr>
+                    <td>{{$user_booking_cancel_message->reservation_id}}</td>
+                @if ($user_booking_cancel_reservation->is_contract)
+                    <td class="text-center text-white bg-success"><strong>確</strong></td>
+                @else
+                    <td class="text-center text-white bg-danger"><strong>仮</strong></td>
+                @endif
+                    <td>{{$user_booking_cancel_reservation->schedule->course->name}}</td>
+                    <td>{{ date('Y年m月d日 H時i分', strtotime($user_booking_cancel_reservation->schedule->start))}}</td>
+                    <td><a href="{{ route('staff.user.info', $user_booking_cancel_message->user->id) }}"> {{$user_booking_cancel_message->user->name}}({{$user_booking_cancel_message->user->id}})</a></td>
+                    <td>{{$user_booking_cancel_message->message}}</td>
+                    <td class="text-right">
+                        <form action="{{route('staff.cancel.do_reservation',['message_id'=>$user_booking_cancel_message->id,'id'=>$user_booking_cancel_message->reservation_id])}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('キャンセルしますか?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　キャンセル</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+            @elseif($user_wait_list_cancel_messages->count())
+            <h3>キャンセル待ちのキャンセル依頼</h3>
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th>キャンセル待ち番号</th>
+                    <th>コース名</th>
+                    <th>開催日時</th>
+                    <th>生徒(ID)</th>
+                    <th>メッセージ</th>
+                    <th>アクション</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @foreach($user_wait_list_cancel_messages as $user_wait_list_cancel_message)
+                @php ($user_wait_list_cancel_reservation = \App\Models\WaitListReservation::find($user_wait_list_cancel_message->reservation_id))
+           
+                <tr>
+                    <td>{{$user_wait_list_cancel_messages->reservation_id}}</td>
+                    <td>{{$user_wait_list_cancel_reservation->schedule->course->name}}</td>
+                    <td>{{ date('Y年m月d日 H時i分', strtotime($user_wait_list_cancel_reservation->schedule->start))}}</td>
+                    <td><a href="{{ route('staff.user.info', $user_wait_list_cancel_message->user->id) }}"> {{$user_wait_list_cancel_message->user->name}}({{$user_wait_list_cancel_message->user->id}})</a></td>
+                    <td>{{$user_wait_list_cancel_message->message}}</td>
+                    <td class="text-right">
+                        <form action="{{route('staff.cancel.cancel.do_wait_list',$user_wait_list_cancel_messages->reservation_id)}}" method="POST" style="display: inline;"
+                                onsubmit="return confirm('キャンセルしますか?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　キャンセル</button>
+                        </form>
+                    </td>
+                         
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+
+            @else
+            <div class="text-center alert alert-info">
+                生徒さんからのメッセージはありません。
+            </div>
+            @endif
+
+        <h2>{{$staff->room->name}}の予約状況(終了済みは表示されません)</h2>
 
         <!-- 教室の予約の始まり -->
         @if (session('status'))
@@ -72,7 +156,7 @@
                     <th>確定</th>
                     <th>生徒(ID)</th>
                     <th>コース名</th>
-                    <th>日時</th>
+                    <th>開催日時</th>
                     <th>料金</th>
                     <th>支払済ポイント</th>
                     <th>アクション</th>
@@ -110,7 +194,7 @@
         <!-- 教室の予約の終わり -->
    
         @if ($staff->is_zoom)
-        <h2>{{$staff->zoom->name}}の予約状況</h2>
+        <h2>{{$staff->zoom->name}}の予約状況(終了済みは表示されません)</h2>
 
         <!-- オンライン教室の予約状況の始まり -->
         @if($zoom_reservations->count())
@@ -121,7 +205,7 @@
                     <th>確定</th>
                     <th>生徒(ID)</th>
                     <th>コース名</th>
-                    <th>日時</th>
+                    <th>開催日時</th>
                     <th>料金</th>
                     <th>支払済ポイント</th>
                     <th>アクション</th>
@@ -137,7 +221,7 @@
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                 @endif
                     <td><a href="{{ route('staff.user.info', $zoom_reservation->user_id) }}"> {{$zoom_reservation->user_name}}({{$zoom_reservation->user_id}})</a></td>
-                    <td>{{$class_reservation->course_name}}</td>
+                    <td>{{$zoom_reservation->course_name}}</td>
                     <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
                     <td>{{ number_format($zoom_reservation->course_price)}}円</td>
                     <td>{{ number_format($zoom_reservation->point)}}pt</td>

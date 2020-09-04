@@ -11,6 +11,7 @@ use App\Models\Zoom;
 use Auth;
 use Carbon\Carbon;
 use App\Models\AdminMessage;
+use App\Models\UserMessage;
 use Session;
 
 class HomeController extends Controller
@@ -32,15 +33,28 @@ class HomeController extends Controller
     */
     public function index()
     {
-        Session::forget('status');
-        Session::forget('success');
+    //    Session::forget('status');
+    //    Session::forget('success');
         $staff = Auth::user();
 
-        $admin_messages = AdminMessage::where('staff_id',$staff->id)
-        ->where('direction','to_staff')
-        ->where('expired_at','>',Carbon::now())
-        ->get();
+        // 現在の日時
+        $now = Carbon::now()->toDateTimeString();
+        $user_booking_cancel_messages = UserMessage::where('staff_id',$staff->id)
+                    ->where('outline','booking_cancel')
+                    ->where('direction','to_staff_and_admin')
+                    ->where('expired_at','>',$now)
+                    ->get();
 
+        $user_wait_list_cancel_messages = UserMessage::where('staff_id',$staff->id)
+                    ->where('outline','wait_list_cancel')
+                    ->where('direction','to_staff_and_admin')
+                    ->where('expired_at','>',$now)
+                    ->get();
+
+        $admin_messages = AdminMessage::where('staff_id',$staff->id)
+                    ->where('direction','to_staff')
+                    ->where('expired_at','>',$now)
+                    ->get();
 
         $room = Room::where('staff_id', $staff->id)->first();
         if (is_null($room))
@@ -62,8 +76,7 @@ class HomeController extends Controller
             $course_count = $course->count();
         }
 
-        // 現在の日時
-        $now = Carbon::now()->toDateTimeString();
+
         $class_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
             ->join('users', 'reservations.user_id', '=', 'users.id')
@@ -71,7 +84,7 @@ class HomeController extends Controller
             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',false)
-            ->where('schedules.start','>=',$now)
+            ->where('schedules.start','>',$now)
             ->orderBy('schedules.start')
             ->get( [
                 'reservations.id as id',
@@ -93,21 +106,24 @@ class HomeController extends Controller
             ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',true)
-            ->where('schedules.start','>=',$now)
+            ->where('schedules.start','>',$now)
             ->orderBy('schedules.start')
             ->get( [
                     'reservations.id as id',
                     'reservations.is_contract as is_contract',
                     'reservations.is_pointpay as is_pointpay',
+                    'users.id as user_id',
+                    'users.name as user_name',
                     'zooms.name as zoom_name',
                     'courses.name as course_name',
-                    'users.name as user_name',
                     'users.deleted_at as user_deleted_at',
                     'courses.price as course_price',
                     'schedules.start as start'
                 ]);
 
         return view('staff.home')->with([
+                        'user_booking_cancel_messages' => $user_booking_cancel_messages,
+                        'user_wait_list_cancel_messages'  => $user_wait_list_cancel_messages,
                         'admin_messages'     => $admin_messages,
                         'staff'              => $staff,
                         "room_count"        => $room_count, 

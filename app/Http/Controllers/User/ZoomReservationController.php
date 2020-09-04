@@ -477,6 +477,7 @@ class ZoomReservationController extends Controller
             ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
             ->where('reservations.user_id','=',$user->id)
             ->where('schedules.is_zoom','=',true)
+            ->where('schedules.start','>',Carbon::now())
             ->orderBy('schedules.start')
             ->get( [
                 'reservations.id as id',
@@ -492,14 +493,15 @@ class ZoomReservationController extends Controller
         $wait_list_reservations = WaitListReservation::join('schedules', 'wait_list_reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
             ->join('courses', 'schedules.course_id', '=', 'courses.id')
-            ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+            ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
             ->where('wait_list_reservations.user_id','=',$user->id)
             ->where('schedules.is_zoom','=',true)
+            ->where('schedules.start','>',Carbon::now())
             ->orderBy('schedules.start')
             ->get( [
                 'wait_list_reservations.id as id',
                 'wait_list_reservations.no_point as no_point',
-                'rooms.name as zoom_name',
+                'zooms.name as zoom_name',
                 'courses.name as course_name',
                 'staff.name as staff_name',
                 'courses.price as course_price',

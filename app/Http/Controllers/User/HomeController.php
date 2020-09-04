@@ -51,13 +51,11 @@ class HomeController extends Controller
    
             $admin_messages = AdminMessage::where('user_id',$user->id)
                             ->where('direction','to_user')
-    //                        ->whereNull('user_id')
                             ->where('expired_at','>',Carbon::now())
                             ->get();
     
             $staff_messages = StaffMessage::where('user_id',$user->id)
                             ->where('direction','to_user')
-    //                        ->whereNull('user_id')
                             ->where('expired_at','>',Carbon::now())
                             ->get();
             
@@ -68,6 +66,7 @@ class HomeController extends Controller
                 ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
                 ->where('reservations.user_id','=',$user->id)
                 ->where('schedules.is_zoom','=',false)
+                ->where('start','>',Carbon::now())
                 ->orderBy('schedules.start')
                 ->get( [
                     'reservations.id as id',
@@ -79,7 +78,6 @@ class HomeController extends Controller
                     'courses.price as course_price',
                     'schedules.start as start'
                 ]);
-
 
             $zoom_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
                 ->join('staff', 'schedules.staff_id', '=', 'staff.id')
@@ -87,6 +85,7 @@ class HomeController extends Controller
                 ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
                 ->where('reservations.user_id','=',$user->id)
                 ->where('schedules.is_zoom','=',true)
+                ->where('start','>',Carbon::now())
                 ->orderBy('schedules.start')
                 ->get( [
                     'reservations.id as id',
@@ -99,7 +98,6 @@ class HomeController extends Controller
                     'schedules.start as start'
                 ]);
 
-    
             return view('user.home')->with([
                         'admin_messages'            => $admin_messages,
                         'staff_messages'            => $staff_messages,
