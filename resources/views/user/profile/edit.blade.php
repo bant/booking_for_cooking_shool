@@ -7,15 +7,9 @@
     </div>  
 <div id="content">
   <section>
-    <h2>プロフィール</h2>
+    <h1>プロフィール</h1>
     <h2>編集</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header"><i class="fas fa-plus"></i> プロフィール編集</div>
-
-                <div class="card-body">
-                    @if (session('status'))
+    @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -107,12 +101,6 @@
                         </div>
                         </div>
                     </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     </section>
 </div>
 @endsection
