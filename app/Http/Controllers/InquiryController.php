@@ -45,29 +45,35 @@ class InquiryController extends Controller
                 if ($schedule->capacity > 0) 
                 {
                     $ev = [ 'id'=>$schedule->id, 
-                        'title'     => $title = $schedule->course->name .":残".$schedule->capacity, 
+                        'title'     => $schedule->course->name .":残".$schedule->capacity, 
                         'start'     => str_replace(' ', 'T', $schedule->start), 
                         'end'       => str_replace(' ', 'T', $schedule->end), 
                         'color'     => 'blue', 
                         'url'       =>  route('user.classroom_reservation.create', $schedule->id),
                         'extendedProps' => [
+                            'start_end'         => date('H:i', strtotime($schedule->start))."&sim;".date('H:i', strtotime($schedule->end)),
                             'schedule_id'       => $schedule->id,
-                            'schedule_name'     => $schedule->name,
+                            'schedule_name'     => $schedule->course->name,
                             'schedule_capacity' => $schedule->capacity,
+                            'staff_name'        => $schedule->staff->name,
+                            'status'            => '開始前'
                         ]
                     ];
                 }
                 else 
                 {
                     $ev = [ 'id'=>$schedule->id, 
-                    'title'     => $title = $schedule->course->name .":残".$schedule->capacity, 
+                    'title'     => $schedule->course->name .":残".$schedule->capacity, 
                     'start'     => str_replace(' ', 'T', $schedule->start), 
                     'end'       => str_replace(' ', 'T', $schedule->end), 
                     'color'     => 'blue', 
                     'extendedProps' => [
+                        'start_end'         => date('H:i', strtotime($schedule->start))."&sim;".date('H:i', strtotime($schedule->end)),
                         'schedule_id'       => $schedule->id,
-                        'schedule_name'     => $schedule->name,
+                        'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,
+                        'staff_name'        => $schedule->staff->name,
+                        'status'            => '開始前'
                     ]
                 ];
                 }
@@ -75,14 +81,17 @@ class InquiryController extends Controller
             else
             {
                 $ev = [ 'id'=>$schedule->id, 
-                    'title'     => $title = $schedule->course->name."(済)", 
+                    'title'     => $schedule->course->name."(済)", 
                     'start'     => str_replace(' ', 'T', $schedule->start), 
                     'end'       => str_replace(' ', 'T', $schedule->end), 
                     'color'     => 'lightblue',
                     'extendedProps' => [
+                        'start_end'         => date('H:i', strtotime($schedule->start))."&sim;".date('H:i', strtotime($schedule->end)),
                         'schedule_id'       => $schedule->id,
-                        'schedule_name'     => $schedule->name,
+                        'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,
+                        'staff_name'        => $schedule->staff->name,
+                        'status'            => '終了'
                     ]
                 ];         
             }

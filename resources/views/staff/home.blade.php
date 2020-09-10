@@ -139,7 +139,7 @@
             </div>
             @endif
 
-        <h2>{{$staff->room->name}}の予約状況(終了済みは表示されません)</h2>
+        <h2>{{$staff->room->name}}の予約状況(終了したレッスンは表示されません。)</h2>
 
         <!-- 教室の予約の始まり -->
         @if (session('status'))
@@ -194,7 +194,7 @@
         <!-- 教室の予約の終わり -->
    
         @if ($staff->is_zoom)
-        <h2>{{$staff->zoom->name}}の予約状況(終了済みは表示されません)</h2>
+        <h2>{{$staff->zoom->name}}の予約状況(終了したレッスンは表示されません。)</h2>
 
         <!-- オンライン教室の予約状況の始まり -->
         @if($zoom_reservations->count())

@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 day:  '日',
                 list: 'リスト'
             },
+
         events:'{{route('user.inquiry.get_classroom_schedule',$staff->id)}}',
 
         dayRender: function(info) {
