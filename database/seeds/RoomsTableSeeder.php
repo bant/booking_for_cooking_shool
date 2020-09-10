@@ -14,7 +14,7 @@ class RoomsTableSeeder extends Seeder
         DB::table('rooms')->insert([
             'name'              => '住吉教室',
             'staff_id'          => 1,
-            'address'           => '神戸市東灘区住吉宮町7-5-10-1',
+            'address'           => '神戸市東灘区住吉宮町7-5-10-19',
             'tel'               => '078-856-2583',
             'description'       => '栗田クッキングサロン',
         ]);
