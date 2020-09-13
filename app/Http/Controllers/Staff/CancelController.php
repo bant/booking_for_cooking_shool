@@ -46,7 +46,7 @@ class CancelController extends Controller
         $schedule = Schedule::find($reservation->schedule_id);
         $course = Course::find($schedule->course->id);
         $price = $course->price;    // 価格
-        $tax = $course->tax();      // 税金
+        $tax = $course->price * 0.1 ;      // 税金
 
         /* 定員を増を元に戻す */
         $schedule->capacity = $schedule->capacity + 1;

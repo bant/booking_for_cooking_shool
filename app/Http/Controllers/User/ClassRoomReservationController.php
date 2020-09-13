@@ -83,7 +83,7 @@ class ClassRoomReservationController extends Controller
         $schedule = Schedule::find($request->schedule_id);
         $course = Course::find($schedule->course->id);
         $price = $course->price;    // 価格
-        $tax = $course->tax();      // 税金
+        $tax = $course->price * 0.1;      // 税金
 
         // 予約済みかどうかチェック
         $reservation_count = Reservation::where('user_id', '=', $user->id)->where('schedule_id', '=', $request->schedule_id)->get()->count();
@@ -200,8 +200,8 @@ class ClassRoomReservationController extends Controller
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
                     'price'             => number_format($price)."円(ポイントで支払い済み)",
-                    'tax'               => number_format($tax)."円",
-                    'tax_price'         => number_format($price + $tax)."円",
+                    'tax'               => number_format($tax),
+                    'tax_price'         => number_format($price + $tax),
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
@@ -220,9 +220,9 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
-                    'price'             => number_format($price)."円",
-                    'tax'               => number_format($tax)."円",
-                    'tax_price'         => number_format($price + $tax)."円",
+                    'price'             => number_format($price),
+                    'tax'               => number_format($tax),
+                    'tax_price'         => number_format($price + $tax),
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
