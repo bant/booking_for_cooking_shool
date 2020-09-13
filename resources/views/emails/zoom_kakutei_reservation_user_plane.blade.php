@@ -11,7 +11,7 @@
 講　　師: {{$data['staff_name']}}先生
 コース名: {{$data['course_name']}}
 開催日時: {{$data['start']}}
-料　　金: {{$data['tax_price']}}円(税抜価格{{$data['price']}}円、消費税額{{'tax'}}円)
+料　　金: {{$data['tax_price']}}円(税抜価格{{$data['price']}}円、消費税額{{$data['tax']}}円)
 
 ---
 

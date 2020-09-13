@@ -83,7 +83,7 @@ class ClassRoomReservationController extends Controller
         $schedule = Schedule::find($request->schedule_id);
         $course = Course::find($schedule->course->id);
         $price = $course->price;    // 価格
-        $tax = $course->price * 0.1;      // 税金
+        $tax = $course->tax();      // 税金
 
         // 予約済みかどうかチェック
         $reservation_count = Reservation::where('user_id', '=', $user->id)->where('schedule_id', '=', $request->schedule_id)->get()->count();
