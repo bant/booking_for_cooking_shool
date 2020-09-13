@@ -46,7 +46,7 @@
                         <dd class="col-md-10">{{ $schedule->staff->name }}</dd>
                         <dt class="col-md-2">コース名</dt>
                         <dd class="col-md-10">{{ $schedule->course->name }}</dd>
-                        <dt class="col-md-2">価格</dt>
+                        <dt class="col-md-2">価格(税抜)</dt>
                         <dd class="col-md-10">{{  number_format($schedule->course->price) }}円</dd>
                         <dt class="col-md-2">残り席数</dt>
                         <dd class="col-md-10">{{ $schedule->capacity}}</dd>

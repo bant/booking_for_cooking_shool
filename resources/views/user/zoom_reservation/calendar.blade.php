@@ -53,7 +53,7 @@
                     <th>教室</th>
                     <th>コース名</th>
                     <th>先生</th>
-                    <th>価格</th>
+                    <th>価格(税抜)</th>
                     <th>開始時間</th>
                     <th class="text-right"> アクション</th>
                 </tr>
@@ -96,7 +96,7 @@
                     <th>教室</th>
                     <th>コース名</th>
                     <th>先生</th>
-                    <th>価格</th>
+                    <th>価格(税抜)</th>
                     <th>開始時間</th>
                     <th class="text-right"> アクション</th>
                 </tr>
