@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\Reservation;
 use Auth;
-
+use Carbon\Carbon;
 use Log;
 
 class InquiryController extends Controller
@@ -75,14 +76,30 @@ class InquiryController extends Controller
      */
     public function update(Request $request)
     {
-        $update = [
-            'start' => $request->start,
-            'end' => $request->end
-        ];
+        $schedule = Schedule::find($request->id);
+        $rservation_count = Reservation::where('schedule_id', $request->id)->get()->count();
 
-        Schedule::where('id', $request->id)->update($update);
-        return response()->json(['result'=>'success','color'=>'yellow']);
-//        echo json_encode(array('result'=>'success','color'=>'yellow'));
+        if ($rservation_count!=0) {
+            return response()->json(['result'=>'failure3']);
+        } else {
+            $now = Carbon::now();
+            $start = new Carbon($schedule->start);
+            $req_start = new Carbon($request->start);
+
+            if ($now >  $req_start) {
+                return response()->json(['result'=>'failure1']);
+            } elseif ($now >  $start) {
+                return response()->json(['result'=>'failure2']);
+            } else {
+                $update = [
+                    'start' => $request->start,
+                    'end' => $request->end
+                ];
+    
+                Schedule::where('id', $request->id)->update($update);
+                return response()->json(['result'=>'success']);
+            }
+        }
     }
 
     /**
@@ -93,8 +110,20 @@ class InquiryController extends Controller
      */
     public function destroy(Request $request)
     {
-        Schedule::where('id', $request->id)->delete();
-        echo json_encode(array('result'=>'success'));
+        $rservation_count = Reservation::where('schedule_id', $request->id)->get()->count();
+        // ゴミ箱に入ってる予約の個数
+        $trash_rservation_count = Reservation::onlyTrashed()->where('schedule_id', $request->id)->get()->count();
+
+        if ($rservation_count!=0) {
+            return response()->json(['result'=>'failure']);
+        } else {
+            if ($trash_rservation_count!=0) {
+                Reservation::onlyTrashed()->where('schedule_id', $request->id)->forceDelete();
+            }
+
+            Schedule::where('id', $request->id)->delete();
+            return response()->json(['result'=>'success']);
+        }
     }
 
     /**
@@ -106,43 +135,71 @@ class InquiryController extends Controller
     public function get(Request $request, $id)
     {
         $data = [];
-        $schedules = Schedule::where('staff_id',$id)
+        $schedules = Schedule::where('staff_id', $id)
                                 ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                                 ->get();
 
 
-        foreach($schedules as $schedule) {
-            $title = $schedule->course->name .":残".$schedule->capacity;
-            if ($schedule->is_zoom == true) 
-            {
-                $ev = [
-                    'id'        => $schedule->id, 
-                    'title'     => $title, 
-                    'start'     => str_replace(' ', 'T', $schedule->start), 
-                    'end'       => str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'orange', 
-                    'extendedProps' => [
-                        'schedule_id'   => $schedule->id,
-                        'staff_id'      => $schedule->staff_id, 
-                        'identifier'    => $schedule->identifier
-                    ]
-                ];
-            }
-            else
-            {
-                $ev = [
-                    'id'        => $schedule->id, 
-                    'title'     => $title, 
-                    'start'     => str_replace(' ', 'T', $schedule->start), 
-                    'end'       => str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'lightblue', 
-                    'staff_id'  => $schedule->staff_id, 
-                    'identifier'=> $schedule->identifier,
-                    'extendedProps' => [
-                        'staff_id'  => $schedule->staff_id, 
-                        'identifier'=> $schedule->identifier
-                    ] 
-                ];
+        $now = Carbon::now();
+
+        foreach ($schedules as $schedule) {
+            $start = new Carbon($schedule->start);
+            if ($start > $now) {
+                $title = $schedule->course->name .":残".$schedule->capacity;
+                if ($schedule->is_zoom == true) {
+                    $ev = [
+                        'id'        => $schedule->id,
+                        'title'     => $title,
+                        'start'     => str_replace(' ', 'T', $schedule->start),
+                        'end'       => str_replace(' ', 'T', $schedule->end),
+                        'color' => 'orange',
+                        'extendedProps' => [
+                            'schedule_id'   => $schedule->id,
+                            'staff_id'      => $schedule->staff_id,
+                        ]
+                    ];
+                } else {
+                    $ev = [
+                        'id'        => $schedule->id,
+                        'title'     => $title,
+                        'start'     => str_replace(' ', 'T', $schedule->start),
+                        'end'       => str_replace(' ', 'T', $schedule->end),
+                        'color'     => 'lightblue',
+                        'staff_id'  => $schedule->staff_id,
+                        'extendedProps' => [
+                            'schedule_id'   => $schedule->id,
+                            'staff_id'      => $schedule->staff_id,
+                        ]
+                    ];
+                }
+            } else {
+                $title = $schedule->course->name .":残".$schedule->capacity;
+                if ($schedule->is_zoom == true) {
+                    $ev = [
+                        'id'        => $schedule->id,
+                        'title'     => $title,
+                        'start'     => str_replace(' ', 'T', $schedule->start),
+                        'end'       => str_replace(' ', 'T', $schedule->end),
+                        'color' => 'lightgray',
+                        'extendedProps' => [
+                            'schedule_id'   => $schedule->id,
+                            'staff_id'      => $schedule->staff_id,
+                        ]
+                    ];
+                } else {
+                    $ev = [
+                        'id'        => $schedule->id,
+                        'title'     => $title,
+                        'start'     => str_replace(' ', 'T', $schedule->start),
+                        'end'       => str_replace(' ', 'T', $schedule->end),
+                        'color'     => 'BurlyWood',
+                        'staff_id'  => $schedule->staff_id,
+                        'extendedProps' => [
+                            'schedule_id'   => $schedule->id,
+                            'staff_id'      => $schedule->staff_id,
+                        ]
+                    ];
+                }
             }
 
             array_push($data, $ev);

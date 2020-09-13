@@ -39,24 +39,17 @@ class HomeController extends Controller
         $rooms = Room::all();
         $zooms = Zoom::all();
 
-        if (!$user->checkProfile())
-        {
-            return view('user.profile_error')->with([
-                'rooms'                     => $rooms,
-                'zooms'                     => $zooms
-            ]);
-        }
-        else
-        {
-   
-            $admin_messages = AdminMessage::where('user_id',$user->id)
-                            ->where('direction','to_user')
-                            ->where('expired_at','>',Carbon::now())
+        if (!$user->checkProfile()) {
+            return view('user.profile_error')->with(['rooms' => $rooms, 'zooms' => $zooms]);
+        } else {
+            $admin_messages = AdminMessage::where('user_id', $user->id)
+                            ->where('direction', 'to_user')
+                            ->where('expired_at', '>', Carbon::now())
                             ->get();
     
-            $staff_messages = StaffMessage::where('user_id',$user->id)
-                            ->where('direction','to_user')
-                            ->where('expired_at','>',Carbon::now())
+            $staff_messages = StaffMessage::where('user_id', $user->id)
+                            ->where('direction', 'to_user')
+                            ->where('expired_at', '>', Carbon::now())
                             ->get();
             
     
@@ -64,11 +57,11 @@ class HomeController extends Controller
                 ->join('staff', 'schedules.staff_id', '=', 'staff.id')
                 ->join('courses', 'schedules.course_id', '=', 'courses.id')
                 ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
-                ->where('reservations.user_id','=',$user->id)
-                ->where('schedules.is_zoom','=',false)
-                ->where('start','>',Carbon::now())
+                ->where('reservations.user_id', '=', $user->id)
+                ->where('schedules.is_zoom', '=', false)
+                ->where('start', '>', Carbon::now())
                 ->orderBy('schedules.start')
-                ->get( [
+                ->get([
                     'reservations.id as id',
                     'reservations.is_contract as is_contract',
                     'reservations.is_pointpay as is_pointpay',
@@ -83,11 +76,11 @@ class HomeController extends Controller
                 ->join('staff', 'schedules.staff_id', '=', 'staff.id')
                 ->join('courses', 'schedules.course_id', '=', 'courses.id')
                 ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
-                ->where('reservations.user_id','=',$user->id)
-                ->where('schedules.is_zoom','=',true)
-                ->where('start','>',Carbon::now())
+                ->where('reservations.user_id', '=', $user->id)
+                ->where('schedules.is_zoom', '=', true)
+                ->where('start', '>', Carbon::now())
                 ->orderBy('schedules.start')
-                ->get( [
+                ->get([
                     'reservations.id as id',
                     'reservations.is_contract as is_contract',
                     'reservations.is_pointpay as is_pointpay',
@@ -103,8 +96,8 @@ class HomeController extends Controller
                         'staff_messages'            => $staff_messages,
                         'rooms'                     => $rooms,
                         'zooms'                     => $zooms,
-                        'classroom_reservations'    => $classroom_reservations, 
-                        'zoom_reservations'         => $zoom_reservations 
+                        'classroom_reservations'    => $classroom_reservations,
+                        'zoom_reservations'         => $zoom_reservations
                     ]);
         }
     }

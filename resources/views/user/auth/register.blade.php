@@ -72,6 +72,7 @@
                     </form>
                 </div>
             </div>
+            <a  href="https://kuritacooking.com" title="栗田クッキングサロンへ戻る">栗田クッキングサロンへ戻る</a>
         </div>
     </div>
 </div>

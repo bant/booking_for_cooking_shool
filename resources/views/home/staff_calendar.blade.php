@@ -27,6 +27,25 @@
 @endsection
 
 @section('scripts')
+<!-- full calendar -->
+<link href="{{ asset('js/fullcalendar/core/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('js/fullcalendar/daygrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('js/fullcalendar/timegrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('js/fullcalendar/list/main.min.css') }}" rel="stylesheet">
+
+<script src="{{ asset('js/fullcalendar/core/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/interaction/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/daygrid/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/timegrid/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/list/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/core/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/core/locales/ja.js') }}"></script>
+   
+<!-- UltraDateの読み込み -->
+<link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
+<script src="{{ asset('js/UltraDate.js') }}"></script>
+<script src="{{ asset('js/UltraDate.ja.js') }}"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   var Calendar = FullCalendar.Calendar;
@@ -85,12 +104,12 @@ document.addEventListener("DOMContentLoaded", function () {
       $(info.el).tooltip({
         title:
           '<i class="fa fa-users"></i>&nbsp;<b>教室情報</b><br/>' +
-          " 教室：" + info.event.extendedProps.schedule_name + "<br/>" +
+          " 教室：" + info.event.extendedProps.place + "<br/>" +
           " 先生：" + info.event.extendedProps.staff_name + "<br/>" +
+          " コース名：" + info.event.extendedProps.schedule_name + "<br/>" +
           " 日時：" + info.event.extendedProps.start_end + "<br/>" +
-          " 定員：" + info.event.extendedProps.schedule_capacity + "名<br/>" +
+          " 残り：" + info.event.extendedProps.schedule_capacity + "名<br/>" +
           " 状態：" + info.event.extendedProps.status ,
-        //        title: info.event.extendedProps.description,
         placement: "top",
         trigger: "hover",
         container: "body",

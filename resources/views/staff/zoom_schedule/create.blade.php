@@ -54,8 +54,16 @@
                         <hr />
                         <input type="hidden" name="is_zoom" value="1">
                         <div class="form-group">
-                            <label for="zoom_invitation-field">【ZOOMの招待状】を貼り付けてください</label>
-                            <textarea name="zoom_invitation" id="zoom_invitation-field" class="form-control" rows="3">{{old('zoom_invitation')}}</textarea>
+                            <label for="zoom_invitation-field">【デフォルトのZOOMの招待状】変更がない場合は、そのまま登録してください</label>
+                            <textarea name="zoom_invitation" id="zoom_invitation-field" class="form-control" rows="3">栗田クッキングサロン　オンラインレッスンにご予約下さりありがとうございます。
+当日は下記アドレスよりお入り頂けます。
+ご入金確認後、パスワードをご登録頂きましたメール充てにお送りいたしますので、ご確認の上 ご参加くださいませ。
+
+Zoomミーティングに参加する
+https://us02web.zoom.us/j/3789925374
+
+ミーティングID: 378 992 5374                      
+                            </textarea>
                         </div>
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 新規登録</button>

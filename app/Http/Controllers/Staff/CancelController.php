@@ -44,6 +44,9 @@ class CancelController extends Controller
         $reservation = Reservation::find($id);
         $user = User::find($reservation->user_id);
         $schedule = Schedule::find($reservation->schedule_id);
+        $course = Course::find($schedule->course->id);
+        $price = $course->price;    // 価格
+        $tax = $course->tax();      // 税金
 
         /* 定員を増を元に戻す */
         $schedule->capacity = $schedule->capacity + 1;
@@ -73,6 +76,8 @@ class CancelController extends Controller
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
                 'price'             => number_format($reservation->spent_point)."円(ポイントに還元済み)",
+                'tax'               => number_format($price * Config::get('constants.options'))."円",
+                'tax_price'         => number_format($price * (1 + Config::get('constants.options')))."円",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
         }

@@ -37,8 +37,18 @@ class Course extends Model
      * @var array
      */
 
-    Public function staff()
+    public function staff()
     {
         return $this->belongsTo('App\Models\Staff','staff_id','id');
     }
+
+    /**
+     * 
+     * 
+     */
+    public function tax()
+    {
+        return ($this->price *  Config::get('constants.options'));
+    }
+
 }

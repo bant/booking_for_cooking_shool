@@ -27,7 +27,7 @@ class MessageController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function user_search(Request $request)
     {
@@ -37,23 +37,16 @@ class MessageController extends Controller
 
         $users = null;
 
-        if (!is_null($request->user_id)) 
-        {
+        if (!is_null($request->user_id)) {
             $users = User::where('id', $request->user_id)->get();
-        }
-        else if (!is_null($request->name))
-        {
+        } elseif (!is_null($request->name)) {
             $users = User::where('name', 'like', "%$request->name%")->get();
-        }
-        else if (!is_null($request->address))
-        {
+        } elseif (!is_null($request->address)) {
             $users = User::where('address', 'like', "%$request->address%")->get();
         }
 
-        if (!is_null($users))
-        {
-            if ($users->count() == 0)
-            {
+        if (!is_null($users)) {
+            if ($users->count() == 0) {
                 $users = null;
             }
         }
@@ -62,17 +55,17 @@ class MessageController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function user_list()
     {
         $staff = Auth::user();
-        $messages = UserStaffMessage::where('staff_id',$staff->id)
+        $messages = UserStaffMessage::where('staff_id', $staff->id)
                                     ->where('dirction', 'to_staff')
-                                    ->where('expired_at', '>' , Carbon::now())
-                                    ->get();  
+                                    ->where('expired_at', '>', Carbon::now())
+                                    ->get();
 
-         return view('staff.message.user_list')->with(["messages"=> $messages]);
+        return view('staff.message.user_list')->with(["messages"=> $messages]);
     }
 
     /**
@@ -93,17 +86,16 @@ class MessageController extends Controller
         $class_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
         ->join('staff', 'schedules.staff_id', '=', 'staff.id')
         ->join('users', 'reservations.user_id', '=', 'users.id')
-        ->where('schedules.staff_id','=',$staff->id)
-        ->where('schedules.is_zoom','=',false)
+        ->where('schedules.staff_id', '=', $staff->id)
+        ->where('schedules.is_zoom', '=', false)
         ->orderBy('schedules.start')
-        ->get( [
+        ->get([
                 'reservations.id as id',
                 'users.id as user_id',
                 'users.name as user_name',
             ]);
             
-        foreach($class_reservations as $class_reservation)
-        {
+        foreach ($class_reservations as $class_reservation) {
             /* メッセージテープルに記録 */
             $message = new StaffMessage();
             $message->direction = 'to_user';
@@ -113,6 +105,7 @@ class MessageController extends Controller
             $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
             $message->save();
         }
+        
         return back()->with('success', $class_reservations->count().'件のメッセージを送信');
     }
 
@@ -147,24 +140,22 @@ class MessageController extends Controller
 
 
     /**
-     * 
+     *
      */
     public function admin_list()
     {
         $staff = Auth::user();
-        $messages = UserAdminMessage::where('staff_id',$staff->id)
+        $messages = UserAdminMessage::where('staff_id', $staff->id)
                                     ->where('dirction', 'to_staff')
-                                    ->where('expired_at', '>' , Carbon::now())
-                                    ->get();  
+                                    ->where('expired_at', '>', Carbon::now())
+                                    ->get();
 
-        return view('staff.message.admin_index')->with([
-                        "messages"        => $messages 
-                    ]);
+        return view('staff.message.admin_index')->with(["messages" => $messages]);
     }
 
     public function admin_delete($id)
     {
-        AdminMessage::where('id',$id)->delete();
+        AdminMessage::where('id', $id)->delete();
         return back()->with('success', 'メッセージを削除しました。');
     }
 }

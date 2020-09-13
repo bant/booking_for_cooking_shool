@@ -131,102 +131,96 @@
 @endsection
 
 @section('scripts')
+<!-- full calendar -->
+<link href="{{ asset('js/fullcalendar/core/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('js/fullcalendar/daygrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('js/fullcalendar/timegrid/main.min.css') }}" rel="stylesheet">
+<link href="{{ asset('js/fullcalendar/list/main.min.css') }}" rel="stylesheet">
+
+<script src="{{ asset('js/fullcalendar/core/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/interaction/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/daygrid/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/timegrid/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/list/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/core/main.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar/core/locales/ja.js') }}"></script>
+   
+<!-- UltraDateの読み込み -->
+<link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
+<script src="{{ asset('js/UltraDate.js') }}"></script>
+<script src="{{ asset('js/UltraDate.ja.js') }}"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   var Calendar = FullCalendar.Calendar;
-   var containerEl = document.getElementById('external-events');
-   var calendarEl = document.getElementById('calendar');
-   var checkbox = document.getElementById('drop-remove');
+document.addEventListener("DOMContentLoaded", function () {
+  var Calendar = FullCalendar.Calendar;
+  var containerEl = document.getElementById("external-events");
+  var calendarEl = document.getElementById("calendar");
+  var checkbox = document.getElementById("drop-remove");
 
-    const date = new UltraDate();
-    // initialize the calendar
-    var calendar = new Calendar(calendarEl, {
-        plugins: [ 'interaction', 'dayGrid', 'timeGrid','list' ],
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-        },
-        allDaySlot: true,
-        forceEventDuration : true,
-        eventColor: 'lavender',
-        defaultTimedEventDuration: '01:00',
- //       defaultView: 'timeGridWeek',
-        slotDuration: '00:30:00',
-        minTime : '9:00',
-        maxTime : '22:00',
-        locale : 'ja',
-        editable: false,
-        selectable: true,
-        allDaySlot: false,
-        droppable: false, // this allows things to be dropped onto the calendar
-        buttonText: {
-                today:'今日',
-                month:'月',
-                week: '週',
-                day:  '日',
-                list: 'リスト'
-            },
+  // 休日データ
+  const date = new UltraDate();
+  // initialize the calendar
+  var calendar = new Calendar(calendarEl, {
+    plugins: ["interaction", "dayGrid", "timeGrid", "list"],
+    header: {
+      left: "prev,next today",
+      center: "title",
+      right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+    },
+    allDaySlot: true,
+    forceEventDuration: true,
+    eventColor: "lavender",
+    defaultTimedEventDuration: "01:00",
+    slotDuration: "00:30:00",
+    minTime: "9:00",
+    maxTime: "22:00",
+    locale: "ja",
+    editable: false,
+    selectable: true,
+    allDaySlot: false,
+    droppable: false, // this allows things to be dropped onto the calendar
+    buttonText: {
+      today: "今日",
+      month: "月",
+      week: "週",
+      day: "日",
+      list: "リスト"
+    },
+    events:"{{route('user.inquiry.get_classroom_schedule',$staff->id)}}",
 
-        events:'{{route('user.inquiry.get_classroom_schedule',$staff->id)}}',
+    dayRender: function (info) {
+      date.setFullYear(
+        info.date.getFullYear(),
+        info.date.getMonth(),
+        info.date.getDate()
+      );
+      const holiday = date.getHoliday();
+      if (holiday !== "") {
+        info.el.insertAdjacentHTML(
+          "afterbegin",
+          '<div class="holiday-name">' + holiday + "</div>"
+        );
+        info.el.classList.add("fc-hol");
+      }
+    },
 
-        dayRender: function(info) {
-            date.setFullYear(
-                info.date.getFullYear(),
-                info.date.getMonth(),
-                info.date.getDate()
-            );
-            const holiday = date.getHoliday();
-            if (holiday !== "") {
-                info.el.insertAdjacentHTML("afterbegin", "<div class=\"holiday-name\">" + holiday + "</div>");
-                info.el.classList.add("fc-hol")
-            }
-        },
-
-        select: function (info) {
-            // カレンダーセルクリック、範囲指定された時のコールバック
-            console.log('select');
-        },
-
-        // ドラッグドロップで操作
-        eventReceive: function(info) {
-            // カレンダーセルクリック、範囲指定された時のコールバック
-            console.log('eventReceive');
-        },
-
-        eventDrop: function (info) {
-             // カレンダーセルクリック、範囲指定された時のコールバック
-             console.log('eventDrop');
-        },
-
-        eventClick: function (info) {
-             // カレンダーセルクリック、範囲指定された時のコールバック
-             console.log('eventClick');
-        },
-
-        eventResize: function(info) {
-            // イベントがリサイズ（引っ張ったり縮めたり）された時のコールバック
-            console.log('eventResize');
-        },
-        eventRender: function (info) {
-          //wired listener to handle click counts instead of event type
-          info.el.addEventListener('click', function() {
-            clickCnt++;
-            if (clickCnt === 1) {
-                oneClickTimer = setTimeout(function() {
-                    clickCnt = 0;
-                    // SINGLE CLICK
-                    console.log('single click');
-                }, 400);
-            } else if (clickCnt === 2) {
-                clearTimeout(oneClickTimer);
-                clickCnt = 0;
-                // DOUBLE CLICK
-                console.log('double click');
-            }
-          });
-        }
-    })
+    eventRender: function (info) {
+      $(info.el).tooltip({
+        title:
+          '<i class="fa fa-users"></i>&nbsp;<b>教室情報</b><br/>' +
+          " 教室：" + info.event.extendedProps.place + "<br/>" +
+          " 先生：" + info.event.extendedProps.staff_name + "<br/>" +
+          " コース名：" + info.event.extendedProps.schedule_name + "<br/>" +
+          " 日時：" + info.event.extendedProps.start_end + "<br/>" +
+          " 残り：" + info.event.extendedProps.schedule_capacity + "名<br/>" +
+          " 状態：" + info.event.extendedProps.status ,
+        placement: "top",
+        trigger: "hover",
+        container: "body",
+        html: true
+      });
+    }
+  });
   calendar.render();
 });
 </script>

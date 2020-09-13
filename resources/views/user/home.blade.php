@@ -140,7 +140,7 @@
         </div>
         @endif
 
-        </div><!-- #main -->
+
     </section>
 </div><!-- #content -->
 @endsection

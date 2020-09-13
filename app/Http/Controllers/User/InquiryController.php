@@ -34,42 +34,50 @@ class InquiryController extends Controller
 
         // 現在の日時
         $now = Carbon::now();
-        $schedules = Schedule::where('staff_id',$id)
+        $schedules = Schedule::where('staff_id', $id)
                         ->where('is_zoom', false)
                         ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                         ->get();
-        foreach($schedules as $schedule) {
+
+        foreach ($schedules as $schedule) {
             $start = new Carbon($schedule->start);
-            if ($start > $now)
-            {
-                    $ev = [ 'id'=>$schedule->id, 
-                        'title'     => $title = $schedule->course->name .":残".$schedule->capacity, 
-                        'start'     => str_replace(' ', 'T', $schedule->start), 
-                        'end'       => str_replace(' ', 'T', $schedule->end), 
-                        'color'     => 'blue', 
-                        'url'       =>  route('user.classroom_reservation.create',$schedule->id),
-                        'extendedProps' => [
-                            'schedule_id'       => $schedule->id,
-                            'schedule_name'     => $schedule->name,
-                            'schedule_capacity' => $schedule->capacity,
-                        ]
-                    ];
-            }
-            else
-            {
-                $ev = [ 'id'=>$schedule->id, 
-                    'title'     => $title = $schedule->course->name."(済)", 
-                    'start'     => str_replace(' ', 'T', $schedule->start), 
-                    'end'       => str_replace(' ', 'T', $schedule->end), 
+            if ($start > $now) {
+                $ev = [
+                    'id'        => $schedule->id,
+                    'title'     => $schedule->course->name .":残".$schedule->capacity,
+                    'start'     => str_replace(' ', 'T', $schedule->start),
+                    'end'       => str_replace(' ', 'T', $schedule->end),
+                    'color'     => 'blue',
+                    'url'       =>  route('user.classroom_reservation.create', $schedule->id),
+                    'extendedProps' => [
+                        'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                        'schedule_id'       => $schedule->id,
+                        'schedule_name'     => $schedule->course->name,
+                        'schedule_capacity' => $schedule->capacity,
+                        'staff_name'        => $schedule->staff->name,
+                        'place'             => $schedule->staff->zoom->name,
+                        'status'            => '開始前'
+                     ]
+                ];
+            } else {
+                $ev = [
+                'id'    =>$schedule->id,
+                    'title'     => $title = $schedule->course->name."(済)",
+                    'start'     => str_replace(' ', 'T', $schedule->start),
+                    'end'       => str_replace(' ', 'T', $schedule->end),
                     'color'     => 'lightblue',
                     'extendedProps' => [
+                        'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
                         'schedule_id'       => $schedule->id,
-                        'schedule_name'     => $schedule->name,
+                        'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,
+                        'staff_name'        => $schedule->staff->name,
+                        'place'             => $schedule->staff->zoom->name,
+                        'status'            => '終了'
                     ]
-                ];         
+                ];
             }
-            array_push($data,$ev);
+            array_push($data, $ev);
         }
         return response()->json($data);
     }
@@ -87,36 +95,50 @@ class InquiryController extends Controller
 
         // 現在の日時
         $now = Carbon::now();
-        $schedules = Schedule::where('staff_id',$id)
+        $schedules = Schedule::where('staff_id', $id)
                                 ->where('is_zoom', true)
                                 ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                                 ->get();
                                 
-        foreach($schedules as $schedule) {
-            $title = $schedule->course->name .":残".$schedule->capacity;
+        foreach ($schedules as $schedule) {
             $start = new Carbon($schedule->start);
-            if ($start > $now)
-            {
-                $ev = [ 'id'=>$schedule->id, 
-                    'title'     =>$title, 
-                    'start'     =>str_replace(' ', 'T', $schedule->start), 
-                    'end'       =>str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'maroon', 
-                    'identifier'=>$schedule->identifier,
-                    'url'       =>  route('user.zoom_reservation.create',$schedule->id),
+            if ($start > $now) {
+                $ev = [
+                    'id'    => $schedule->id,
+                    'title' => $schedule->course->name,
+                    'start' => str_replace(' ', 'T', $schedule->start),
+                    'end'   => str_replace(' ', 'T', $schedule->end),
+                    'color' => 'maroon',
+                    'url'   => route('user.zoom_reservation.create', $schedule->id),
+                    'extendedProps' => [
+                        'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                        'schedule_id'       => $schedule->id,
+                        'schedule_name'     => $schedule->course->name,
+                        'schedule_capacity' => $schedule->capacity,
+                        'staff_name'        => $schedule->staff->name,
+                        'place'             => $schedule->staff->zoom->name,
+                        'status'            => '開始前'
+                    ]
+                ];
+            } else {
+                $ev = [
+                    'id'    => $schedule->id,
+                    'title' => $schedule->course->name,
+                    'start' => str_replace(' ', 'T', $schedule->start),
+                    'end'   => str_replace(' ', 'T', $schedule->end),
+                    'color' => 'orange',
+                    'extendedProps' => [
+                        'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                        'schedule_id'       => $schedule->id,
+                        'schedule_name'     => $schedule->course->name,
+                        'schedule_capacity' => $schedule->capacity,
+                        'staff_name'        => $schedule->staff->name,
+                        'place'             => $schedule->staff->zoom->name,
+                        'status'            => '終了'
+                    ]
                 ];
             }
-            else
-            {
-                $ev = [ 'id'=>$schedule->id, 
-                    'title'     => $title, 
-                    'start'     => str_replace(' ', 'T', $schedule->start), 
-                    'end'       => str_replace(' ', 'T', $schedule->end), 
-                    'color'     => 'orange', 
-                    'identifier'=> $schedule->identifier,
-                ];         
-            }
-            array_push($data,$ev);
+            array_push($data, $ev);
         }
 
         return response()->json($data);

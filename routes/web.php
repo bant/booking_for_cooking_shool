@@ -36,26 +36,20 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
-        //
-//        Route::resource('profile', 'ProfileController', ['only' => ['edit', 'update']]);
         Route::get('profile/edit', 'ProfileController@showForm')->name('profile.edit');
         Route::post('profile/{id?}/update', 'ProfileController@update')->name('profile.update');
 
         // 教室予約関係
         Route::get('classroom_reservation', 'ClassRoomReservationController@index')->name('classroom_reservation.index');
         Route::get('classroom/reservation/{id?}/calendar', 'ClassRoomReservationController@calendar')->name('classroom_reservation.calendar');
-        Route::get('classroom/reservation/{id?}/create', 'ClassRoomReservationController@create')->name('classroom_reservation.create');  
+        Route::get('classroom/reservation/{id?}/create', 'ClassRoomReservationController@create')->name('classroom_reservation.create');
         Route::post('classroom/reservation/store', 'ClassRoomReservationController@store')->name('classroom_reservation.store');
-     //   Route::delete('classroom/reservation/{id?}/destroy', 'ClassRoomReservationController@destroy')->name('classroom_reservation.destroy');
-     //   Route::delete('classroom/reservation/{id?}/cancel_destroy', 'ClassRoomReservationController@cancel_destroy')->name('classroom_reservation.cancel_destroy');
 
         // ZOOM予約関係
         Route::get('zoom/reservation', 'ZoomReservationController@index')->name('zoom_reservation.index');
         Route::get('zoom/reservation/{id?}/calendar', 'ZoomReservationController@calendar')->name('zoom_reservation.calendar');
-        Route::get('zoom/reservation/{id?}/create', 'ZoomReservationController@create')->name('zoom_reservation.create');  
+        Route::get('zoom/reservation/{id?}/create', 'ZoomReservationController@create')->name('zoom_reservation.create');
         Route::post('zoom/reservation/store', 'ZoomReservationController@store')->name('zoom_reservation.store');
-    //    Route::post('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
-    //    Route::delete('zoom/reservation/{id?}/destroy', 'ZoomReservationController@destroy')->name('zoom_reservation.destroy');
     
         Route::get('inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule')->name('inquiry.get_classroom_schedule');
         Route::get('inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule')->name('inquiry.get_zomm_schedule');
@@ -102,15 +96,14 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::get('reservation/{id?}/is_contract_update', 'ReservationController@is_contract_update')->name('reservation.is_contract_update');
         Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
         Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');
-        Route::get('inquiry/{id?}/get', 'InquiryController@get');
-        Route::post('inquiry/destroy', 'InquiryController@destroy');
-        Route::post('inquiry/store', 'InquiryController@store');
-        Route::post('inquiry/update', 'InquiryController@update');
+        Route::get('inquiry/{id?}/get', 'InquiryController@get')->name('inquiry.get');
+        Route::post('inquiry/destroy', 'InquiryController@destroy')->name('inquiry.destroy');;
+        Route::post('inquiry/store', 'InquiryController@store')->name('inquiry.store');;
+        Route::post('inquiry/update', 'InquiryController@update')->name('inquiry.store');;
 
         Route::get('reservation/{id?}/show', 'InquiryController@show');
 
         Route::get('user/{id?}/info', 'UserController@info')->name('user.info');
-
 
         Route::get('message/user', 'MessageController@user_index')->name('message.user_index');
 
@@ -124,13 +117,10 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         Route::get('message/user/{id?}/send', 'MessageController@user_send')->name('message.user_send');
 
-//        Route::get('message/admin', 'MessageController@admin_index')->name('message.admin_index');
-//        Route::get('message/admin/{id?}/send', 'MessageController@admin_send')->name('message.admin_send');
         Route::get('message/admin/delete/{id?}', 'MessageController@admin_delete')->name('message.admin_delete');
 
         Route::delete('cancel/{message_id?}/reservation/{id?}', 'CancelController@do_reservation')->name('cancel.do_reservation');
         Route::delete('cancel/{message_id?}/wait_list/{id?}', 'CancelController@do_wait_list')->name('cancel.do_wait_list');
-  
     });
 });
 
@@ -196,10 +186,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
         Route::get('staff/restore', 'StaffController@restore')->name('staff.restore');
         Route::post('staff/restore', 'StaffController@restore')->name('staff.restore');
-
-//        Route::get('message/staff/yoyaku/search', 'MessageController@staff_yoyaku_show')->name('message.staff_yoyaku_search');
-//        Route::post('message/staff/yoyaku/search', 'MessageController@staff_yoyaku_search')->name('message.staff_yoyaku_search');
-
     
         Route::post('message/staff/send', 'MessageController@send_to_staff_message')->name('message.send_to_staff_message');
         Route::get('message/staff/{id?}/delete', 'MessageController@delete_staff_message')->name('message.delete_staff_message');
@@ -210,7 +196,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('message/reservation/id_search', 'MessageController@reservation_id_search')->name('message.reservation_id_search');
         Route::get('message/reservation/user_list', 'MessageController@reservation_user_list')->name('message.reservation_user_list');
         Route::post('message/reservation/user_search', 'MessageController@reservation_user_search')->name('message.reservation_user_search');
-
 
         Route::get('message/user/edit/{id?}', 'MessageController@edit_to_user_message')->name('message.edit_to_user_message');
         Route::get('message/staff/edit/{id?}', 'MessageController@edit_to_staff_message')->name('message.edit_to_staff_message');

@@ -113,38 +113,7 @@
             console.log('select');
         },
  
-        // ドラッグドロップで操作
-        eventReceive: function(info) {
-            var start = moment(info.event.start).format("Y-MM-DD HH:mm");
-            var end = moment(info.event.start).format("Y-MM-DD HH:mm");
-            // csrf。Laravelお約束
-            $.ajaxSetup({
-                 headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
-             $.ajax({
-                 type: 'post',
-                 data: {
-                     'title' : info.event.title,
-                     'staff_id': '{{ Auth::user()->id }}',
-                     'start': start,
-                     'end': end
-                 },
-                 datatype: 'json',
-                 url: '/staff/inquiry/store' /* identifierをキーに登録or更新 */
-             })
-             .done(function(data){
-                 json = JSON.parse(data);
-                 if ( json['result'] == 'success' ) {
-                     // サーバサイドにて設定された背景色に変更
-                     info.event.setProp('color',json['color']);
-                 }
-             })
-             .fail(function(data){
-                 alert('error');
-             });
-         },
+
  
          eventDrop: function (info) {
              var start = moment(info.event.start).format("Y-MM-DD HH:mm");
@@ -156,57 +125,100 @@
                  }
              });
              $.ajax({
-                 type: 'post',
-                 data: {
+                url: '/staff/inquiry/update', /* identifierをキーに登録or更新 */
+                type: 'POST',
+                dataTape: 'json',
+                data: {
                      'id': info.event.id,
                      'start': start,
                      'end': end
-                 },
-                 datatype: 'json',
-                 url: '/staff/inquiry/update' /* identifierをキーに登録or更新 */
+                 }
              })
              .done(function(data){
-                 json = JSON.parse(data);
-                 if ( json['result'] == 'success' ) {
-                     // サーバサイドにて設定された背景色に変更
-                     info.event.setProp('color',json['color']);
-                 }
+                console.log(data);
+                if ( data['result'] == 'failure1' ) {
+                    alert("過去へはスケジュールは移動できません");
+                    location.reload();
+                }
+                else if( data['result'] == 'failure2' )
+                {
+                    alert("過去のスケジュールは移動できません");
+                    location.reload(); 
+                }
+                else if ( data['result'] == 'failure3' ) {
+                    alert("予約が入っているスケジールは移動できません");
+                    location.reload();
+                }
              })
              .fail(function(data){
                  alert('error');
              });
          },
+        
  
-         eventClick: function (info) {
-                     var deleteMsg = confirm("このスケジュールを削除して良いですか?");
-                     if (deleteMsg) {
-                         // csrf。Laravelお約束
-                         $.ajaxSetup({
-                             headers: {
-                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                             }
-                         });
-                         $.ajax({
-                             type: "POST",
-                             url: '/staff/inquiry/destroy',
-                             data: { 'id': info.event.id },
-                             success: function (response) {
-                                 if (parseInt(response) > 0) {
-                                     info.event.remove(); 
-                                 displayMessage("Deleted Successfully");
-                         }
-                         location.reload();
-                     }
-                 });
-             }
+        eventClick: function (info) {
+            var deleteMsg = confirm("このスケジュールを削除して良いですか?");
+            if (deleteMsg) {
+                // csrf. Laravelお約束
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '/staff/inquiry/destroy',
+                    data: { 'id': info.event.id },
+
+                    url: '/staff/inquiry/destroy', /* identifierをキーに登録or更新 */
+                    type: 'POST',
+                    dataTape: 'json',
+                    data: { 'id': info.event.id }
+                })
+                .done(function(data){
+                    console.log(data);
+                    if ( data['result'] == 'success' ) {
+                        info.event.remove(); 
+                        alert("削除しました");
+                    }
+                    else
+                    {
+                        alert("予約が入っているスケジールは削除できませんでした");
+                    }
+
+             })
+             .fail(function(data){
+                 alert('error');
+             });
+            }
          },
  
-         eventResize: function(info) {
+        eventResize: function(info) {
              // イベントがリサイズ（引っ張ったり縮めたり）された時のコールバック
-             console.log('eventResize');
-         },
+            console.log('eventResize');
+        },
+
+
          eventRender: function (info) {
+            /*
+            $(info.el).tooltip({
+                title:
+                    '<i class="fa fa-users"></i>&nbsp;<b>教室情報</b><br/>' +
+                    " 教室：" + info.event.extendedProps.place + "<br/>" +
+                    " 先生：" + info.event.extendedProps.staff_name + "<br/>" +
+                    " コース名：" + info.event.extendedProps.schedule_name + "<br/>" +
+                    " 日時：" + info.event.extendedProps.start_end + "<br/>" +
+                    " 残り：" + info.event.extendedProps.schedule_capacity + "名<br/>" +
+                    " 状態：" + info.event.extendedProps.status ,
+                    placement: "top",
+                trigger: "hover",
+                container: "body",
+                html: true
+            });
+            */
+
            //wired listener to handle click counts instead of event type
+           clickCnt = 0;
            info.el.addEventListener('click', function() {
              clickCnt++;
              if (clickCnt === 1) {
@@ -222,7 +234,8 @@
                  console.log('double click');
              }
            });
-         }
+    }
+
      })
         calendar.render();
     });
