@@ -48,7 +48,7 @@ class Course extends Model
      */
     public function tax()
     {
-        return ($this->price *  Config::get('constants.options'));
+        return ($this->price * 0.1);    // ★消費税
     }
 
 }
