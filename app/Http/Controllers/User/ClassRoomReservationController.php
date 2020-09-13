@@ -131,9 +131,9 @@ class ClassRoomReservationController extends Controller
                 'staff_name'        => $schedule->staff->name,
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
-                'price'             => number_format($price),
-                'tax'               => number_format($tax),
-                'tax_price'         => number_format($price + $tax),
+                'price'             => number_format($price)."円",
+                'tax'               => number_format($tax)."円",
+                'tax_price'         => number_format($price + $tax)."円",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start)),
                 'cancel_rank'       => $wait_count
             ];
@@ -153,13 +153,13 @@ class ClassRoomReservationController extends Controller
             } 
             else 
             {
-                if ($point > $price) 
+                if ($point > ($price + $tax)) 
                 {
                     $reservation->is_contract = true;       // 本契約
                     $reservation->is_pointpay = true;
                     $spent_point = $price + $tax;           // 税込み価格
 
-                    User::where('id', $user->id)->update(['point' => $point - $price]);
+                    User::where('id', $user->id)->update(['point' => $point - $spent_point]);
                 } 
                 else 
                 {
@@ -199,9 +199,9 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
-                    'price'             => number_format($price)."円(ポイントで支払い済み)",
-                    'tax'               => number_format($tax),
-                    'tax_price'         => number_format($price + $tax),
+                    'price'             => number_format($price + $tax)."円",
+                    'tax'               => number_format($tax)."円",
+                    'tax_price'         => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
@@ -220,9 +220,9 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
-                    'price'             => number_format($price),
-                    'tax'               => number_format($tax),
-                    'tax_price'         => number_format($price + $tax),
+                    'price'             => number_format($price)."円",
+                    'tax'               => number_format($tax)."円",
+                    'tax_price'         => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
@@ -320,12 +320,12 @@ class ClassRoomReservationController extends Controller
                 $reservation->is_pointpay = false;
                 $spent_point = 0;
             } else {
-                if ($point > $price) {
+                if ($point > ($price + $tax)) {
                     $reservation->is_contract = true;    // 本契約
                     $reservation->is_pointpay = true;
-                    $spent_point = $price;
+                    $spent_point = $price + $tax;           // 税込み価格
 
-                    User::where('id', $user->id)->update(['point' => $point - $price]);
+                    User::where('id', $user->id)->update(['point' => $point - $spent_point]);
                 } else {
                     $reservation->is_contract = false;      // 仮契約
                     $reservation->is_pointpay = false;
@@ -362,9 +362,9 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
-                    'price'             => number_format($price)."円(ポイントで支払い済み)",
-                    'tax'               => number_format($price * Config::get('constants.options'))."円",
-                    'tax_price'         => number_format($price * (1 + Config::get('constants.options')))."円",
+                    'price'             => number_format($price)."円",
+                    'tax'               => number_format($tax)."円",
+                    'tax_price'         => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
@@ -384,8 +384,8 @@ class ClassRoomReservationController extends Controller
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
                     'price'             => number_format($price)."円",
-                    'tax'               => number_format($price * Config::get('constants.options'))."円",
-                    'tax_price'         => number_format($price * (1 + Config::get('constants.options')))."円",
+                    'tax'               => number_format($tax)."円",
+                    'tax_price'         => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];

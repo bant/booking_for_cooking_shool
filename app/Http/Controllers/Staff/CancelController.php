@@ -76,8 +76,8 @@ class CancelController extends Controller
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
                 'price'             => number_format($reservation->spent_point)."円(ポイントに還元済み)",
-                'tax'               => number_format($price * Config::get('constants.options')),
-                'tax_price'         => number_format($price * (1 + Config::get('constants.options'))),
+                'tax'               => number_format($tax)."円",
+                'tax_price'         => number_format($price + $tax)."円",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
         }
@@ -129,13 +129,13 @@ class CancelController extends Controller
             }
             else 
             {
-                if ($point > $price)
+                if ($point > ($price + $tax))
                 {
                     $reservation->is_contract = true;    // 本契約
                     $reservation->is_pointpay = true;
-                    $spent_point = $price;
+                    $spent_point = $price + $tax;           // 税込み価格
 
-                    User::where('id', $user->id)->update(['point' => $point - $price]);
+                    User::where('id', $user->id)->update(['point' => $point - $spent_point]);
                 }
                 else
                 {
@@ -176,7 +176,7 @@ class CancelController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
-                    'price'             => number_format($price)."円(ポイントで支払い済み)",
+                    'price'             => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];

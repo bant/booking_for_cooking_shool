@@ -126,9 +126,9 @@ class ZoomReservationController extends Controller
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
                 'zoom_name'         => $schedule->staff->zoom->name,
-                'price'             => number_format($price),
-                'tax'               => number_format($tax),
-                'tax_price'         => number_format($price + $tax),
+                'price'             => number_format($price)."円",
+                'tax'               => number_format($tax)."円",
+                'tax_price'         => number_format($price + $tax)."円",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start)),
                 'cancel_rank'       => $wait_count
             ];
@@ -148,13 +148,13 @@ class ZoomReservationController extends Controller
             } 
             else 
             {
-                if ($point > $price) 
+                if ($point > ($price + $tax)) 
                 {
                     $reservation->is_contract = true;    // 本契約
                     $reservation->is_pointpay = true;
-                    $spent_point = $price;
+                    $spent_point = $price + $tax;           // 税込み価格
 
-                    User::where('id', $user->id)->update(['point' => $point - $price]);
+                    User::where('id', $user->id)->update(['point' => $point - $spent_point]);
                 } 
                 else 
                 {
@@ -195,8 +195,8 @@ class ZoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'zoom_name'         => $schedule->staff->zoom->name,
                     'price'             => number_format($price)."円(ポイントで支払い済み)",
-                    'tax'               => number_format($tax),
-                    'tax_price'         => number_format($price + $tax),
+                    'tax'               => number_format($tax)."円",
+                    'tax_price'         => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start)),
                     'zoom_invitation'   => $schedule->zoom_invitation,
@@ -215,9 +215,9 @@ class ZoomReservationController extends Controller
                     'user_tel'          => $user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'zoom_name'         => $schedule->staff->zoom->name,
-                    'price'             => number_format($price),
-                    'tax'               => number_format($tax),
-                    'tax_price'         => number_format($price + $tax),
+                    'price'             => number_format($price)."円",
+                    'tax'               => number_format($tax)."円",
+                    'tax_price'         => number_format($price + $tax)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
                 ];
@@ -313,12 +313,12 @@ class ZoomReservationController extends Controller
                 $reservation->is_pointpay = false;
                 $spent_point = 0;
             } else {
-                if ($point > $price) {
+                if ($point > ($price + $tax)) {
                     $reservation->is_contract = true;    // 本契約
                     $reservation->is_pointpay = true;
-                    $spent_point = $price;
+                    $spent_point = $price + $tax;           // 税込み価格
 
-                    User::where('id', $user->id)->update(['point' => $point - $price]);
+                    User::where('id', $user->id)->update(['point' => $point - $spent_point]);
                 } else {
                     $reservation->is_contract = false;      // 仮契約
                     $reservation->is_pointpay = false;
