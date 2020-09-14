@@ -85,6 +85,7 @@ class HomeController extends Controller
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',false)
             ->where('schedules.start','>',$now)
+            ->whereNull('users.deleted_at')
             ->orderBy('schedules.start')
             ->get( [
                 'reservations.id as id',
@@ -107,6 +108,7 @@ class HomeController extends Controller
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',true)
             ->where('schedules.start','>',$now)
+            ->whereNull('users.deleted_at')
             ->orderBy('schedules.start')
             ->get( [
                     'reservations.id as id',

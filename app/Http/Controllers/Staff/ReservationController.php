@@ -74,6 +74,7 @@ class ReservationController extends Controller
         ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
         ->where('schedules.staff_id','=',$staff->id)
         ->where('schedules.is_zoom','=',false)
+        ->whereNull('users.deleted_at')
         ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
         ->orderBy('schedules.start')
         ->get( [
@@ -94,6 +95,7 @@ class ReservationController extends Controller
             ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',true)
+            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get( [
@@ -164,6 +166,7 @@ class ReservationController extends Controller
         ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
         ->where('schedules.staff_id','=',$staff->id)
         ->where('schedules.is_zoom','=',false)
+        ->whereNull('users.deleted_at')
         ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
         ->orderBy('schedules.start')
         ->get( [
@@ -184,6 +187,7 @@ class ReservationController extends Controller
             ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',true)
+            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get( [
@@ -224,6 +228,7 @@ class ReservationController extends Controller
         ->join('courses', 'schedules.course_id', '=', 'courses.id')
         ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
         ->where('reservations.id','=',$id)
+        ->whereNull('users.deleted_at')
         ->get( [
                 'reservations.id as id',
                 'reservations.is_contract as is_contract',
@@ -245,8 +250,6 @@ class ReservationController extends Controller
                 'schedules.start as start'
             ])->first();
 
-
-
         $mail_classification = "kakutei";
         $mail_title = "【予約確定】". $reservation->course_name ."(". date('Y年m月d日 H時i分', strtotime($reservation ->start)) . ")の予約を確定しました。";
         $mail_data = [
@@ -261,6 +264,8 @@ class ReservationController extends Controller
             'room_name'         => $reservation->room_name,
             'room_address'      => $reservation->room_address,
             'price'             => number_format($reservation->course_price)."円",
+            'tax'               => number_format($reservation->course_price*0.1)."円",
+            'tax_price'         => number_format($reservation->course_price*1.1)."円",
             'start'             => date('Y年m月d日 H時i分', strtotime($reservation->start))
         ];
 
@@ -294,6 +299,7 @@ class ReservationController extends Controller
         ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
         ->where('schedules.staff_id','=',$staff->id)
         ->where('schedules.is_zoom','=',false)
+        ->whereNull('users.deleted_at')
         ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
         ->orderBy('schedules.start')
         ->get( [
@@ -333,6 +339,7 @@ class ReservationController extends Controller
         ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
         ->where('schedules.staff_id','=',$staff->id)
         ->where('schedules.is_zoom','=',true)
+        ->whereNull('users.deleted_at')
         ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
         ->orderBy('schedules.start')
         ->get( [

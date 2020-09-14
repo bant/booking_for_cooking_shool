@@ -179,7 +179,7 @@ class ClassRoomReservationController extends Controller
                 ->where('schedules.staff_id', '=', $schedule->staff->id)
                 ->where('schedules.is_zoom', '=', false)
                 ->count();
-                       if (is_null($reservate_times)) 
+            if (is_null($reservate_times)) 
             {
                 $reservate_times = "初";
             }

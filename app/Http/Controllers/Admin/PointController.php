@@ -230,6 +230,7 @@ class PointController extends Controller
   //                                                  ->where('reservations.is_pointpay','=',false)
                                                     ->where('schedules.staff_id','=',$staff->id)
                                                     ->where('schedules.is_zoom','=',false)
+                                                    ->whereNull('users.deleted_at')
                                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                                     ->orderBy('schedules.start')
                                                     ->get([ 'reservations.id as id',
@@ -252,6 +253,7 @@ class PointController extends Controller
                                     ->where('reservations.is_pointpay','=',true)
                                     ->where('schedules.staff_id','=',$staff->id)
                                     ->where('schedules.is_zoom','=',true)
+                                    ->whereNull('users.deleted_at')
                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                     ->orderBy('schedules.start')
                                     ->get([ 'reservations.id as id',
@@ -299,6 +301,7 @@ class PointController extends Controller
   //                                                  ->where('reservations.is_pointpay','=',false)
                                                     ->where('schedules.staff_id','=',$staff->id)
                                                     ->where('schedules.is_zoom','=',false)
+                                                    ->whereNull('users.deleted_at')
                                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                                     ->orderBy('schedules.start')
                                                     ->get([ 'reservations.id as id',
@@ -320,6 +323,7 @@ class PointController extends Controller
                                     ->where('reservations.is_pointpay','=',true)
                                     ->where('schedules.staff_id','=',$staff->id)
                                     ->where('schedules.is_zoom','=',true)
+                                    ->whereNull('users.deleted_at')
                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                     ->orderBy('schedules.start')
                                     ->get([ 'reservations.id as id',
@@ -370,6 +374,7 @@ class PointController extends Controller
   //                                                  ->where('reservations.is_pointpay','=',false)
                                                     ->where('schedules.staff_id','=',$staff->id)
                                                     ->where('schedules.is_zoom','=',false)
+                                                    ->whereNull('users.deleted_at')
                                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                                     ->orderBy('schedules.start')
                                                     ->get([ 'reservations.id as id',
@@ -422,6 +427,7 @@ class PointController extends Controller
   //                                                  ->where('reservations.is_pointpay','=',false)
                                                     ->where('schedules.staff_id','=',$staff->id)
                                                     ->where('schedules.is_zoom','=',true)
+                                                    ->whereNull('users.deleted_at')
                                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                                     ->orderBy('schedules.start')
                                                     ->get([ 'reservations.id as id',
@@ -473,6 +479,7 @@ class PointController extends Controller
                                     ->where('reservations.is_pointpay','=',true)
 //                                    ->where('schedules.staff_id','=',$staff->id)
 //                                    ->where('schedules.is_zoom','=',false)
+                                    ->whereNull('users.deleted_at')
                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                     ->orderBy('schedules.start')
                                     ->get([ 'reservations.id as id',
@@ -523,6 +530,7 @@ class PointController extends Controller
                                     ->where('reservations.is_pointpay','=',true)
 //                                    ->where('schedules.staff_id','=',$staff->id)
 //                                    ->where('schedules.is_zoom','=',false)
+                                    ->whereNull('users.deleted_at')
                                     ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
                                     ->orderBy('schedules.start')
                                     ->get([ 'reservations.id as id',

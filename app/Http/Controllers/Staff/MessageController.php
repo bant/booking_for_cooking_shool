@@ -88,6 +88,7 @@ class MessageController extends Controller
         ->join('users', 'reservations.user_id', '=', 'users.id')
         ->where('schedules.staff_id', '=', $staff->id)
         ->where('schedules.is_zoom', '=', false)
+        ->whereNull('users.deleted_at')
         ->orderBy('schedules.start')
         ->get([
                 'reservations.id as id',
