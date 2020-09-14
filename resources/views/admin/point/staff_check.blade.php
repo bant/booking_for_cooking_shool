@@ -22,7 +22,7 @@
           <tr>
             <th>予約番号</th>
             <th>コース名</th>
-            <th>料金</th>
+            <th>料金(税込み)</th>
             <th>開催日時</th>
             <th>参加生徒(ID)</th>
             <th class="text-center">予約状態</th>
@@ -37,7 +37,7 @@
           <tr>
           <td>{{$class_reservation->id}}</td>
           <td>{{$class_reservation->course_name}}</td>
-          <td>{{ number_format($class_reservation->course_price)}}円</td>
+          <td>{{ number_format($class_reservation->course_price*1.1)}}円</td>
           <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
         @if (is_null($class_reservation->user_deleted_at))
           <td><a href="{{ route('admin.user.info', ['id' => $class_reservation->user_id])}}">{{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
@@ -79,7 +79,7 @@
         <tr>
           <th>予約番号</th>
           <th>コース名</th>
-          <th>料金</th>
+          <th>料金(税込み)</th>
           <th>開催日時</th>
           <th>参加生徒(ID)</th>
           <th class="text-center">予約状態</th>

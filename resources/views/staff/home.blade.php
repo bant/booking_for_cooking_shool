@@ -80,7 +80,7 @@
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                 @endif
                     <td>{{$user_booking_cancel_reservation->schedule->course->name}}</td>
-                    <td>{{ date('Y年m月d日 H時i分', strtotime($user_booking_cancel_reservation->schedule->start))}}</td>
+                    <td>{{ date('Y/m/d H:i', strtotime($user_booking_cancel_reservation->schedule->start))}}</td>
                     <td><a href="{{ route('staff.user.info', $user_booking_cancel_message->user->id) }}"> {{$user_booking_cancel_message->user->name}}({{$user_booking_cancel_message->user->id}})</a></td>
                     <td>{{$user_booking_cancel_message->message}}</td>
                     <td class="text-right">
@@ -116,7 +116,7 @@
                 <tr>
                     <td>{{$user_wait_list_cancel_messages->reservation_id}}</td>
                     <td>{{$user_wait_list_cancel_reservation->schedule->course->name}}</td>
-                    <td>{{ date('Y年m月d日 H時i分', strtotime($user_wait_list_cancel_reservation->schedule->start))}}</td>
+                    <td>{{ date('Y/m/d H:i', strtotime($user_wait_list_cancel_reservation->schedule->start))}}</td>
                     <td><a href="{{ route('staff.user.info', $user_wait_list_cancel_message->user->id) }}"> {{$user_wait_list_cancel_message->user->name}}({{$user_wait_list_cancel_message->user->id}})</a></td>
                     <td>{{$user_wait_list_cancel_message->message}}</td>
                     <td class="text-right">
@@ -154,10 +154,11 @@
                     <tr>
                     <th>予約番号</th>
                     <th>確定</th>
+                    <th>予約時刻</th>
                     <th>生徒(ID)</th>
                     <th>コース名</th>
                     <th>開催日時</th>
-                    <th>料金</th>
+                    <th>料金(税込み)</th>
                     <th>支払済ポイント</th>
                     <th>アクション</th>
                     </tr>
@@ -172,10 +173,11 @@
                 @else
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                 @endif
+                    <td>{{ date('Y/m/d H:i', strtotime($class_reservation->created_at)) }}</td>
                     <td><a href="{{ route('staff.user.info', $class_reservation->user_id) }}"> {{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
                     <td>{{$class_reservation->course_name}}</td>
-                    <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
-                    <td>{{ number_format($class_reservation->course_price)}}円</td>
+                    <td>{{ date('Y/m/d H:i', strtotime($class_reservation->start)) }}</td>
+                    <td>{{ number_format($class_reservation->course_price*1.1)}}円</td>
                     <td>{{ number_format($class_reservation->point)}}pt</td>
                     @if (!$class_reservation->is_contract)
                     <td>
@@ -203,10 +205,11 @@
                     <tr>
                     <th>予約番号</th>
                     <th>確定</th>
+                    <th>予約時刻</th>
                     <th>生徒(ID)</th>
                     <th>コース名</th>
                     <th>開催日時</th>
-                    <th>料金</th>
+                    <th>料金(税込み)</th>
                     <th>支払済ポイント</th>
                     <th>アクション</th>
                     </tr>
@@ -220,10 +223,11 @@
                 @else
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                 @endif
+                    <td>{{ date('Y/m/d H:i', strtotime($zoom_reservation->created_at)) }}</td>
                     <td><a href="{{ route('staff.user.info', $zoom_reservation->user_id) }}"> {{$zoom_reservation->user_name}}({{$zoom_reservation->user_id}})</a></td>
                     <td>{{$zoom_reservation->course_name}}</td>
-                    <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
-                    <td>{{ number_format($zoom_reservation->course_price)}}円</td>
+                    <td>{{ date('Y/m/d H:i', strtotime($zoom_reservation->start)) }}</td>
+                    <td>{{ number_format($zoom_reservation->course_price*1.1)}}円</td>
                     <td>{{ number_format($zoom_reservation->point)}}pt</td>
                     <td>--</td>                            
                     </tr>

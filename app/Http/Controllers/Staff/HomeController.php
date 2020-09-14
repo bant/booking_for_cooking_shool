@@ -96,7 +96,8 @@ class HomeController extends Controller
                 'users.deleted_at as user_deleted_at',
                 'courses.name as course_name',
                 'courses.price as course_price',
-                'schedules.start as start'
+                'schedules.start as start',
+                'reservations.created_at as created_at'
             ]);
       
 
@@ -120,7 +121,8 @@ class HomeController extends Controller
                     'courses.name as course_name',
                     'users.deleted_at as user_deleted_at',
                     'courses.price as course_price',
-                    'schedules.start as start'
+                    'schedules.start as start',
+                    'reservations.created_at as created_at'
                 ]);
 
         return view('staff.home')->with([

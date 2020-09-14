@@ -26,7 +26,7 @@
                 <th>生徒(ID)</th>
                 <th>コース名</th>
                 <th>日時</th>
-                <th>料金</th>
+                <th>料金(税込み)</th>
                 <th>支払済ポイント</th>
                 <th class="text-right">アクション</th>
             </tr>
@@ -49,7 +49,7 @@
                 <td><a href="{{ route('staff.user.info', $class_reservation->user_id) }}"> {{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
                 <td>{{$class_reservation->course_name}}</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
-                <td>{{ number_format($class_reservation->course_price)}}円</td>
+                <td>{{ number_format($class_reservation->course_price*1.1)}}円</td>
                 <td>{{ number_format($class_reservation->point)}}pt</td>
                 @if (!$class_reservation->is_contract)
                     <td>
@@ -80,7 +80,7 @@
                 <th>生徒(ID)</th>
                 <th>コース名</th>
                 <th>日時</th>
-                <th>料金</th>
+                <th>料金(税込み)</th>
                 <th>支払済ポイント</th>
                 <th class="text-right">アクション</th>
             </tr>
@@ -103,7 +103,7 @@
                 <td>{{$zoom_reservation->user_name}}({{$zoom_reservation->user_id}})</td>
                 <td>{{$zoom_reservation->course_name}}</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start)) }}</td>
-                <td>{{ number_format($zoom_reservation->course_price)}}円</td>
+                <td>{{ number_format($zoom_reservation->course_price*1.1)}}円</td>
                 <td>{{ number_format($zoom_reservation->point)}}pt</td>
                 @if (!$zoom_reservation->is_contract)
                     <td>
