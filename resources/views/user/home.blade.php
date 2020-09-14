@@ -71,7 +71,7 @@
                 <th>コース名</th>
                 <th>教室</th>
                 <th>先生</th>
-                <th>価格(税抜)</th>
+                <th>価格(税込み)</th>
                 <th>開始時間</th>
             </tr>
         </thead>
@@ -88,7 +88,7 @@
 　              <td>{{$classroom_reservation->course_name}}</td>
                 <td>{{$classroom_reservation->room_name}}</td>
                 <td>{{$classroom_reservation->staff_name}}</td>
-                <td>{{ number_format($classroom_reservation->course_price) }}円</td>
+                <td>{{ number_format($classroom_reservation->course_price*1.1) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($classroom_reservation->start))}}</td>
             </tr>
         @endforeach
@@ -110,7 +110,7 @@
                 <th>コース名</th>
                 <th>教室</th>
                 <th>先生</th>
-                <th>価格(税抜)</th>
+                <th>価格(税込み)</th>
                 <th>開始時間</th>
             </tr>
         </thead>
@@ -128,7 +128,7 @@
                 <td>{{$zoom_reservation->course_name}}</td>
                 <td>{{$zoom_reservation->room_name}}</td>
                 <td>{{$zoom_reservation->staff_name}}</td>
-                <td>{{ number_format($zoom_reservation->course_price) }}円</td>
+                <td>{{ number_format($zoom_reservation->course_price*1.1) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($zoom_reservation->start))}}</td>
              </tr>
         @endforeach

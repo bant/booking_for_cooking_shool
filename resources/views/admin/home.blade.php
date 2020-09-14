@@ -27,7 +27,7 @@
                 <td>{{$staff_message->message}}</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($staff_message->expired_at))}}</td>
                 <td><a class="float-right btn btn-sm btn-warning" href=""> 返信</a> 
-                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.delete_staff_message',$staff_message->id)}}"> <i class="fas fa-trash">メッセージの削除</a></td>                             
+                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.delete_staff_message',$staff_message->id)}}"> <i class="fas fa-trash">&ensp;メッセージの削除</a></td>                             
             </tr>
         @endforeach
         </tbody>

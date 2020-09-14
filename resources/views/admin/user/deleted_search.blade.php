@@ -33,7 +33,7 @@
                     <td>{{number_format($user->point)}}pt</td>
                     <td>{{number_format($user->reservations()->count())}}回</td>
                     <td class="text-right">
-                        <a class="btn btn-sm btn-warning" href="{{route('admin.user.restore', $user->id)}}"><i class="fas fa-edit"></i> 生徒の復元</a>
+                        <a class="btn btn-sm btn-warning" href="{{route('admin.user.restore', $user->id)}}"><i class="fas fa-window-restore"></i> 生徒の復元</a>
                     </td>
                 </tr>
             @endforeach

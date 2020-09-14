@@ -57,7 +57,7 @@
                     <th>教室</th>
                     <th>コース名</th>
                     <th>先生</th>
-                    <th>価格(税抜)</th>
+                    <th>価格(税込み)</th>
                     <th>開始時間</th>
                     <th class="text-right"> アクション</th>
                 </tr>
@@ -75,7 +75,7 @@
                 <td>{{$reservation->room_name}}</td>
                 <td>{{$reservation->course_name}}</td>
                 <td>{{$reservation->staff_name}}</td>
-                <td>{{ number_format($reservation->course_price) }}円</td>
+                <td>{{ number_format($reservation->course_price*1.1) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
                 <td class="text-right">
                     <form action="{{route('user.message.send_cancel_message',$reservation->id)}}" method="POST" style="display: inline;"

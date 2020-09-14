@@ -59,7 +59,7 @@
                                  onsubmit="return confirm('{{$user->name}}さんを停止しても良いですか!?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>生徒の停止</button>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-pause"></i>&ensp;生徒の停止</button>
                     </form>
                 </td>
             </tr>

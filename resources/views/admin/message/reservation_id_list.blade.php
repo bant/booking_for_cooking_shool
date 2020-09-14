@@ -17,7 +17,7 @@
             <input class="form-control" type="text" name="reservation_id" id="reservation_id-field" value="{{old('reservation_id')}}" />
         </div>
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>絞り込み</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i>&ensp;絞り込み</button>
         </div>
     </form>
     <br/>
@@ -54,8 +54,8 @@
                 <td>{{$reservation->schedule->staff->name}}</td>
                 <td>{{$reservation->user->name}}({{$reservation->user->id}})</td>
                 <td>
-                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope"> 生徒へ</i></a>
-                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope"> 先生へ</i></a>
+                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope">&ensp;生徒へ</i></a>
+                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope">&ensp;先生へ</i></a>
                 </td>                                    
              </tr>
         @endforeach

@@ -44,7 +44,7 @@
                                  onsubmit="return confirm('生徒を停止しても良いですか!?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>停止</button>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-pause"></i>停止</button>
                     </form>
                 </div>
             </div>

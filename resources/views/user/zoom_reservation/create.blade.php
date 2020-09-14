@@ -45,8 +45,10 @@
                         <dd class="col-md-10">{{ $schedule->staff->name }}</dd>
                         <dt class="col-md-2">コース名</dt>
                         <dd class="col-md-10">{{ $schedule->course->name }}</dd>
-                        <dt class="col-md-2">価格(税抜)</dt>
+                        <dt class="col-md-2">価格</dt>
                         <dd class="col-md-10">{{  number_format($schedule->course->price) }}円</dd>
+                        <dt class="col-md-2">消費税</dt>
+                        <dd class="col-md-10">{{  number_format($schedule->course->price*0.1) }}円</dd>
                         <dt class="col-md-2">残り席数</dt>
                         <dd class="col-md-10">{{ $schedule->capacity}}</dd>
                         <dt class="col-md-2">開始日時</dt>
@@ -60,7 +62,10 @@
                         <input type="hidden" name="schedule_id" value="{{$schedule->id}}">
                         <input type="hidden" name="price" value="{{$schedule->course->price}}">
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 予約</button>
+                        <button type="submit" class="btn btn-primary" name="no_point" value="1"><i class="fas fa-save"></i>&ensp;仮予約</button>
+                        @if (Auth::user()->point > $schedule->course->price)
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&ensp;予約</button>
+                        @endif
                             <a class="btn btn-link pull-right" href="{{route('user.zoom_reservation.calendar', ['id' => $schedule->staff_id])}}"><i class="fas fa-backward"></i>{{ $schedule->staff->zoom->name }}のカレンダーに戻る</a>
                         </div>
                     </form>
