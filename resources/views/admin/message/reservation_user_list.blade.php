@@ -55,8 +55,8 @@
                 <td>{{$reservation->staff_name}}</td>
                 <td>{{$reservation->user_name}}({{$reservation->user_id}})</td>
                 <td>
-                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-trash">生徒へ</i></a>
-                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-trash">先生へ</i></a>
+                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope">生徒へ</i></a>
+                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope">先生へ</i></a>
                 </td>                                    
              </tr>
         @endforeach

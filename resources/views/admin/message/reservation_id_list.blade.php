@@ -39,6 +39,9 @@
 
         <tbody>
         @foreach($reservations as $reservation)
+            @php
+                if (is_null($reservation->user)) continue;  // ユーザソフト削除された場合
+            @endphp
             <tr>
                 <td class="text-center"><strong>{{$reservation->id}}</strong></td>
                 @if ($reservation->schedule->is_zoom)
@@ -51,8 +54,8 @@
                 <td>{{$reservation->schedule->staff->name}}</td>
                 <td>{{$reservation->user->name}}({{$reservation->user->id}})</td>
                 <td>
-                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-trash">生徒へ</i></a>
-                    <a class="float-right btn btn-sm btn-danger" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-trash">先生へ</i></a>
+                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope"> 生徒へ</i></a>
+                    <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope"> 先生へ</i></a>
                 </td>                                    
              </tr>
         @endforeach

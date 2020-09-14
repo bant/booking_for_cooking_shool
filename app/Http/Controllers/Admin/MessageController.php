@@ -59,7 +59,9 @@ class MessageController extends Controller
             ->join('users', 'reservations.user_id', '=', 'users.id')
             ->join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
+            ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
             ->where('reservations.is_contract','=',false)
+            ->whereNull('users.deleted_at')
             ->orderBy('reservations.created_at', 'desc')
             ->get( [
                 'reservations.id as id',
@@ -70,6 +72,7 @@ class MessageController extends Controller
                 'users.pref as user_pref',
                 'users.address as user_address',
                 'rooms.name as room_name',
+                'zooms.name as zoom_name',
                 'courses.name as course_name',
                 'staff.id as staff_id',
                 'staff.name as staff_name',
@@ -91,7 +94,9 @@ class MessageController extends Controller
             ->join('users', 'reservations.user_id', '=', 'users.id')
             ->join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
-            ->where('reservations.is_contract','=',false);
+            ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
+            ->where('reservations.is_contract','=',false)
+            ->whereNull('users.deleted_at');
 
         if (!is_null($request->name))
         {
@@ -113,6 +118,7 @@ class MessageController extends Controller
                 'users.pref as user_pref',
                 'users.address as user_address',
                 'rooms.name as room_name',
+                'zooms.name as zoom_name',
                 'courses.name as course_name',
                 'staff.id as staff_id',
                 'staff.name as staff_name',
