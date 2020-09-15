@@ -86,9 +86,9 @@ class InquiryController extends Controller
             $start = new Carbon($schedule->start);
             $req_start = new Carbon($request->start);
 
-            if ($now >  $req_start) {
+            if ($now > $req_start) {
                 return response()->json(['result'=>'failure1']);
-            } elseif ($now >  $start) {
+            } elseif ($now > $start) {
                 return response()->json(['result'=>'failure2']);
             } else {
                 $update = [
@@ -138,7 +138,6 @@ class InquiryController extends Controller
         $schedules = Schedule::where('staff_id', $id)
                                 ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
                                 ->get();
-
 
         $now = Carbon::now();
 
