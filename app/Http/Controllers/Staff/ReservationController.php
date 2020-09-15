@@ -310,7 +310,8 @@ class ReservationController extends Controller
                 'users.name as user_name',
                 'courses.name as course_name',
                 'courses.price as course_price',
-                'schedules.start as start'
+                'schedules.start as start',
+                'schedules.start as end'
             ]); 
 
 
@@ -350,7 +351,8 @@ class ReservationController extends Controller
                 'users.name as user_name',
                 'courses.name as course_name',
                 'courses.price as course_price',
-                'schedules.start as start'
+                'schedules.start as start',
+                'schedules.start as end'
             ]); 
 
 

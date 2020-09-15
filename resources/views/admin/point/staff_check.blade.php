@@ -64,7 +64,7 @@
         @endforeach
       </tbody>
     </table>
-    <a class="float-right btn btn-sm btn-warning" href="{{ route('admin.point.staff_export_class', ['id' => $staff->id, 'date' => $now_first_month_day])}}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
+    <a class="float-right btn btn-sm btn-success" href="{{ route('admin.point.staff_export_class', ['id' => $staff->id, 'date' => $now_first_month_day])}}"><i class="fas fa-download"></i>&nbsp;Excelファイルでダウンロード</a>
     @else
       <div class="text-center alert alert-info">教室の予約はありません。</div>
     @endif
@@ -121,7 +121,7 @@
                       @endforeach
                       </tbody>
                       </table>
-                      <a class="float-right btn btn-sm btn-warning" href="{{ route('admin.point.staff_export_zoom', ['id' => $staff->id, 'date' => $now_first_month_day])}}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
+                      <a class="float-right btn btn-sm btn-success" href="{{ route('admin.point.staff_export_zoom', ['id' => $staff->id, 'date' => $now_first_month_day])}}"><i class="fas fa-download"></i>&nbsp;Excelファイルでダウンロード</a>
                      @else
                         <div class="text-center alert alert-info">ZOOMの予約はありません。</div>
                     @endif

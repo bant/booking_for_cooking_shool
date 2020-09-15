@@ -58,7 +58,7 @@
                 </tr>
             </tbody>
         </table>
-        <a class="float-right btn btn-sm btn-warning" href="{{ route('admin.point.export_point', ['date' => $now_first_month_day])}}"><i class="fas fa-edit"></i> execelファイルでダウンロード</a>
+        <a class="float-right btn btn-sm btn-success" href="{{ route('admin.point.export_point', ['date' => $now_first_month_day])}}"><i class="fas fa-download"></i>&nbsp;Excelファイルでダウンロード</a>
     @else
          <div class="text-center alert alert-info">ポイントの追加はありません</div>
     @endif

@@ -55,7 +55,7 @@
                           <td>{{$user->email}}</td>
                           <td>{{$user->address}}</td>
                           <td class="text-right">
-                            <a class="btn btn-sm btn-warning" href="{{route('staff.message.user_send', $user->id)}}"><i class="fas  fa-envelope"></i> メッセージ送信</a>
+                            <a class="btn btn-sm btn-warning" href="{{route('staff.message.user_send', $user->id)}}"><i class="fas  fa-envelope"></i>&nbsp;メッセージ送信</a>
                           </td>
                         </tr>
                       @endforeach

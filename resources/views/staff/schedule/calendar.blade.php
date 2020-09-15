@@ -26,10 +26,10 @@
 
                 <br/>
             @if ($room_count != 0)
-                <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-primary"><i class="fas fa-edit"></i> 教室スケジュール新規登録</button></a>
+                <a href="{{route('staff.classroom_schedule.create')}}"><button type="submit" class="btn btn btn-primary"><i class="fas fa-edit"></i>&nbsp;教室スケジュール新規登録</button></a>
             @endif
             @if ($zoom_count != 0)
-                <a href="{{route('staff.zoom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i> オンライン教室スケジュール新規登録</button></a>
+                <a href="{{route('staff.zoom_schedule.create')}}"><button type="submit" class="btn btn btn-warning"><i class="fas fa-edit"></i>&nbsp;オンライン教室スケジュール新規登録</button></a>
             @endif  
             </div>
         </div><!-- end card-body -->

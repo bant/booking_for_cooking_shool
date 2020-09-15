@@ -18,7 +18,7 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><i class="fas fa-plus"></i> 教室スケジュール/編集</div>
+                <div class="card-header"><i class="fas fa-plus"></i>&nbsp;教室スケジュール/編集</div>
 
                 <div class="card-body">
                     @if (session('status'))

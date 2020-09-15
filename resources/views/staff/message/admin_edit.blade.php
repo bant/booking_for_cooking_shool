@@ -38,7 +38,7 @@
             <textarea name="message" id="message-field" class="form-control" rows="3"></textarea>
         </div>
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-envelope"></i> 送信</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-envelope"></i>&nbsp;送信</button>
         </div>
     </form>
 </section>

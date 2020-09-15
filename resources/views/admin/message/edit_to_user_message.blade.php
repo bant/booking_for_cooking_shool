@@ -3,7 +3,7 @@
 @section('content')
 <div id="content">
 <div id="breadcrumbs">
-        <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i>&nbsp;トップページ</a>  >
         生徒に入金確認メッセージの送付
     </div>  
 
@@ -78,7 +78,7 @@
             <textarea name="message" id="message-field" class="form-control" rows="3">予約番号:{{$reservation->id}} に関するお知らせ</textarea>
         </div>
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>　メッセージ送信</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;メッセージ送信</button>
         </div>
     </form>
 

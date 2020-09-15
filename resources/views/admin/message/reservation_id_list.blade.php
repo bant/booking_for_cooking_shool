@@ -3,7 +3,7 @@
 @section('content')
 <div id="content">
     <div id="breadcrumbs">
-        <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i> トップページ</a>  >
+        <a  href="{{route('admin.home.index')}}"><i class="fas fa-home"></i>&nbsp;トップページ</a>  >
         予約番号で入金確認メッセージ送信
     </div>      
     <section>

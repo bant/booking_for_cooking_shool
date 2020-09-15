@@ -3,7 +3,7 @@
 @section('content')
 <div id="content"> 
     <div id="breadcrumbs">
-        <i class="fas fa-home"></i> トップページ
+        <i class="fas fa-home"></i>&nbsp;トップページ
     </div>  
     <section>
     <h1>管理者のダッシュボード</h1>

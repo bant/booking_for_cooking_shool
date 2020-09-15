@@ -1,25 +1,31 @@
 <table>
   <thead>
   <tr>
-    <th>{{ __('id') }}</th>
-    <th>{{ __('is_pointpay') }}</th>
-    <th>{{ __('user_id') }}</th>
-    <th>{{ __('user_name') }}</th>
-    <th>{{ __('course_name') }}</th>
-    <th>{{ __('course_price') }}</th>
-    <th>{{ __('start') }}</th>
+    <th>予約番号</th>
+    <th>支払い方法</th>
+    <th>生徒ID</th>
+    <th>生徒名</th>
+    <th>コース名</th>
+    <th>価格(税込み)</th>
+    <th>開始時刻</th>
+    <th>終了時刻</th>
   </tr>
   </thead>
   <tbody>
   @foreach ($reservations as $reservation)
     <tr>
       <td>{{ $reservation->id }}</td>
-      <td>{{ $reservation->is_pointpay }}</td>
+      @if ($reservation->is_pointpay == 1)
+        <td>ポイントで支払い</td>
+      @else
+        <td>現金で支払い</td>
+      @endif
       <td>{{ $reservation->user_id }}</td>
       <td>{{ $reservation->user_name }}</td>
       <td>{{ $reservation->course_name }}</td>
-      <td>{{ $reservation->course_price }}</td>
+      <td>{{ $reservation->course_price * 1.1 }}</td>
       <td>{{ $reservation->start }}</td>
+      <td>{{ $reservation->end }}</td>
     </tr>
   @endforeach
   </tbody>
