@@ -114,8 +114,49 @@
         },
  
 
+        eventResize: function (info) {
+            var start = moment(info.event.start).format("Y-MM-DD HH:mm");
+            var end = moment(info.event.end).format("Y-MM-DD HH:mm");
+            // csrf。Laravelお約束
+            $.ajaxSetup({
+                 headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 }
+            });
+            $.ajax({
+                url: '/staff/inquiry/update', /* identifierをキーに登録or更新 */
+                type: 'POST',
+                dataTape: 'json',
+                data: {
+                     'id': info.event.id,
+                     'start': start,
+                     'end': end
+                }
+            })
+            .done(function(data){
+                console.log(data);
+                if ( data['result'] == 'failure1' ) {
+                    alert("過去へはスケジュールは移動できません");
+                    location.reload();
+                }
+                else if( data['result'] == 'failure2' )
+                {
+                    alert("過去のスケジュールは移動できません");
+                    location.reload(); 
+                }
+                else if ( data['result'] == 'failure3' ) {
+                    alert("予約が入っているスケジールは移動できません");
+                    location.reload();
+                }
+            })
+            .fail(function(data){
+                 alert('error');
+            });
+        },
+
+
  
-         eventDrop: function (info) {
+        eventDrop: function (info) {
              var start = moment(info.event.start).format("Y-MM-DD HH:mm");
              var end = moment(info.event.end).format("Y-MM-DD HH:mm");
              // csrf。Laravelお約束
