@@ -397,7 +397,7 @@ class PointController extends Controller
 
         $view = view('admin.point.staff_export_class')->with(['staff'=>$staff, 'reservations' => $reservations]);
      
-        $export_name = date('Y-m', strtotime($date)) . "_". $staff->name ."先生_教室予約状況.xlsx";
+        $export_name = date('Y-m', strtotime($date)) . "_". $staff->name ."先生_リアル教室ポイント獲得状況.xlsx";
         return \Excel::download(new Export($view), $export_name);
     }
 
@@ -450,7 +450,7 @@ class PointController extends Controller
 
         $view = view('admin.point.staff_export_zoom')->with(['staff'=>$staff, 'reservations' => $reservations]);
      
-        $export_name = date('Y-m', strtotime($date)) . "_". $staff->name ."先生_オンライン教室予約状況.xlsx";
+        $export_name = date('Y-m', strtotime($date)) . "_". $staff->name ."先生_オンライン教室ポイント獲得状況.xlsx";
         return \Excel::download(new Export($view), $export_name);
     }
 

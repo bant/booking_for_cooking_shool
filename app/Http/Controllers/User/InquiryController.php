@@ -55,7 +55,7 @@ class InquiryController extends Controller
                         'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,
                         'staff_name'        => $schedule->staff->name,
-                        'place'             => $schedule->staff->zoom->name,
+                        'place'             => $schedule->staff->room->name,
                         'status'            => '開始前'
                      ]
                 ];
@@ -72,7 +72,7 @@ class InquiryController extends Controller
                         'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,
                         'staff_name'        => $schedule->staff->name,
-                        'place'             => $schedule->staff->zoom->name,
+                        'place'             => $schedule->staff->room->name,
                         'status'            => '終了'
                     ]
                 ];

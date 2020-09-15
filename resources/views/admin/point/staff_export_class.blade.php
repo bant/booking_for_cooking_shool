@@ -4,7 +4,7 @@
     <th>予約番号</th>
     <th>先生氏名</th>
     <th>コース名</th>
-    <th>価格</th>
+    <th>価格(税込み)</th>
     <th>開始日時</th>
     <th>生徒ID</th>
     <th>生徒氏名</th>
@@ -23,7 +23,7 @@
       <td>{{ $reservation->id }}</td>
       <td>{{ $staff->name }}</td>
       <td>{{ $reservation->course_name }}</td>
-      <td>{{ $reservation->course_price }}</td>
+      <td>{{ $reservation->course_price * 1.1 }}</td>
       <td>{{ $reservation->start }}</td>
       <td>{{ $reservation->user_id }}</td>
       <td>{{ $reservation->user_name }}</td>

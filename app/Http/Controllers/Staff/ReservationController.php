@@ -317,7 +317,7 @@ class ReservationController extends Controller
 
         $view = \view('staff.reservation.export_class')->with(['reservations' => $reservations]);
      
-        $export_name = date('Y-m', strtotime($id)) . "_reservation_class.xlsx";
+        $export_name = date('Y-m', strtotime($id)) . "_". $staff->room->name ."の予約状況.xlsx";
         return \Excel::download(new Export($view), $export_name);
     }
 
@@ -358,7 +358,7 @@ class ReservationController extends Controller
 
         $view = \view('staff.reservation.export_zoom')->with(['reservations' => $reservations]);
      
-        $export_name = date('Y-m', strtotime($id)) . "_reservation_zooms.xlsx";
+        $export_name = date('Y-m', strtotime($id)) . "_". $staff->zoom->name ."の予約状況.xlsx";
         return \Excel::download(new Export($view), $export_name);
     }
 
