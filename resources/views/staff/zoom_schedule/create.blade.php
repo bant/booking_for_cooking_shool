@@ -57,7 +57,7 @@
                             <label for="zoom_invitation-field">【デフォルトのZOOMの招待状】変更がない場合は、そのまま登録してください</label>
                             <textarea name="zoom_invitation" id="zoom_invitation-field" class="form-control" rows="3">栗田クッキングサロン　オンラインレッスンにご予約下さりありがとうございます。
 当日は下記アドレスよりお入り頂けます。
-ご入金確認後、パスワードをご登録頂きましたメール充てにお送りいたしますので、ご確認の上 ご参加くださいませ。
+ご入金確認後、パスワードをご登録頂きましたメール宛にお送りいたしますので、ご確認の上 ご参加くださいませ。
 
 Zoomミーティングに参加する
 https://us02web.zoom.us/j/3789925374
