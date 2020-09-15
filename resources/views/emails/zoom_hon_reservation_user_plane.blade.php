@@ -19,7 +19,7 @@
 招待状に従ってZOOMにログインしてください。
 
 ---[招待状]---
-{!! nl2br(e($data['zoom_invitation'])) !!}
+{{$data['zoom_invitation']}}
 
 
 ◇ご用意いただくもの
