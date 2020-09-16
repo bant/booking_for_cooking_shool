@@ -29,7 +29,7 @@
 
 ----------------------------------------------
 栗田クッキングサロン ホームページ管理者
-URL：http://www.kuritacooking.com
+URL：https://www.kuritacooking.com
 e-mail：info@kuritacooking.com
 
 〒658-0053
