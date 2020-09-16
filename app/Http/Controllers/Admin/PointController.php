@@ -15,7 +15,7 @@ use App\Models\PaymentDescription;
 use App\Exports\Export;
 use Carbon\Carbon;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class PointController extends Controller
 {

@@ -25,7 +25,7 @@
         </div>
 
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>検索</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;検索</button>
         </div>
     </form>
 

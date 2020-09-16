@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Course;
 use App\Models\Zoom;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 
@@ -43,8 +43,8 @@ class ClassRoomScheduleController extends Controller
     public function create()
     {
         $staff = Auth::user();
-        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
-        $zoom_count = Zoom::where('staff_id','=','$staff->id')->count();
+        $courses = Course::where('staff_id', $staff->id)->get(['id', 'name']);
+        $zoom_count = Zoom::where('staff_id', '=', '$staff->id')->count();
         return view('staff.classroom_schedule.create', compact('courses', 'zoom_count'));
     }
 
@@ -95,8 +95,8 @@ class ClassRoomScheduleController extends Controller
     {
         $staff = Auth::user();
         $schedule = Schedule::find($id);
-        $courses = Course::where('staff_id', $staff->id)->get(['id','name']);
-        return view('staff.classroom_schedule.edit', compact('schedule','courses'));
+        $courses = Course::where('staff_id', $staff->id)->get(['id', 'name']);
+        return view('staff.classroom_schedule.edit', compact('schedule', 'courses'));
     }
 
     /**

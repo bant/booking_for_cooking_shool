@@ -45,7 +45,7 @@
             <input class="form-control" type="price" name="price" id="price-field" value="{{$course->price}}" />
         </div>
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>コース更新</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;コース更新</button>
             <a class="btn btn-link pull-right" href="{{ route('staff.course.index') }}"><i class="fas fa-backward"></i> 戻る</a>
         </div>
     </form>

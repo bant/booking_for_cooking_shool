@@ -25,7 +25,7 @@ class StoreUserProfile extends FormRequest
     {
         return [
             'name'  => 'required', // 必須
-            'kana'  => 'required|regex:/^[ァ-ヾ]+$/u', // 必須
+            'kana'  => 'required|regex:/^[ァ-ヾ　]+$/u', // 必須
             'tel'   => 'required|regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/',
             'year' => 'nullable|present|numeric|required_with:month,day',
             'month' => 'nullable|present|numeric|required_with:year,day',

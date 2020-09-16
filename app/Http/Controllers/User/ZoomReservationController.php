@@ -18,7 +18,7 @@ use App\Mail\ZoomReservationUserEmail;
 use App\Mail\ZoomReservationStaffEmail;
 use App\Mail\ZoomCancelUserEmail;
 use App\Mail\ZoomCancelStaffEmail;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class ZoomReservationController extends Controller
@@ -303,7 +303,9 @@ class ZoomReservationController extends Controller
             // 生徒さんのポイント
             $point  = $user->point;
             //
-            $price = Course::find($schedule->course->id)->price; /* ※バグ */
+            $course = Course::find($schedule->course->id);
+            $price = $course->price;    // 価格
+            $tax = $course->tax();      // 税金
 
             $reservation = new Reservation;
             $reservation->user_id = $wait_list_reservation->user_id;

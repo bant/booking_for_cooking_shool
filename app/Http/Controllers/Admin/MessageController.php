@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\AdminMessage;
 use App\Models\StaffMessage;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class MessageController extends Controller

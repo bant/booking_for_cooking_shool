@@ -26,10 +26,9 @@ class UserPasswordResetNotification extends ResetPassword
         }
 
         return (new MailMessage)
-                    ->subject('パスワードリセット通知')
-                    ->view('emails.password_reset', [
-                        'reset_url' => url(config('app.url').route('user.password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false))
-                    ]);
+            ->subject('パスワードリセット通知')
+            ->view('emails.password_reset', [
+                'reset_url' => url(config('app.url') . route('user.password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false))
+            ]);
     }
-
 }

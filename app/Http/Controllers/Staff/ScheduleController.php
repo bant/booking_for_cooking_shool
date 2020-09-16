@@ -8,7 +8,7 @@ use App\Models\Schedule;
 use App\Models\Course;
 use App\Models\Zoom;
 use App\Models\Room;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 

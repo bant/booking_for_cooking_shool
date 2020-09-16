@@ -10,7 +10,7 @@ use App\Models\AdminMessage;
 use App\Models\UserMessage;
 use App\Models\Reservation;
 use App\Models\WaitListReservation;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class MessageController extends Controller
@@ -71,7 +71,7 @@ class MessageController extends Controller
 
         $check = UserMessage::where('outline','wait_list_cancel')
             ->where('direction','to_staff_and_admin')
-            ->where('reservation_id',$reservation->id)
+            ->where('reservation_id',$wait_list_reservation->id)
             ->get();
        
         if ($check->count() == 0)

@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>先生登録</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;先生登録</button>
                         </div>
                     </form>
 

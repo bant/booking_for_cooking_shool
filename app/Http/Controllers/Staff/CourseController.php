@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {

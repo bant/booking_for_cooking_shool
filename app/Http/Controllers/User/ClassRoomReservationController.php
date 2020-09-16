@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\WaitListReservation;
 use App\Models\Schedule;
 use App\Models\Course;
+use App\Models\Room;
 use App\Models\Admin;
 use App\Models\Staff;
 use App\Models\User;
@@ -17,7 +18,7 @@ use App\Mail\ClassRoomReservationUserEmail;
 use App\Mail\ClassRoomReservationStaffEmail;
 use App\Mail\ClassRoomCancelUserEmail;
 use App\Mail\ClassRoomCancelStaffEmail;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class ClassRoomReservationController extends Controller
@@ -310,7 +311,9 @@ class ClassRoomReservationController extends Controller
             // 生徒さんのポイント
             $point  = $user->point;
             //
-            $price = Course::find($schedule->course->id)->price; /* ※バグ */
+            $course = Course::find($schedule->course->id);
+            $price = $course->price;    // 価格
+            $tax = $course->tax();      // 税金
 
             $reservation = new Reservation;
             $reservation->user_id = $wait_list_reservation->user_id;

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Reservation;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class InquiryController extends Controller
@@ -19,7 +19,7 @@ class InquiryController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth:user');
+        //        $this->middleware('auth:user');
     }
 
     /**
@@ -35,21 +35,22 @@ class InquiryController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $schedules = Schedule::where('staff_id', $id)
-                        ->where('is_zoom', false)
-                        ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
-                        ->get();
+            ->where('is_zoom', false)
+            ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
+            ->get();
         foreach ($schedules as $schedule) {
             $start = new Carbon($schedule->start);
             if ($start > $now) {
                 if ($schedule->capacity > 0) {
-                    $ev = [ 'id'=>$schedule->id,
+                    $ev = [
+                        'id' => $schedule->id,
                         'title'     => $schedule->course->name,
                         'start'     => str_replace(' ', 'T', $schedule->start),
                         'end'       => str_replace(' ', 'T', $schedule->end),
                         'color'     => 'blue',
                         'url'       =>  route('user.classroom_reservation.create', $schedule->id),
                         'extendedProps' => [
-                            'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                            'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                             'schedule_id'       => $schedule->id,
                             'schedule_name'     => $schedule->course->name,
                             'schedule_capacity' => $schedule->capacity,
@@ -66,7 +67,7 @@ class InquiryController extends Controller
                         'end'   => str_replace(' ', 'T', $schedule->end),
                         'color' => 'blue',
                         'extendedProps' => [
-                            'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                            'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                             'schedule_id'       => $schedule->id,
                             'schedule_name'     => $schedule->course->name,
                             'schedule_capacity' => $schedule->capacity,
@@ -79,12 +80,12 @@ class InquiryController extends Controller
             } else {
                 $ev = [
                     'id'        => $schedule->id,
-                    'title'     => $schedule->course->name."(済)",
+                    'title'     => $schedule->course->name . "(済)",
                     'start'     => str_replace(' ', 'T', $schedule->start),
                     'end'       => str_replace(' ', 'T', $schedule->end),
                     'color'     => 'lightblue',
                     'extendedProps' => [
-                        'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                        'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                         'schedule_id'       => $schedule->id,
                         'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,
@@ -113,9 +114,9 @@ class InquiryController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $schedules = Schedule::where('staff_id', $id)
-                        ->where('is_zoom', true)
-                        ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
-                        ->get();
+            ->where('is_zoom', true)
+            ->whereBetween('start', array(str_replace('T', ' ', $request->start), str_replace('T', ' ', $request->end)))
+            ->get();
         foreach ($schedules as $schedule) {
             $start = new Carbon($schedule->start);
             if ($start > $now) {
@@ -128,7 +129,7 @@ class InquiryController extends Controller
                         'color' => 'maroon',
                         'url'       =>  route('user.classroom_reservation.create', $schedule->id),
                         'extendedProps' => [
-                            'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                            'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                             'schedule_id'       => $schedule->id,
                             'schedule_name'     => $schedule->course->name,
                             'schedule_capacity' => $schedule->capacity,
@@ -145,7 +146,7 @@ class InquiryController extends Controller
                         'end'       => str_replace(' ', 'T', $schedule->end),
                         'color' => 'maroon',
                         'extendedProps' => [
-                            'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                            'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                             'schedule_id'       => $schedule->id,
                             'schedule_name'     => $schedule->course->name,
                             'schedule_capacity' => $schedule->capacity,
@@ -158,12 +159,12 @@ class InquiryController extends Controller
             } else {
                 $ev = [
                     'id'        => $schedule->id,
-                    'title'     => $schedule->course->name."(済)",
+                    'title'     => $schedule->course->name . "(済)",
                     'start'     => str_replace(' ', 'T', $schedule->start),
                     'end'       => str_replace(' ', 'T', $schedule->end),
                     'color' => 'orange',
                     'extendedProps' => [
-                        'start_end'         => date('H:i', strtotime($schedule->start))."〜".date('H:i', strtotime($schedule->end)),
+                        'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                         'schedule_id'       => $schedule->id,
                         'schedule_name'     => $schedule->course->name,
                         'schedule_capacity' => $schedule->capacity,

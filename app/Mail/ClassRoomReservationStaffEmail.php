@@ -33,33 +33,30 @@ class ClassRoomReservationStaffEmail extends Mailable
      */
     public function build()
     {
-        switch ($this->classification)
-        {
+        switch ($this->classification) {
             case 'hon_yoyaku':      /* 支払い済み */
                 return $this->text('emails.class_room_hon_reservation_staff_plane')
-//                    ->view('emails.class_room_hon_reservation_staff')
+                    //                    ->view('emails.class_room_hon_reservation_staff')
                     ->subject($this->title)
                     ->with(['data' => $this->data]);
 
-
             case 'kari_yoyaku':        /* 仮払い */
                 return $this->text('emails.class_room_kari_reservation_staff_plane')
-//                    ->view('emails.class_room_kari_reservation_staff')
+                    //                    ->view('emails.class_room_kari_reservation_staff')
                     ->subject($this->title)
                     ->with(['data' => $this->data]);
 
             case 'kakutei':      /* キャンセル待ち */
                 return $this->text('emails.class_room_kakutei_reservation_staff_plane')
-//                    ->view('emails.class_room_kakutei_reservation_staff')
+                    //                    ->view('emails.class_room_kakutei_reservation_staff')
                     ->subject($this->title)
                     ->with(['data' => $this->data]);
 
             case 'cancel_machi':      /* キャンセル待ち */
-                        return $this->text('emails.class_room_cancel_reservation_staff_plane')
-        //                    ->view('emails.class_room_cancel_reservation_staff')
-                            ->subject($this->title)
-                            ->with(['data' => $this->data]);
-
+                return $this->text('emails.class_room_cancel_reservation_staff_plane')
+                    //                    ->view('emails.class_room_cancel_reservation_staff')
+                    ->subject($this->title)
+                    ->with(['data' => $this->data]);
         }
     }
 }

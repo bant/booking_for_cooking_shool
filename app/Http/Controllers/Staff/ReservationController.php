@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\Zoom;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreZoom;
 use App\Models\Course;
 use App\Models\Admin;

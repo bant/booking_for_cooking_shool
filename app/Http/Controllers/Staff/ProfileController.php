@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Staff;
-use Auth;
+use App\Models\Room;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {

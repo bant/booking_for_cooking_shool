@@ -32,8 +32,8 @@ class ZoomCancelUserEmail extends Mailable
     public function build()
     {
         return $this->view('emails.zoom_cancel_user_html')
-                ->text('emails.zoom_cancel_user_text')
-                ->subject($this->title)
-                ->with(['data' => $this->data]);
+            ->text('emails.zoom_cancel_user_text')
+            ->subject($this->title)
+            ->with(['data' => $this->data]);
     }
 }

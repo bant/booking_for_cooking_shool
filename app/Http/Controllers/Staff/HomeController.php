@@ -8,7 +8,7 @@ use App\Models\Reservation;
 use App\Models\Course;
 use App\Models\Room;
 use App\Models\Zoom;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\AdminMessage;
 use App\Models\UserMessage;

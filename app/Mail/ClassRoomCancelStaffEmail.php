@@ -32,8 +32,8 @@ class ClassRoomCancelStaffEmail extends Mailable
     public function build()
     {
         return $this->view('emails.class_room_cancel_staff_html')
-                ->text('emails.class_room_cancel_staff_text')
-                ->subject($this->title)
-                ->with(['data' => $this->data]);
+            ->text('emails.class_room_cancel_staff_text')
+            ->subject($this->title)
+            ->with(['data' => $this->data]);
     }
 }

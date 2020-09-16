@@ -9,10 +9,10 @@ class UserMessage extends Model
     protected $fillable = [
         'user_id',
         'message'
-      ];
+    ];
 
     // 「１対１」→ メソッド名は単数形
-    Public function user()
+    public function user()
     {
         return $this->belongsTo('App\Models\User');
     }

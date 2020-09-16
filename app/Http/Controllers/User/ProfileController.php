@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserProfile;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Zoom;
@@ -29,8 +29,8 @@ class ProfileController extends Controller
     public function showForm()
     {
         $user = Auth::user();
-        $rooms = Room::all();
-        $zooms = Zoom::all();
+    //    $rooms = Room::all();
+    //    $zooms = Zoom::all();
 
         $birthday = new Carbon($user->birthday);
         return view('user.profile.edit')->with([
@@ -38,8 +38,8 @@ class ProfileController extends Controller
             'birthday_month' => $birthday->month,
             'birthday_day'   => $birthday->day,
             'user'           => $user,
-            'rooms'         => $rooms,
-            'zooms'         => $zooms
+    //        'rooms'         => $rooms,
+    //        'zooms'         => $zooms
         ]);
     }
 

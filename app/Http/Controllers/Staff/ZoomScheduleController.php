@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Course;
 use App\Models\Zoom;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\StoreSchedule;
 use Session;

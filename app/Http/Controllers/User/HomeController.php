@@ -10,7 +10,7 @@ use App\Models\Room;
 use App\Models\Zoom;
 use App\Models\AdminMessage;
 use App\Models\StaffMessage;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Carbon\Carbon;
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Zoom;
 use App\Models\Staff;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreZoom;
 
 class ZoomController extends Controller

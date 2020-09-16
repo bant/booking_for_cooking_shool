@@ -100,7 +100,7 @@
                             @endforeach
                             </select>
                             <div class="well well-sm">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> ポイント追加/削除</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;ポイント追加/削除</button>
                              </div>
                         </form>
                     </div>

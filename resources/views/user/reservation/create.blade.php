@@ -48,7 +48,7 @@
  
                         <input type="hidden" name="schedule_id" value="{{$schedule->id}}">
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 新規登録</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;新規登録</button>
                             <a class="btn btn-link pull-right" href="/user/ClassroomSchedule/calendar/{{$schedule->staff_id}}"><i class="fas fa-backward"></i> カレンダーに戻る</a>
                         </div>
                     </form>

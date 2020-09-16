@@ -50,7 +50,7 @@
                         <textarea name="description" id="description-field" class="form-control" rows="3">{{old('description')}}</textarea>
                     </div>
                     <div class="well well-sm">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 新規登録</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;新規登録</button>
                         <a class="btn btn-link pull-right" href="{{ route('staff.room.index') }}"><i class="fas fa-backward"></i> 戻る</a>
                     </div>
                 </form>

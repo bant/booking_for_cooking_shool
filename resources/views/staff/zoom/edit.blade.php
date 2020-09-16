@@ -45,7 +45,7 @@
             <textarea name="description" id="description-field" class="form-control" rows="3">{{$zoom->description}}</textarea>
         </div>
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>情報更新</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;情報更新</button>
             <a class="btn btn-link pull-right" href="{{ route('staff.zoom.index') }}"><i class="fas fa-backward"></i> 確認へ戻る</a>
         </div>
     </form>
