@@ -1,11 +1,11 @@
 @extends('layouts.user.app')
 
 @section('content')
-<div id="breadcrumbs">
-    <a href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a> >
-    プロフィール
-</div>
 <div id="content">
+    <div id="breadcrumbs">
+        <a href="{{route('user.home.index')}}"><i class="fas fa-home"></i> トップページ</a> >
+        プロフィール
+    </div>
     <section>
         <h1>プロフィール</h1>
         <h2>編集</h2>
@@ -64,30 +64,28 @@
 
 
                 <div class="form-group">
-                            <label for="birthday-field">誕生日</label><br/>
-                        
-                            <select id="year" name="year">
-                                <option value="">---</option>
-                                <?php $years = array_reverse(range(today()->year - 60, today()->year)); ?>
-                            @foreach($years as $year)
-                                <option value="{{ $year }}" {{ $birthday_year == $year ? 'selected' : '' }} >{{ $year }}</option>
-                            @endforeach
-                            </select>
-                            <label for="year">年</label>
+                    <label for="birthday-field">誕生日</label><br />
 
-                            <select id="month" name="month">
-                                <option value="">---</option>
-                            @foreach(range(1, 12) as $month)
-                                <option value="{{ $month }}" {{ $birthday_month == $month ? 'selected' : '' }} >{{ $month }}</option>
-                            @endforeach
-                            </select>
-                            <label for="month">月</label>
+                    <select id="year" name="year">
+                        <option value="">---</option>
+                        <?php $years = array_reverse(range(today()->year - 60, today()->year)); ?>
+                        @foreach($years as $year)
+                        <option value="{{ $year }}" {{ $birthday_year == $year ? 'selected' : '' }}>{{ $year }}</option>
+                        @endforeach
+                    </select>
+                    <label for="year">年</label>
 
-                            <select id="day" name="day" data-old-value="{{ $birthday_day }}" ></select>
-                            <label for="day">日</label>
-                        </div>
+                    <select id="month" name="month">
+                        <option value="">---</option>
+                        @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}" {{ $birthday_month == $month ? 'selected' : '' }}>{{ $month }}</option>
+                        @endforeach
+                    </select>
+                    <label for="month">月</label>
 
-
+                    <select id="day" name="day" data-old-value="{{ $birthday_day }}"></select>
+                    <label for="day">日</label>
+                </div>
 
 
                 <div class="form-group">
