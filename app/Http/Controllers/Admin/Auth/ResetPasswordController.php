@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -28,6 +29,10 @@ class ResetPasswordController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
 
+    public function __construct()
+    {
+        $this->middleware('guest:admin');
+    }
 
     public function showResetForm(Request $request, $token = null)
     {
@@ -36,11 +41,11 @@ class ResetPasswordController extends Controller
 
     protected function guard()
     {
-        return Auth::guard('admin');
+        return \Auth::guard('admin');
     }
 
     public function broker()
     {
-        return Password::broker('admins');
+        return \Password::broker('admins');
     }
 }
