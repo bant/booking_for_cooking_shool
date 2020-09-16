@@ -16,9 +16,9 @@
     <tr>
       <td>{{ $reservation->id }}</td>
       @if ($reservation->is_pointpay == 1)
-        <td>ポイントで支払い</td>
+        <td>ポイント払い</td>
       @else
-        <td>現金で支払い</td>
+        <td>ポイント以外</td>
       @endif
       <td>{{ $reservation->user_id }}</td>
       <td>{{ $reservation->user_name }}</td>

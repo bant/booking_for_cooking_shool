@@ -47,7 +47,7 @@
     @if ($reservation->is_pointpay)
       <td>ポイント払い</td>
     @else
-      <td>現金払い</td>
+      <td>ポイント以外</td>
     @endif
     <td>{{ $reservation->spent_point}}</td>
     </tr>

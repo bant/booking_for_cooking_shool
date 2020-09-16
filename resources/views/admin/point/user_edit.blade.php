@@ -109,7 +109,7 @@
             <select type="text" class="form-control" name="description_id">                          
                 @foreach($payment_descriptions as $description)
                 <option value="{{ $description->id }}" 
-                    @if ( $description->id ===  1) 
+                    @if ( $description->id ===  3) 
                         selected
                     @endif                          
                     >{{ $description->name }}</option>
