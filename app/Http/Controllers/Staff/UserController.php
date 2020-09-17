@@ -42,7 +42,7 @@ class UserController extends Controller
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',false)
             ->where('schedules.start','<',$now)
-            ->whereNull('users.deleted_at')
+            ->whereNull('users.deleted_at')     // OK!!
             ->count();
 
         $zoom_reservation_times = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
@@ -52,7 +52,7 @@ class UserController extends Controller
             ->where('schedules.staff_id','=',$staff->id)
             ->where('schedules.is_zoom','=',true)
             ->where('schedules.start','<',$now)
-            ->whereNull('users.deleted_at')
+            ->whereNull('users.deleted_at')         // OK!!
             ->count();
 
         return view('staff.user.info')->with([

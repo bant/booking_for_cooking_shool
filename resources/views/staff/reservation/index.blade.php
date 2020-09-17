@@ -46,7 +46,12 @@
                 @else
                     <td>済</td>
                 @endif
-                <td><a href="{{ route('staff.user.info', $class_reservation->user_id) }}"> {{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
+
+                @if (is_null($class_reservation->user_deleted_at))
+                    <td><a href="{{ route('staff.user.info', $class_reservation->user_id) }}"> {{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
+                @else
+                    <td>{{$class_reservation->user_name}}(停止)</td>
+                @endif
                 <td>{{$class_reservation->course_name}}</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($class_reservation->start)) }}</td>
                 <td>{{ number_format($class_reservation->course_price*1.1)}}円</td>

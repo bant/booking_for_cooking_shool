@@ -20,8 +20,13 @@
       @else
         <td>ポイント以外</td>
       @endif
+      @if (is_null($reservation->user_deleted_at))
       <td>{{ $reservation->user_id }}</td>
       <td>{{ $reservation->user_name }}</td>
+      @else
+      <td>--</td>
+      <td>{{ $reservation->user_name }}(停止ユーザ)</td>
+      @endif
       <td>{{ $reservation->course_name }}</td>
       <td>{{ $reservation->course_price * 1.1 }}</td>
       <td>{{ $reservation->start }}</td>

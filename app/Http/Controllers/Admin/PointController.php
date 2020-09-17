@@ -211,7 +211,7 @@ class PointController extends Controller
             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
             ->where('schedules.staff_id', '=', $staff->id)
             ->where('schedules.is_zoom', '=', false)
-//            ->whereNull('users.deleted_at')
+            //            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -235,7 +235,7 @@ class PointController extends Controller
             ->where('reservations.is_pointpay', '=', true)
             ->where('schedules.staff_id', '=', $staff->id)
             ->where('schedules.is_zoom', '=', true)
-//            ->whereNull('users.deleted_at')
+            //            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -285,7 +285,7 @@ class PointController extends Controller
             //                                                  ->where('reservations.is_pointpay','=',false)
             ->where('schedules.staff_id', '=', $staff->id)
             ->where('schedules.is_zoom', '=', false)
-//            ->whereNull('users.deleted_at')
+            //            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -309,7 +309,7 @@ class PointController extends Controller
             ->where('reservations.is_pointpay', '=', true)
             ->where('schedules.staff_id', '=', $staff->id)
             ->where('schedules.is_zoom', '=', true)
- //           ->whereNull('users.deleted_at')
+            //           ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -362,7 +362,7 @@ class PointController extends Controller
             //                                                  ->where('reservations.is_pointpay','=',false)
             ->where('schedules.staff_id', '=', $staff->id)
             ->where('schedules.is_zoom', '=', false)
-            ->whereNull('users.deleted_at')
+            //            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -416,7 +416,7 @@ class PointController extends Controller
             //                                                  ->where('reservations.is_pointpay','=',false)
             ->where('schedules.staff_id', '=', $staff->id)
             ->where('schedules.is_zoom', '=', true)
-            ->whereNull('users.deleted_at')
+            //            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -469,7 +469,7 @@ class PointController extends Controller
             ->where('reservations.is_pointpay', '=', true)
             //                                    ->where('schedules.staff_id','=',$staff->id)
             //                                    ->where('schedules.is_zoom','=',false)
-            ->whereNull('users.deleted_at')
+//            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([
@@ -522,7 +522,7 @@ class PointController extends Controller
             ->where('reservations.is_pointpay', '=', true)
             //                                    ->where('schedules.staff_id','=',$staff->id)
             //                                    ->where('schedules.is_zoom','=',false)
-            ->whereNull('users.deleted_at')
+//            ->whereNull('users.deleted_at')
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
             ->orderBy('schedules.start')
             ->get([

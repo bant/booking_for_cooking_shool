@@ -61,11 +61,11 @@ class MessageController extends Controller
     {
         $staff = Auth::user();
         $messages = UserStaffMessage::where('staff_id', $staff->id)
-                                    ->where('dirction', 'to_staff')
-                                    ->where('expired_at', '>', Carbon::now())
-                                    ->get();
+            ->where('dirction', 'to_staff')
+            ->where('expired_at', '>', Carbon::now())
+            ->get();
 
-        return view('staff.message.user_list')->with(["messages"=> $messages]);
+        return view('staff.message.user_list')->with(["messages" => $messages]);
     }
 
     /**
@@ -84,18 +84,18 @@ class MessageController extends Controller
         $staff = Auth::user();
 
         $class_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
-        ->join('staff', 'schedules.staff_id', '=', 'staff.id')
-        ->join('users', 'reservations.user_id', '=', 'users.id')
-        ->where('schedules.staff_id', '=', $staff->id)
-        ->where('schedules.is_zoom', '=', false)
-        ->whereNull('users.deleted_at')
-        ->orderBy('schedules.start')
-        ->get([
+            ->join('staff', 'schedules.staff_id', '=', 'staff.id')
+            ->join('users', 'reservations.user_id', '=', 'users.id')
+            ->where('schedules.staff_id', '=', $staff->id)
+            ->where('schedules.is_zoom', '=', false)
+            ->whereNull('users.deleted_at')         // OK!!
+            ->orderBy('schedules.start')
+            ->get([
                 'reservations.id as id',
                 'users.id as user_id',
                 'users.name as user_name',
             ]);
-            
+
         foreach ($class_reservations as $class_reservation) {
             /* メッセージテープルに記録 */
             $message = new StaffMessage();
@@ -106,8 +106,8 @@ class MessageController extends Controller
             $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
             $message->save();
         }
-        
-        return back()->with('success', $class_reservations->count().'件のメッセージを送信');
+
+        return back()->with('success', $class_reservations->count() . '件のメッセージを送信');
     }
 
 
@@ -130,7 +130,7 @@ class MessageController extends Controller
         $message = new StaffMessage();
         $message->direction = 'to_admin';
         $message->staff_id = $staff->id;
-//        $message->admin_id = Admin::find(1)->id;
+        //        $message->admin_id = Admin::find(1)->id;
         $message->admin_id = 1;
         $message->message = $request->message;
         $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
@@ -147,9 +147,9 @@ class MessageController extends Controller
     {
         $staff = Auth::user();
         $messages = UserAdminMessage::where('staff_id', $staff->id)
-                                    ->where('dirction', 'to_staff')
-                                    ->where('expired_at', '>', Carbon::now())
-                                    ->get();
+            ->where('dirction', 'to_staff')
+            ->where('expired_at', '>', Carbon::now())
+            ->get();
 
         return view('staff.message.admin_index')->with(["messages" => $messages]);
     }
