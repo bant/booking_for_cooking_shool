@@ -56,6 +56,11 @@
         <h2>生徒さんからのメッセージ</h2>
         @if($user_booking_cancel_messages->count())
         <h3>(仮)予約のキャンセル依頼</h3>
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+        @endif
         <table class="table table-sm table-striped">
             <thead>
                 <tr>
@@ -136,14 +141,7 @@
         @endif
 
         <h2>{{$staff->room->name}}の予約状況(終了したレッスンは表示されません。)</h2>
-
         <!-- 教室の予約の始まり -->
-        @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-        @endif
-
         @if($class_reservations->count())
         <table class="table table-sm table-striped">
             <thead>
