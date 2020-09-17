@@ -18,7 +18,7 @@ class BackupDatabaseCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Data Base Backup';
 
     /**
      * Create a new command instance.
@@ -44,7 +44,7 @@ class BackupDatabaseCommand extends Command
     public function handle()
     {
         // ファイル名
-        $file_name = sprintf('%s.sql', date('YMDHis'));
+        $file_name = sprintf('%s_%s.sql', $this->db_name, date('YMDHis'));
         // ファイルフルパス
         $file_path = sprintf('%s/%s', $this->store_path, $file_name);
 

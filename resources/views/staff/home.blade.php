@@ -170,7 +170,13 @@
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                     @endif
                     <td>{{ date('Y/m/d H:i', strtotime($class_reservation->created_at)) }}</td>
+
+                    @if (is_null($class_reservation->user_deleted_at))
                     <td><a href="{{ route('staff.user.info', $class_reservation->user_id) }}"> {{$class_reservation->user_name}}({{$class_reservation->user_id}})</a></td>
+                    @else
+                    <td>{{$class_reservation->user_name}}(停止)</td>
+                    @endif
+
                     <td>{{$class_reservation->course_name}}</td>
                     <td>{{ date('Y/m/d H:i', strtotime($class_reservation->start)) }}</td>
                     <td>{{ number_format($class_reservation->course_price*1.1)}}円</td>
@@ -220,7 +226,11 @@
                     <td class="text-center text-white bg-danger"><strong>仮</strong></td>
                     @endif
                     <td>{{ date('Y/m/d H:i', strtotime($zoom_reservation->created_at)) }}</td>
+                    @if (is_null($zoom_reservation->user_deleted_at))
                     <td><a href="{{ route('staff.user.info', $zoom_reservation->user_id) }}"> {{$zoom_reservation->user_name}}({{$zoom_reservation->user_id}})</a></td>
+                    @else
+                    <td>{{$zoom_reservation->user_name}}(停止)</td>
+                    @endif
                     <td>{{$zoom_reservation->course_name}}</td>
                     <td>{{ date('Y/m/d H:i', strtotime($zoom_reservation->start)) }}</td>
                     <td>{{ number_format($zoom_reservation->course_price*1.1)}}円</td>

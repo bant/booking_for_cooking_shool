@@ -28,7 +28,7 @@ class MessageController extends Controller
      */
     public function reservation_id_list()
     {
-        $reservations = Reservation::where('is_contract',false)->orderBy('created_at', 'desc')->get();
+        $reservations = Reservation::where('is_contract', false)->orderBy('created_at', 'desc')->get();
         return view('admin.message.reservation_id_list')->with(["reservations" => $reservations]);
     }
 
@@ -37,13 +37,10 @@ class MessageController extends Controller
      */
     public function reservation_id_search(Request $request)
     {
-        if (!is_null($request->reservation_id))
-        {
-            $reservations = Reservation::where('id',$request->reservation_id)->where('is_contract',false)->orderBy('created_at', 'desc')->get();
-        }
-        else
-        {
-            $reservations = Reservation::where('is_contract',false)->orderBy('created_at', 'desc')->get();
+        if (!is_null($request->reservation_id)) {
+            $reservations = Reservation::where('id', $request->reservation_id)->where('is_contract', false)->orderBy('created_at', 'desc')->get();
+        } else {
+            $reservations = Reservation::where('is_contract', false)->orderBy('created_at', 'desc')->get();
         }
         return view('admin.message.reservation_id_list')->with(["reservations" => $reservations]);
     }
@@ -60,10 +57,10 @@ class MessageController extends Controller
             ->join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
             ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
-            ->where('reservations.is_contract','=',false)
-            ->whereNull('users.deleted_at')
+            ->where('reservations.is_contract', '=', false)
+            ->whereNull('users.deleted_at')             // OK!!
             ->orderBy('reservations.created_at', 'desc')
-            ->get( [
+            ->get([
                 'reservations.id as id',
                 'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
@@ -95,21 +92,18 @@ class MessageController extends Controller
             ->join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('rooms', 'staff.id', '=', 'rooms.staff_id')
             ->join('zooms', 'staff.id', '=', 'zooms.staff_id')
-            ->where('reservations.is_contract','=',false)
-            ->whereNull('users.deleted_at');
+            ->where('reservations.is_contract', '=', false)
+            ->whereNull('users.deleted_at');            // OK!!
 
-        if (!is_null($request->name))
-        {
+        if (!is_null($request->name)) {
             $sql = $sql->where('users.name', 'like', "%$request->name%");
-        }
-        else if (!is_null($request->kana))
-        {
+        } else if (!is_null($request->kana)) {
             $sql = $sql->where('users.kana', 'like', "%$request->kana%");
         }
 
         $reservations = $sql
             ->orderBy('reservations.created_at', 'desc')
-            ->get( [
+            ->get([
                 'reservations.id as id',
                 'reservations.is_contract as is_contract',
                 'reservations.is_pointpay as is_pointpay',
@@ -125,7 +119,7 @@ class MessageController extends Controller
                 'courses.price as course_price',
                 'schedules.is_zoom as is_zoom',
                 'schedules.start as start'
-        ]);
+            ]);
 
         return view('admin.message.reservation_user_list')->with(["reservations" => $reservations]);
     }
@@ -165,7 +159,7 @@ class MessageController extends Controller
         $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
         $message->save();
 
-        return back()->with('success', $request->staff_name.'先生へメッセージを送信しました');
+        return back()->with('success', $request->staff_name . '先生へメッセージを送信しました');
     }
 
     /**
@@ -192,6 +186,6 @@ class MessageController extends Controller
         $message->expired_at = Carbon::now()->addDay(7);  // 期限は一週間
         $message->save();
 
-        return back()->with('success', $request->user_name.'さんへメッセージを送信しました');
+        return back()->with('success', $request->user_name . 'さんへメッセージを送信しました');
     }
 }
