@@ -56,9 +56,9 @@ class LocalizationDbCommand extends Command
             ]
         );
 
-        DB::table('staff')->where('email', 'admin@kuritacooking.com')->update(
+        DB::table('staff')->where('email', 'tomo@kuritacooking.com')->update(
             [
-                'email'     => 'admin1@cooking.sumomo.ne.jp',
+                'email'     => 'staff2@cooking.sumomo.ne.jp',
                 'password'  => Hash::make('pass0123456789'),
             ]
         );
