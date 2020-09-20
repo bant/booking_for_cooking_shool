@@ -55,11 +55,19 @@
                 <td>{{number_format($user->point)}}pt</td>
                 <td>{{number_format($user->reservations()->count())}}回</td>
                 <td class="text-right">
-                    <form action="{{route('admin.user.destroy', ['id'=>$user->id])}}" method="POST" style="display: inline;"
-                                 onsubmit="return confirm('{{$user->name}}さんを停止しても良いですか!?');">
+                    @if ($user->reservations()->count()==0)
+                    <form action="{{route('admin.user.force_destroy', ['id'=>$user->id])}}" method="POST" style="display: inline;"
+                                 onsubmit="return confirm('{{$user->name}}さんを削除しても良いですか!?\n【注意】{{$user->name}}さんは復元できません');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-pause"></i>&ensp;生徒の停止</button>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-pause"></i>&ensp;生徒の削除</button>
+                    </form>
+                    @endif
+                    <form action="{{route('admin.user.destroy', ['id'=>$user->id])}}" method="POST" style="display: inline;"
+                                 onsubmit="return confirm('{{$user->name}}さんを停止しても良いですか!?\n【注意】{{$user->name}}さんは復元できます');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-warning"><i class="fas fa-pause"></i>&ensp;生徒の停止</button>
                     </form>
                 </td>
             </tr>

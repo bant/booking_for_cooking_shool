@@ -51,9 +51,9 @@
                             <dd class="col-md-8">{{ $user->birthday }}</dd>
                             <dt class="col-md-4">性別</dt>
                             @if ($user->gender=='male')
-                            <dd class="col-md-8">男</dd>
+                            <dd class="col-md-8">男性</dd>
                             @else
-                            <dd class="col-md-8">女</dd>
+                            <dd class="col-md-8">女性</dd>
                             @endif
                             <dt class="col-md-4">教室参加回数</dt>
                             <dd class="col-md-8">{{ $class_reservation_times }}回</dd>

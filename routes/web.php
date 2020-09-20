@@ -171,6 +171,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
         Route::delete('user/{id?}/destroy', 'UserController@destroy')->name('user.destroy');
 
+        Route::get('user/{id?}/force_destroy', 'UserController@force_destroy')->name('user.force_destroy');
+        Route::post('user/{id?}/force_destroy', 'UserController@force_destroy')->name('user.force_destroy');
+        Route::delete('user/{id?}/force_destroy', 'UserController@force_destroy')->name('user.force_destroy');
+        
         Route::get('user/{id?}/point_edit', 'UserController@point_edit')->name('user.point_edit');
         Route::post('user/{id?}/point_update', 'UserController@point_update')->name('user.point_update');
 

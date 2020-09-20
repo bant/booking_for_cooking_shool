@@ -19,7 +19,7 @@ class Course extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'staff_id', 'price',
+        'name', 'staff_id', 'price', 'category_id',
     ];
 
     /**
@@ -49,6 +49,14 @@ class Course extends Model
     public function tax()
     {
         return ($this->price * 0.1);    // ★消費税
+    }
+
+    /**
+     *
+     */
+    public function category()
+    {
+       return $this->hasOne('App\Models\CourseCategory','category_id', 'id');
     }
 
 }

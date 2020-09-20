@@ -43,6 +43,19 @@
             <label for="price-field">単価</label>
             <input class="form-control" type="text" name="price" id="price-field" value="{{old('price')}}" />
         </div>
+
+        <div class="form-group">
+            <label for="category_id-field">分類</label>
+            <select type="text" class="form-control" name="category_id">    
+            @foreach($categories as $category)
+                @if($category->style!='')
+                <option value="{{ $category->id }}" @if($category->id == old('category_id')) selected @endif> {{str_replace("(","【".$category->style."】(",$category->category )}}</option>
+                @else
+                <option value="{{ $category->id }}" @if($category->id == old('category_id')) selected @endif>{{$category->category}}</option>
+                @endif
+            @endforeach
+            </select>
+        </div>
         <div class="well well-sm">
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;コース新規登録</button>
             <a class="btn btn-link pull-right" href="{{ route('staff.course.index') }}"><i class="fas fa-backward"></i> 戻る</a>

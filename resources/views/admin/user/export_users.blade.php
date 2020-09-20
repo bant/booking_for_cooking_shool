@@ -27,9 +27,9 @@
             <td>{{$user->tel}}</td>
             <td>{{$user->birthday}}</td>
             @if ($user->gender=='male')
-                <td>男</td>
+                <td>男性</td>
             @else
-                <td>女</td>
+                <td>女性</td>
             @endif
             <td>{{$user->point}}</td>
             <td>{{$user->reservations()->count()}}</td>

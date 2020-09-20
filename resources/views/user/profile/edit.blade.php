@@ -91,11 +91,11 @@
                 <div class="form-group">
                     <label for="gender-field">性別</label>
                     @if (old('gender', $user->gender) =='male')
-                    <input type="radio" name="gender" value="male" checked="checked">男
-                    <input type="radio" name="gender" value="female">女
+                    <input type="radio" name="gender" value="male" checked="checked">男性
+                    <input type="radio" name="gender" value="female">女性
                     @else
-                    <input type="radio" name="gender" value="male">男
-                    <input type="radio" name="gender" value="female" checked="checked">女
+                    <input type="radio" name="gender" value="male">男性
+                    <input type="radio" name="gender" value="female" checked="checked">女性
                     @endif
                 </div>
                 <div class="well well-sm">

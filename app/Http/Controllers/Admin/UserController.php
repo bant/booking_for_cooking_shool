@@ -102,6 +102,12 @@ class UserController extends Controller
     }
 
 
+    public function force_destroy($id)
+    {
+        User::withTrashed()->find($id)->forceDelete();
+        return  redirect()->route('admin.user.search')->with('status', '生徒を削除しました');
+    }
+
     /**
      * .
      *

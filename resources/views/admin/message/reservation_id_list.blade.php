@@ -39,6 +39,9 @@
 
             <tbody>
                 @foreach($reservations as $reservation)
+                @php 
+                    if(is_null($reservation->user)) continue;
+                @endphp
                 <tr>
                     <td class="text-center"><strong>{{$reservation->id}}</strong></td>
                     @if ($reservation->schedule->is_zoom)
@@ -49,11 +52,7 @@
                     <td>{{$reservation->schedule->course->name}}</td>
                     <td>{{date('Y年m月d日 H時i分', strtotime($reservation->schedule->start))}}</td>
                     <td>{{$reservation->schedule->staff->name}}</td>
-                    @if (is_null($reservation->user))
-                    <td>停止ユーザ</td>
-                    @else
                     <td>{{$reservation->user->name}}({{$reservation->user->id}})</td>
-                    @endif
                     <td>
                         <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_user_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope">&ensp;生徒へ</i></a>
                         <a class="float-right btn btn-sm btn-primary" href="{{route('admin.message.edit_to_staff_message',['id'=>$reservation->id])}}"> <i class="fas fa-envelope">&ensp;先生へ</i></a>

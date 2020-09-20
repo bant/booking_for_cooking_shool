@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\CourseCategory;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
@@ -39,7 +40,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('staff.course.create');
+        $categories = CourseCategory::all();
+        return view('staff.course.create')->with(["categories" => $categories]);
     }
 
     /**
@@ -55,17 +57,6 @@ class CourseController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -74,7 +65,8 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-        return view('staff.course.edit', compact('course'));
+        $categories = CourseCategory::all();
+        return view('staff.course.edit')->with(['course' => $course ,"categories" => $categories]);
     }
 
     /**
@@ -86,9 +78,11 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         $update = [
             'name' => $request->name,
-            'price' => $request->price
+            'price' => $request->price,
+            'category_id' => $request->category_id
         ];
         Course::where('id', $id)->update($update);
         return back()->with('success', 'コース情報を修正しました');
