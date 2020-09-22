@@ -35,7 +35,7 @@
                         <input class="form-control" type="text" name="name" id="name-field" value="{{$zoom->name}}"  readonly/>
                     </div>
                     <div class="form-group">
-                        <label for="description-field">サロン名</label>
+                        <label for="description-field">詳細</label>
                         <input class="form-control" type="text" name="description" id="description-field" value="{{$room->description}}" readonly/>
                     </div>
                 </div>

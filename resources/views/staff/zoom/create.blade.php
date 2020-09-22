@@ -40,7 +40,7 @@
             <input class="form-control" type="text" name="name" id="name-field" value="{{old('name')}}" />
         </div>
         <div class="form-group">
-            <label for="description-field">サロン名</label>
+            <label for="description-field">詳細</label>
             <input class="form-control" type="text" name="description" id="description-field" value="{{old('description')}}" />
         </div>
         <div class="well well-sm">
