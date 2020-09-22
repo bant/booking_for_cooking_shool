@@ -1,6 +1,6 @@
 {{$data['user_name']}} 様
 
-栗田クッキングサロン {{$data['room_name']}} です。
+{{$data['room_description']}} {{$data['room_name']}} です。
 キャンセル待ち予約を受付ましたので、ご連絡いたします。
 
 --- 

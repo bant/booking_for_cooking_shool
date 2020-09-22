@@ -132,6 +132,7 @@ class ClassRoomReservationController extends Controller
                 'staff_name'        => $schedule->staff->name,
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
+                'room_description'  => $schedule->staff->room->description,
                 'price'             => number_format($price)."円",
                 'tax'               => number_format($tax)."円",
                 'tax_price'         => number_format($price + $tax)."円",
@@ -200,6 +201,7 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
+                    'room_description'  => $schedule->staff->room->description,
                     'price'             => number_format($price + $tax)."円",
                     'tax'               => number_format($tax)."円",
                     'tax_price'         => number_format($price + $tax)."円",
@@ -221,6 +223,7 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
+                    'room_description'  => $schedule->staff->room->description,
                     'price'             => number_format($price)."円",
                     'tax'               => number_format($tax)."円",
                     'tax_price'         => number_format($price + $tax)."円",
@@ -275,6 +278,7 @@ class ClassRoomReservationController extends Controller
                 'staff_name'        => $schedule->staff->name,
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
+                'room_description'  => $schedule->staff->room->description,
                 'price'             => number_format($reservation->spent_point)."円(ポイントに還元済み)",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
@@ -291,6 +295,7 @@ class ClassRoomReservationController extends Controller
                 'staff_name'        => $schedule->staff->name,
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
+                'room_description'  => $schedule->staff->room->description,
                 'price'             => "--",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
@@ -365,6 +370,7 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
+                    'room_description'  => $schedule->staff->room->description,
                     'price'             => number_format($price)."円",
                     'tax'               => number_format($tax)."円",
                     'tax_price'         => number_format($price + $tax)."円",
@@ -386,6 +392,7 @@ class ClassRoomReservationController extends Controller
                     'staff_name'        => $schedule->staff->name,
                     'room_name'         => $schedule->staff->room->name,
                     'room_address'      => $schedule->staff->room->address,
+                    'room_description'  => $schedule->staff->room->description,
                     'price'             => number_format($price)."円",
                     'tax'               => number_format($tax)."円",
                     'tax_price'         => number_format($price + $tax)."円",
@@ -449,6 +456,7 @@ class ClassRoomReservationController extends Controller
                 'staff_name'        => $schedule->staff->name,
                 'room_name'         => $schedule->staff->room->name,
                 'room_address'      => $schedule->staff->room->address,
+                'room_description'  => $schedule->staff->room->description,
                 'price'             => "--",
                 'tax'               => "--",
                 'tax_price'         => "--",

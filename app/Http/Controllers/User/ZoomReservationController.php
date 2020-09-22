@@ -126,6 +126,7 @@ class ZoomReservationController extends Controller
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
                 'zoom_name'         => $schedule->staff->zoom->name,
+                'zoom_description'  => $schedule->staff->zoom->description,
                 'price'             => number_format($price)."円",
                 'tax'               => number_format($tax)."円",
                 'tax_price'         => number_format($price + $tax)."円",
@@ -194,6 +195,7 @@ class ZoomReservationController extends Controller
                     'user_tel'          => $user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'zoom_name'         => $schedule->staff->zoom->name,
+                    'zoom_description'  => $schedule->staff->zoom->description,
                     'price'             => number_format($price)."円(ポイントで支払い済み)",
                     'tax'               => number_format($tax)."円",
                     'tax_price'         => number_format($price + $tax)."円",
@@ -215,6 +217,7 @@ class ZoomReservationController extends Controller
                     'user_tel'          => $user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'zoom_name'         => $schedule->staff->zoom->name,
+                    'zoom_description'  => $schedule->staff->zoom->description,
                     'price'             => number_format($price)."円",
                     'tax'               => number_format($tax)."円",
                     'tax_price'         => number_format($price + $tax)."円",
@@ -268,6 +271,7 @@ class ZoomReservationController extends Controller
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
                 'zoom_name'         => $schedule->staff->zoom->name,
+                'zoom_description'  => $schedule->staff->zoom->description,
                 'price'             => number_format($reservation->spent_point)."円(ポイントに還元済み)",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
@@ -283,6 +287,7 @@ class ZoomReservationController extends Controller
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
                 'zoom_name'         => $schedule->staff->zoom->name,
+                'zoom_description'  => $schedule->staff->zoom->description,
                 'price'             => "--",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
             ];
@@ -356,6 +361,7 @@ class ZoomReservationController extends Controller
                     'user_tel'          => $wait_list_reservation->user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'zoom_name'         => $schedule->staff->zoom->name,
+                    'zoom_description'  => $schedule->staff->zoom->description,
                     'price'             => number_format($price)."円(ポイントで支払い済み)",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
@@ -374,6 +380,7 @@ class ZoomReservationController extends Controller
                     'user_tel'          => $wait_list_reservation->user->tel,
                     'staff_name'        => $schedule->staff->name,
                     'zoom_name'         => $schedule->staff->zoom->name,
+                    'zoom_description'  => $schedule->staff->zoom->description,
                     'price'             => number_format($price)."円",
                     'times'             => $reservate_times."回",
                     'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
@@ -435,6 +442,7 @@ class ZoomReservationController extends Controller
                 'course_name'       => $schedule->course->name,
                 'staff_name'        => $schedule->staff->name,
                 'zoom_name'         => $schedule->staff->zoom->name,
+                'zoom_description'  => $schedule->staff->zoom->description,
                 'price'             => "--",
                 'start'             => date('Y年m月d日 H時i分', strtotime($schedule->start))
         ];

@@ -1,6 +1,6 @@
 {{$data['user_name']}} 様
 
-栗田クッキングサロン {{$data['room_name']}} です。
+{{$data['room_description']}}  {{$data['room_name']}} です。
 ご予約、ありがとうございます。
 仮予約を受け付けましたので、ご連絡いたします。
 
