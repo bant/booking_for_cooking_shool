@@ -45,8 +45,8 @@
             <input class="form-control" type="tel" name="tel" id="tel-field" value="{{$room->tel}}"  readonly/>
         </div>
         <div class="form-group">
-            <label for="description-field">詳細</label>
-            <textarea name="description" id="description-field" class="form-control" rows="3"  readonly>{{$room->description}}</textarea>
+            <label for="description-field">サロン名</label>
+            <input class="form-control" type="text" name="description" id="description-field" value="{{$room->description}}" readonly/>
         </div>
         <div class="well well-sm">
             <a class="btn btn-primary" href="/staff/room/{{$room->id}}/edit"><i class="fas fa-edit"></i> 編集</a>

@@ -37,6 +37,7 @@
                 <tr>
                     <th class="text-center">#</th>
                     <th>名称</th>
+                    <th>分類</th>
                     <th>単価</th>
                     <th class="text-right">アクション</th>
                 </tr>
@@ -47,6 +48,13 @@
                 <tr>
                     <td class="text-center"><strong>{{$course->id}}</strong></td>
                     <td>{{$course->name}}</td>
+                    @if (is_null($course->category_id))
+                    <td>未設定</td>  
+                    @else
+                    <td>{{$course->category->category}}{{$course->category->style}}</td>       
+                    @endif
+                    
+
                     <td>{{number_format($course->price)}}円</td>
                     <td class="text-right">
                         <a class="btn btn-sm btn-warning" href="{{ route('staff.course.edit', $course->id) }}"><i class="fas fa-edit"></i> 編集</a>

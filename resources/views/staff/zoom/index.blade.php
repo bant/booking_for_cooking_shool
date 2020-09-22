@@ -38,8 +38,8 @@
             <input class="form-control" type="text" name="name" id="name-field" value="{{$zoom->name}}"  readonly/>
         </div>
         <div class="form-group">
-            <label for="description-field">詳細</label>
-            <textarea name="description" id="description-field" class="form-control" rows="3"  readonly>{{$zoom->description}}</textarea>
+            <label for="description-field">サロン名</label>
+            <input class="form-control" type="text" name="description" id="description-field" value="{{$zoom->description}}" readonly/>
         </div>
         <div class="well well-sm">
             <a class="btn btn-primary" href="{{route('staff.zoom.edit',$zoom->id)}}"><i class="fas fa-edit"></i> 編集</a>

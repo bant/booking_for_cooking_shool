@@ -40,8 +40,8 @@
             <input class="form-control" type="text" name="name" id="name-field" value="{{old('name')}}" />
         </div>
         <div class="form-group">
-            <label for="description-field">詳細</label>
-            <textarea name="description" id="description-field" class="form-control" rows="3">{{old('description')}}</textarea>
+            <label for="description-field">サロン名</label>
+            <input class="form-control" type="text" name="description" id="description-field" value="{{old('description')}}" />
         </div>
         <div class="well well-sm">
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;オンライン教室の登録</button>
