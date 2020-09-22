@@ -29,7 +29,7 @@ class CourseController extends Controller
     public function index()
     {
         $staff = Auth::user();
-        $courses = Course::where('staff_id', $staff->id)->get();
+        $courses = Course::where('staff_id', $staff->id)->orderBy('name', 'asc')->get();
         return view('staff.course.index', compact('courses'));
     }
 
