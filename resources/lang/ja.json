@@ -26,5 +26,5 @@
     "If you did not request a password reset, no further action is required.":"心当たりがない場合は、本メッセージは破棄してください。",
     "passwords.sent":"パスワードリセット案内メールを送信しました。",
     "auth.failed":"認証に失敗しました。",
-    "passwords.user":"そのEmailの生徒は登録されてません。"
+    "passwords.user":"そのメールアドレスは登録されてません。"
 }
