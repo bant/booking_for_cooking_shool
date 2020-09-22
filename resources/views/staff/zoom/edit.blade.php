@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
             <label for="description-field">サロン名</label>
-            <input class="form-control" type="text" name="description" id="description-field" value="{{$zoom->description}}" />
+            <input class="form-control" type="text" name="description" id="description-field" value="{{$room->description}}" />
         </div>
         <div class="well well-sm">
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;情報更新</button>

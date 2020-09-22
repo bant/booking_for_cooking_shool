@@ -1,6 +1,6 @@
 {{$data['user_name']}} 様
 
-{{$data['zoom_description']}} オンライン教室"{{$data['zoom_name']}}" です。
+{{$data['room_description']}} オンライン教室"{{$data['zoom_name']}}" です。
 この度はお振込み頂き、ありがとうございました。
 ご予約が確定しましたので、ご連絡いたします。
 

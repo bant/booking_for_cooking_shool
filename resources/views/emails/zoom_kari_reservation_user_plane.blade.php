@@ -1,6 +1,6 @@
 {{$data['user_name']}} 様
 
-{{$data['zoom_description']}} オンライン教室"{{$data['zoom_name']}}" です。
+{{$data['room_description']}} オンライン教室"{{$data['zoom_name']}}" です。
 ご予約、ありがとうございます。
 仮予約を受け付けましたので、ご連絡いたします。
 

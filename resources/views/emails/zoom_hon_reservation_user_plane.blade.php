@@ -1,6 +1,6 @@
 {{$data['user_name']}} 様
 
-{{$data['zoom_description']}} {{$data['zoom_name']}} です。
+{{$data['room_description']}} {{$data['zoom_name']}} です。
 ご予約、ありがとうございます。
 ご予約を受付ましたので、ご連絡いたします。
 

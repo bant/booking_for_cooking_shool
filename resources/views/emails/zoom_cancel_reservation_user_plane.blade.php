@@ -1,6 +1,6 @@
 {{$data['user_name']}} 様
 
-{{$data['zoom_description']}} オンライン教室"{{$data['zoom_name']}}" です。
+{{$data['room_description']}} オンライン教室"{{$data['zoom_name']}}" です。
 キャンセル待ち予約を受付ましたので、ご連絡いたします。
 
 --- 
