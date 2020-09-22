@@ -129,7 +129,7 @@ class InquiryController extends Controller
                         'start'     => str_replace(' ', 'T', $schedule->start),
                         'end'       => str_replace(' ', 'T', $schedule->end),
                         'color' => 'maroon',
-                        'url'       =>  route('user.classroom_reservation.create', $schedule->id),
+                        'url'       =>  route('user.zoom_reservation.create', $schedule->id),
                         'extendedProps' => [
                             'start_end'         => date('H:i', strtotime($schedule->start)) . "〜" . date('H:i', strtotime($schedule->end)),
                             'schedule_id'       => $schedule->id,
