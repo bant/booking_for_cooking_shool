@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description-field">詳細</label>
-                        <input class="form-control" type="text" name="description" id="description-field" value="{{$room->description}}" readonly/>
+                        <input class="form-control" type="text" name="description" id="description-field" value="{{$zoom->description}}" readonly/>
                     </div>
                 </div>
             </div>

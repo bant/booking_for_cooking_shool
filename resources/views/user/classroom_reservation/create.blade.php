@@ -63,7 +63,7 @@
                         <input type="hidden" name="schedule_id" value="{{$schedule->id}}">
                         <input type="hidden" name="price" value="{{$schedule->course->price}}">
                         <div class="well well-sm">
-                            <button type="submit" class="btn btn-primary" name="no_point" value="1"><i class="fas fa-save"></i>&nbsp;&ensp;仮予約</button>
+                            <button type="submit" class="btn btn-primary" name="no_point" value="1"><i class="fas fa-save"></i>&nbsp;&ensp;予約</button>
                             @if (Auth::user()->point > $schedule->course->price)
                                 <button type="submit" class="btn btn-primary" name="no_point" value="0"><i class="fas fa-save"></i>&nbsp;&ensp;ポイントで支払う</button>
                             @endif
