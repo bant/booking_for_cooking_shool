@@ -193,9 +193,9 @@ class InquiryController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $now_first_month_day = Carbon::createFromTimestamp(strtotime($now))
-            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString()." 00:00:00";
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($now))
-            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
 
         $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')

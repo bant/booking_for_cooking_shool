@@ -196,13 +196,13 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $previous_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString()." 00:00:00";
         $now_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString()." 00:00:00";
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
         $next_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
 
         $class_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
@@ -272,10 +272,10 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
 
-        $previous_first_month_day = Carbon::now()->subMonth()->startOfMonth()->toDateString();
-        $now_first_month_day = Carbon::now()->startOfMonth()->toDateString();
-        $now_last_month_day = Carbon::now()->endOfMonth()->toDateString();
-        $next_first_month_day = Carbon::now()->addMonth()->startOfMonth()->toDateString();
+        $previous_first_month_day = Carbon::now()->subMonth()->startOfMonth()->toDateString()." 00:00:00";
+        $now_first_month_day = Carbon::now()->startOfMonth()->toDateString()." 00:00:00";
+        $now_last_month_day = Carbon::now()->endOfMonth()->toDateString()." 23:59:59";
+        $next_first_month_day = Carbon::now()->addMonth()->startOfMonth()->toDateString()." 00:00:00";
 
         $class_reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
@@ -347,13 +347,13 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $previous_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString()." 00:00:00";
         $now_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString()." 00:00:00";
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
         $next_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
         $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
             ->join('users', 'reservations.user_id', '=', 'users.id')
@@ -401,13 +401,13 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $previous_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString()." 00:00:00";
         $now_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString()." 00:00:00";
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
         $next_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
         $reservations = Reservation::join('schedules', 'reservations.schedule_id', '=', 'schedules.id')
             ->join('staff', 'schedules.staff_id', '=', 'staff.id')
             ->join('users', 'reservations.user_id', '=', 'users.id')
@@ -452,10 +452,10 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
 
-        $previous_first_month_day = Carbon::now()->subMonth()->startOfMonth()->toDateString();
-        $now_first_month_day = Carbon::now()->startOfMonth()->toDateString();
-        $now_last_month_day = Carbon::now()->endOfMonth()->toDateString();
-        $next_first_month_day = Carbon::now()->addMonth()->startOfMonth()->toDateString();
+        $previous_first_month_day = Carbon::now()->subMonth()->startOfMonth()->toDateString()." 00:00:00";
+        $now_first_month_day = Carbon::now()->startOfMonth()->toDateString()." 00:00:00";
+        $now_last_month_day = Carbon::now()->endOfMonth()->toDateString()." 23:59:59";
+        $next_first_month_day = Carbon::now()->addMonth()->startOfMonth()->toDateString()." 00:00:00";
 
         $payments = Payment::whereBetween('created_at', [$now_first_month_day, $now_last_month_day])
             ->orderBy('created_at')
@@ -502,13 +502,13 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $previous_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString()." 00:00:00";
         $now_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString()." 00:00:00";
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
         $next_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
 
         $payments = Payment::whereBetween('created_at', [$now_first_month_day, $now_last_month_day])
             ->orderBy('created_at')
@@ -556,13 +556,13 @@ class PointController extends Controller
         // 現在の日時
         $now = Carbon::now();
         $previous_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->subMonth()->startOfMonth()->toDateString()." 00:00:00";
         $now_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->startOfMonth()->toDateString()." 00:00:00";
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
         $next_first_month_day = Carbon::createFromTimestamp(strtotime($date))
-            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString();
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
 
         $payments = Payment::whereBetween('created_at', [$now_first_month_day, $now_last_month_day])
             ->orderBy('created_at')
