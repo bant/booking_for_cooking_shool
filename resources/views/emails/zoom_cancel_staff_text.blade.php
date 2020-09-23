@@ -6,4 +6,3 @@
 コース名: {{$data['course_name']}}
 生徒氏名: {{$data['user_name']}}({{$data['user_email']}})
 開催日時: {{$data['start']}}
-払い戻し: {{$data['price']}}

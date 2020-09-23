@@ -8,4 +8,3 @@
 教　　室: {{$data['room_name']}}
 住　　所: {{$data['room_address']}}
 開催日時: {{$data['start']}}
-払い戻し: {{$data['price']}}

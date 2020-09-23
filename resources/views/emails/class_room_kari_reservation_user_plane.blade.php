@@ -1,13 +1,13 @@
 {{$data['user_name']}} 様
 
-{{$data['room_description']}}  {{$data['room_name']}} です。
+栗田クッキングサロン {{$data['room_name']}} です。
 ご予約、ありがとうございます。
 仮予約を受け付けましたので、ご連絡いたします。
 
 --- 
 
 予約番号: {{$data['reservation_id']}}
-教　　室: {{$data['room_name']}}
+教　　室: {{$data['room_name']}}({{$data['room_description']}} )
 場　　所: {{$data['room_address']}}
 講　　師: {{$data['staff_name']}}先生
 コース名: {{$data['course_name']}}

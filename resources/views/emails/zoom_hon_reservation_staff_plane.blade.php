@@ -1,6 +1,6 @@
 {{$data['staff_name']}} 先生
 
-{{$data['user_name']}} 様から オンライン教室"{{$data['course_name']}} ({{$data['start']}})"の予約がありました。
+{{$data['user_name']}} 様からの オンライン教室"{{$data['course_name']}} ({{$data['start']}})"の予約が確定しました。
 
 --- 
 

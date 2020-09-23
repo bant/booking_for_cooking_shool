@@ -1,11 +1,11 @@
 {{$data['user_name']}} 様
 
-{{$data['room_description']}} {{$data['room_name']}} です。
+栗田クッキングサロンの {{$data['room_name']}} です。
 キャンセル待ち予約を受付ましたので、ご連絡いたします。
 
 --- 
 待ち番号: {{$data['cancel_rank']}}
-教　　室: {{$data['room_name']}}
+教　　室: {{$data['room_name']}}({{$data['room_description']}})
 場　　所: {{$data['room_address']}}
 講　　師: {{$data['staff_name']}}先生
 コース名: {{$data['course_name']}}
