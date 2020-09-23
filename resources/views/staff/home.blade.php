@@ -181,7 +181,7 @@
                     <td>{{ number_format($class_reservation->point)}}pt</td>
                     @if (!$class_reservation->is_contract)
                     <td>
-                        <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.is_contract_update', $class_reservation->id) }}"> 確定に変更</a>
+                        <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.is_contract_classroom_update', $class_reservation->id) }}"> 確定に変更</a>
                     </td>
                     @else
                     <td>--</td>
@@ -233,7 +233,13 @@
                     <td>{{ date('Y/m/d H:i', strtotime($zoom_reservation->start)) }}</td>
                     <td>{{ number_format($zoom_reservation->course_price*1.1)}}円</td>
                     <td>{{ number_format($zoom_reservation->point)}}pt</td>
-                    <td>--</td>
+                    @if (!$zoom_reservation->is_contract)
+                    <td>
+                        <a class="float-right btn btn-sm btn-warning" href="{{ route('staff.reservation.is_contract_zoom_update', $zoom_reservation->id) }}"> 確定に変更</a>                              
+                    </td>
+                    @else
+                        <td>--</td>                            
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

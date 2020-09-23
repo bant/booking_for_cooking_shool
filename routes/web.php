@@ -94,7 +94,8 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
 
         // reservationページ
         Route::resource('reservation', 'ReservationController', ['only' => ['index', 'show']]);
-        Route::get('reservation/{id?}/is_contract_update', 'ReservationController@is_contract_update')->name('reservation.is_contract_update');
+        Route::get('reservation/{id?}/is_contract_classroom_update', 'ReservationController@is_contract_classroom_update')->name('reservation.is_contract_classroom_update');
+        Route::get('reservation/{id?}/is_contract_zoom_update', 'ReservationController@is_contract_zoom_update')->name('reservation.is_contract_zoom_update');
         Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
         Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');
         Route::get('inquiry/{id?}/get', 'InquiryController@get')->name('inquiry.get');
