@@ -27,7 +27,7 @@ class CourseCategoriesTableSeeder extends Seeder
         );
         DB::table('course_categories')->insert(
             [
-                'serach_index'  => 'starter-chouka-real',
+                'serach_index'  => 'starter-chuka-real',
                 'category'      => 'スターター(リアル教室)',
                 'style'         => '中華'
             ]
@@ -48,7 +48,7 @@ class CourseCategoriesTableSeeder extends Seeder
         );
         DB::table('course_categories')->insert(
             [
-                'serach_index'  => 'basic-chouka-real',
+                'serach_index'  => 'basic-chuka-real',
                 'category'      => '基本料理(リアル教室)',
                 'style'         => '中華'
             ]
@@ -140,7 +140,7 @@ class CourseCategoriesTableSeeder extends Seeder
         );
         DB::table('course_categories')->insert(
             [
-                'serach_index'  => 'starter-chouka-online',
+                'serach_index'  => 'starter-chuka-online',
                 'category'      => 'スターター(オンライン)',
                 'style'         => '中華'
             ]
@@ -161,7 +161,7 @@ class CourseCategoriesTableSeeder extends Seeder
         );
         DB::table('course_categories')->insert(
             [
-                'serach_index'  => 'basic-chouka-online',
+                'serach_index'  => 'basic-chuka-online',
                 'category'      => '基本料理(オンライン)',
                 'style'         => '中華'
             ]

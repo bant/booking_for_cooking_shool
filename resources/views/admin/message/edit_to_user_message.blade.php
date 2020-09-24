@@ -22,7 +22,7 @@
                     <dl class="row">
                         <dt class="col-md-4">予約番号</dt>
                         <dd class="col-md-8">{{ $reservation->id }}</dd>
-                        @if (!$reservation->is_zoom)
+                        @if (!$reservation->schedule->is_zoom)
                             <dt class="col-md-4">教室名</dt>
                             <dd class="col-md-8">{{ $reservation->schedule->staff->room->name }}</dd>
                         @else
@@ -35,7 +35,7 @@
                         <dd class="col-md-8">{{date('Y年m月d日 H時i分', strtotime($reservation->schedule->start))}}</dd>
                         <dt class="col-md-4">担当先生</dt>
                         <dd class="col-md-8">{{ $reservation->schedule->staff->name }}</dd>
-                        <dt class="col-md-4">生徒</dt>
+                        <dt class="col-md-4">生徒(ID)</dt>
                         <dd class="col-md-8">{{$reservation->user->name}}({{$reservation->user->id}})</dd>
                         <dt class="col-md-4">住所</dt>
                         <dd class="col-md-8">{{ $reservation->user->pref }}{{ $reservation->user->address }}</dd>

@@ -201,8 +201,8 @@ class InquiryController extends Controller
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
             ->where('course_categories.serach_index', 'like', "%real")
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
-            ->orderBy('course_categories.id')
             ->orderBy('schedules.staff_id')
+            ->orderBy('course_categories.id')
             ->orderBy('schedules.start')
             ->get([
                 'schedules.id as schedules_id',
@@ -212,18 +212,39 @@ class InquiryController extends Controller
                 'schedules.end as end',
                 'course_categories.serach_index as search_index',
             ]);
+       
 
+        $i = 1;
+        $old_staff_id = 0;
         foreach ($real_schedules as $real_schedule) {
             $category = explode("-", $real_schedule->search_index);
 
-            if ($category[1] != "real") {
-                $base_array[$category[0]]['style'] = $category[1];
+            if ($old_staff_id != $real_schedule->staff_id)
+            {
+                $i = 1;
+                $old_staff_id = $real_schedule->staff_id;
             }
-            $base_array[$category[0]]['class_info']['staff_id'] = $real_schedule->staff_id;
-            $base_array[$category[0]]['class_info']['capacity'] = $real_schedule->capacity;
-            $base_array[$category[0]]['class_info']['start'] = str_replace(' ', 'T', $real_schedule->start);
-            $base_array[$category[0]]['class_info']['end'] = str_replace(' ', 'T', $real_schedule->end);
+
+            if ($category[1] != "real") {
+                $base_array["staff".$real_schedule->staff_id][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id][$i]['style'] = $category[1];
+                $base_array["staff".$real_schedule->staff_id][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+            }
+            else
+            {
+                $base_array["staff".$real_schedule->staff_id][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);       
+            }
+
+            $i = $i + 1;
         }
+
+
+//        dd($base_array);
 
         return response()->json($base_array);
     }
