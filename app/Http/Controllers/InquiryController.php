@@ -243,6 +243,68 @@ class InquiryController extends Controller
         return response()->json($base_array);
     }
 
+    /**
+     *
+     *
+     *
+     */
+    public function getClassroomScheduleAtNextMonth()
+    {
+        $base_array = [];
+
+        // 現在の日時
+        $now = Carbon::now();
+        $next_first_month_day = Carbon::createFromTimestamp(strtotime($now))
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
+        $next_last_month_day = Carbon::createFromTimestamp(strtotime($now))
+            ->timezone(\Config::get('app.timezone'))->addMonth()->endOfMonth()->toDateString()." 23:59:59";
+
+        $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
+            ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
+            ->where('course_categories.serach_index', 'like', "%real")
+            ->whereBetween('schedules.start', [$next_first_month_day, $next_last_month_day])
+            ->orderBy('schedules.staff_id')
+            ->orderBy('course_categories.id')
+            ->orderBy('schedules.start')
+            ->get([
+                'schedules.id as schedules_id',
+                'schedules.staff_id as staff_id',
+                'schedules.capacity as capacity',
+                'schedules.start as start',
+                'schedules.end as end',
+                'course_categories.serach_index as search_index',
+            ]);
+
+        $i = 0;
+        $old_staff_id = 0;
+        foreach ($real_schedules as $real_schedule) {
+            $category = explode("-", $real_schedule->search_index);
+
+            if ($old_staff_id != $real_schedule->staff_id) {
+                $i = 0;
+                $old_staff_id = $real_schedule->staff_id;
+            }
+
+            if ($category[1] != "real") {
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+            } else {
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+            }
+
+            $i = $i + 1;
+        }
+
+        return response()->json($base_array);
+    }
+
 
     /**
      *
@@ -264,6 +326,69 @@ class InquiryController extends Controller
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
             ->where('course_categories.serach_index', 'like', "%online")
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
+            ->orderBy('schedules.staff_id')
+            ->orderBy('course_categories.id')
+            ->orderBy('schedules.start')
+            ->get([
+                'schedules.id as schedules_id',
+                'schedules.staff_id as staff_id',
+                'schedules.capacity as capacity',
+                'schedules.start as start',
+                'schedules.end as end',
+                'course_categories.serach_index as search_index',
+            ]);
+
+        $i = 0;
+        $old_staff_id = 0;
+        foreach ($real_schedules as $real_schedule) {
+            $category = explode("-", $real_schedule->search_index);
+
+            if ($old_staff_id != $real_schedule->staff_id) {
+                $i = 0;
+                $old_staff_id = $real_schedule->staff_id;
+            }
+
+            if ($category[1] != "online") {
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+            } else {
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+            }
+
+            $i = $i + 1;
+        }
+
+        return response()->json($base_array);
+    }
+
+
+    /**
+     *
+     *
+     *
+     */
+    public function getZoomScheduleAtNextMonth()
+    {
+        $base_array = [];
+
+        // 現在の日時
+        $now = Carbon::now();
+        $next_first_month_day = Carbon::createFromTimestamp(strtotime($now))
+            ->timezone(\Config::get('app.timezone'))->addMonth()->startOfMonth()->toDateString()." 00:00:00";
+        $next_last_month_day = Carbon::createFromTimestamp(strtotime($now))
+            ->timezone(\Config::get('app.timezone'))->addMonth()->endOfMonth()->toDateString()." 23:59:59";
+
+        $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
+            ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
+            ->where('course_categories.serach_index', 'like', "%online")
+            ->whereBetween('schedules.start', [$next_first_month_day, $next_last_month_day])
             ->orderBy('schedules.staff_id')
             ->orderBy('course_categories.id')
             ->orderBy('schedules.start')

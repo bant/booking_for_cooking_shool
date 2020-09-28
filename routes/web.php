@@ -21,6 +21,8 @@ Route::get('api/inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClass
 Route::get('api/inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule');
 Route::get('api/inquiry/getClassroomScheduleAtMonth', 'InquiryController@getClassroomScheduleAtMonth');
 Route::get('api/inquiry/getZoomScheduleAtMonth', 'InquiryController@getZoomScheduleAtMonth');
+Route::get('api/inquiry/getClassroomScheduleAtNextMonth', 'InquiryController@getClassroomScheduleAtNextMonth');
+Route::get('api/inquiry/getZoomScheduleAtNextMonth', 'InquiryController@getZoomScheduleAtNextMonth');
 
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
