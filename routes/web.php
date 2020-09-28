@@ -20,6 +20,7 @@ Route::get('zoom/{id?}/calendar', 'HomeController@zoom_calendar')->name('zoom_ca
 Route::get('api/inquiry/{id?}/getClassroomSchedule', 'InquiryController@getClassroomSchedule');
 Route::get('api/inquiry/{id?}/getZoomSchedule', 'InquiryController@getZoomSchedule');
 Route::get('api/inquiry/getClassroomScheduleAtMonth', 'InquiryController@getClassroomScheduleAtMonth');
+Route::get('api/inquiry/getZoomScheduleAtMonth', 'InquiryController@getZoomScheduleAtMonth');
 
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {

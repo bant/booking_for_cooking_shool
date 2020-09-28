@@ -182,9 +182,9 @@ class InquiryController extends Controller
     }
 
     /**
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     public function getClassroomScheduleAtMonth()
     {
@@ -212,39 +212,36 @@ class InquiryController extends Controller
                 'schedules.end as end',
                 'course_categories.serach_index as search_index',
             ]);
-       
 
-        $i = 1;
+        $i = 0;
         $old_staff_id = 0;
         foreach ($real_schedules as $real_schedule) {
             $category = explode("-", $real_schedule->search_index);
 
-            if ($old_staff_id != $real_schedule->staff_id)
-            {
-                $i = 1;
+            if ($old_staff_id != $real_schedule->staff_id) {
+                $i = 0;
                 $old_staff_id = $real_schedule->staff_id;
             }
 
             if ($category[1] != "real") {
-                $base_array["staff".$real_schedule->staff_id][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id][$i]['style'] = $category[1];
-                $base_array["staff".$real_schedule->staff_id][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
-            }
-            else
-            {
-                $base_array["staff".$real_schedule->staff_id][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);       
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+            } else {
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
+                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
             }
 
             $i = $i + 1;
         }
 
-
-//        dd($base_array);
+//        $json = json_encode($base_array,JSON_PRETTY_PRINT);
+//        dd($json );
 
         return response()->json($base_array);
     }
