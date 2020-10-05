@@ -358,14 +358,14 @@ class InquiryController extends Controller
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
-                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.zoom_reservation.create', $schedule->schedules_id);
             } else {
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = "";
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
-                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.zoom_reservation.create', $schedule->schedules_id);
             }
 
             $i = $i + 1;
@@ -423,7 +423,7 @@ class InquiryController extends Controller
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
-                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.zoom_reservation.create', $schedule->schedules_id);
 
             } else {
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
@@ -431,7 +431,7 @@ class InquiryController extends Controller
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
                 $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
-                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.zoom_reservation.create', $schedule->schedules_id);
             }
 
             $i = $i + 1;
