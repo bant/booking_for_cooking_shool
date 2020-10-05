@@ -78,11 +78,15 @@
                 <td>{{ number_format($reservation->course_price*1.1) }}円</td>
                 <td>{{ date('Y年m月d日 H時i分', strtotime($reservation->start))}}</td>
                 <td class="text-right">
+                @if (false)
                     <form action="{{route('user.message.send_cancel_message',$reservation->id)}}" method="POST" style="display: inline;"
                                 onsubmit="return confirm('予約の取り消し依頼を送信しますか?');">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　取り消しメッセージ</button>
                     </form>
+                @else
+                    --
+                @endif  
                 </td>
                 </tr>
             @endforeach

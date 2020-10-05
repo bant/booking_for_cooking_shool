@@ -53,6 +53,7 @@
         </div>
         @endif
 
+        @if (false)
         <h2>生徒さんからのメッセージ</h2>
         @if($user_booking_cancel_messages->count())
         <h3>(仮)予約のキャンセル依頼</h3>
@@ -92,7 +93,7 @@
                         <form action="{{route('staff.cancel.do_reservation',['message_id'=>$user_booking_cancel_message->id,'id'=>$user_booking_cancel_message->reservation_id])}}" method="POST" style="display: inline;" onsubmit="return confirm('キャンセルしますか?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　キャンセル</button>
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>&nbsp;キャンセル</button>
                         </form>
                     </td>
                 </tr>
@@ -126,7 +127,7 @@
                         <form action="{{route('staff.cancel.cancel.do_wait_list',$user_wait_list_cancel_messages->reservation_id)}}" method="POST" style="display: inline;" onsubmit="return confirm('キャンセルしますか?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-paper-plane"></i>　キャンセル</button>
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>&nbsp;キャンセル</button>
                         </form>
                     </td>
                 </tr>
@@ -138,6 +139,8 @@
         <div class="text-center alert alert-info">
             生徒さんからのメッセージはありません。
         </div>
+        @endif
+
         @endif
 
         <h2>{{$staff->room->name}}の予約状況(終了したレッスンは表示されません。)</h2>
