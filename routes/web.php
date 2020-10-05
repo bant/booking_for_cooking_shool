@@ -101,6 +101,11 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
         Route::get('reservation/{id?}/is_contract_zoom_update', 'ReservationController@is_contract_zoom_update')->name('reservation.is_contract_zoom_update');
         Route::get('reservation/{id?}/export_class', 'ReservationController@export_class')->name('reservation.export_class');
         Route::get('reservation/{id?}/export_zoom', 'ReservationController@export_zoom')->name('reservation.export_zoom');
+
+        // 
+        Route::get('manual/search_cancel', 'CancelController@search_cancel')->name('manual.search_cancel');
+        Route::post('manual/check_cancel', 'CancelController@check_cancel')->name('manual.check_cancel');
+
         Route::get('inquiry/{id?}/get', 'InquiryController@get')->name('inquiry.get');
         Route::post('inquiry/destroy', 'InquiryController@destroy')->name('inquiry.destroy');;
         Route::post('inquiry/store', 'InquiryController@store')->name('inquiry.store');;

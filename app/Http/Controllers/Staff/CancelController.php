@@ -58,8 +58,9 @@ class CancelController extends Controller
         Reservation::find($id)->delete();
 
         /* メッセージを削除する */
-        UserMessage::find($message_id)->delete();
-
+        if ($message_id!=0) {
+            UserMessage::find($message_id)->delete();
+        }
 
         if ($reservation->is_contract) {
             $mail_title = "【予約キャンセル】" . $schedule->staff->room->name . "の予約のキャンセルを受付ました";
@@ -220,7 +221,8 @@ class CancelController extends Controller
             $to_staff_message->save();
         }
 
-        return  redirect()->route('staff.home.index')->with('status', '予約はキャンセルされました');
+//        return  redirect()->route('staff.home.index')->with('status', '予約はキャンセルされました');
+        return  redirect()->route('staff.manual.search_cancel')->with('success', '予約はキャンセルされました');
     }
 
 
@@ -264,5 +266,33 @@ class CancelController extends Controller
         Mail::to($schedule->staff->email)->cc(Admin::find(1)->email)->send(new ClassRoomCancelStaffEmail($mail_title, $mail_data));
 
         return  redirect()->route('staff.home.index')->with('status', '予約はキャンセルされました');
+    }
+
+
+    /**
+     * 
+     * 
+     */
+    public function search_cancel()
+    {
+        return view('staff.manual.search_cancel')->with(['reservation' => null]);
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function check_cancel(Request $request)
+    {
+        $staff = Auth::user();
+        $reservation = Reservation::find($request->reservation_id);
+
+        if (!is_null($reservation)) {
+            if ($reservation->schedule->staff_id != $staff->id) {
+                $reservation = null;
+            }
+        }
+
+        return view('staff.manual.search_cancel')->with(['reservation' => $reservation]);
     }
 }

@@ -26,7 +26,7 @@
         </div>
 
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;検索</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i>&nbsp;検索</button>
         </div>
     </form>
     <br/>
@@ -39,7 +39,7 @@
             <input class="form-control" type="text" name="reservation_id" id="reservation_id-field" value="{{old('reservation_id')}}" />
         </div>
         <div class="well well-sm">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;検索</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i>&nbsp;検索</button>
         </div>
     </form>
     <br/>

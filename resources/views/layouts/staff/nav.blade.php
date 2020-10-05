@@ -10,6 +10,7 @@
         <div class="submenu">
             <a class="subitem" href="{{ route('staff.schedule.index') }}" title="スケジュール管理">スケジュール管理</a>
             <a class="subitem" href="{{ route('staff.reservation.index') }}" title="予約管理">予約管理</a>
+            <a class="subitem" href="{{ route('staff.manual.search_cancel') }}" title="予約キャンセル">予約キャンセル</a>
         </div><!-- .submenu -->
     </div><!-- .menu -->
     <div class="menu"><a class="slite" href="#">連絡・メッセージ</a>

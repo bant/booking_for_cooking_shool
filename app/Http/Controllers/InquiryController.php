@@ -197,7 +197,7 @@ class InquiryController extends Controller
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($now))
             ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
 
-        $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
+        $schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
             ->where('course_categories.serach_index', 'like', "%real")
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
@@ -215,26 +215,28 @@ class InquiryController extends Controller
 
         $i = 0;
         $old_staff_id = 0;
-        foreach ($real_schedules as $real_schedule) {
-            $category = explode("-", $real_schedule->search_index);
+        foreach ($schedules as $schedule) {
+            $category = explode("-", $schedule->search_index);
 
-            if ($old_staff_id != $real_schedule->staff_id) {
+            if ($old_staff_id != $schedule->staff_id) {
                 $i = 0;
-                $old_staff_id = $real_schedule->staff_id;
+                $old_staff_id = $schedule->staff_id;
             }
 
             if ($category[1] != "real") {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             } else {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             }
 
             $i = $i + 1;
@@ -259,7 +261,7 @@ class InquiryController extends Controller
         $next_last_month_day = Carbon::createFromTimestamp(strtotime($now))
             ->timezone(\Config::get('app.timezone'))->addMonth()->endOfMonth()->toDateString()." 23:59:59";
 
-        $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
+        $schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
             ->where('course_categories.serach_index', 'like', "%real")
             ->whereBetween('schedules.start', [$next_first_month_day, $next_last_month_day])
@@ -277,26 +279,28 @@ class InquiryController extends Controller
 
         $i = 0;
         $old_staff_id = 0;
-        foreach ($real_schedules as $real_schedule) {
-            $category = explode("-", $real_schedule->search_index);
+        foreach ($schedules as $schedule) {
+            $category = explode("-", $schedule->search_index);
 
-            if ($old_staff_id != $real_schedule->staff_id) {
+            if ($old_staff_id != $schedule->staff_id) {
                 $i = 0;
-                $old_staff_id = $real_schedule->staff_id;
+                $old_staff_id = $schedule->staff_id;
             }
 
             if ($category[1] != "real") {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             } else {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             }
 
             $i = $i + 1;
@@ -322,7 +326,7 @@ class InquiryController extends Controller
         $now_last_month_day = Carbon::createFromTimestamp(strtotime($now))
             ->timezone(\Config::get('app.timezone'))->endOfMonth()->toDateString()." 23:59:59";
 
-        $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
+        $schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
             ->where('course_categories.serach_index', 'like', "%online")
             ->whereBetween('schedules.start', [$now_first_month_day, $now_last_month_day])
@@ -340,26 +344,28 @@ class InquiryController extends Controller
 
         $i = 0;
         $old_staff_id = 0;
-        foreach ($real_schedules as $real_schedule) {
-            $category = explode("-", $real_schedule->search_index);
+        foreach ($schedules as $schedule) {
+            $category = explode("-", $schedule->search_index);
 
-            if ($old_staff_id != $real_schedule->staff_id) {
+            if ($old_staff_id != $schedule->staff_id) {
                 $i = 0;
-                $old_staff_id = $real_schedule->staff_id;
+                $old_staff_id = $schedule->staff_id;
             }
 
             if ($category[1] != "online") {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             } else {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             }
 
             $i = $i + 1;
@@ -385,7 +391,7 @@ class InquiryController extends Controller
         $next_last_month_day = Carbon::createFromTimestamp(strtotime($now))
             ->timezone(\Config::get('app.timezone'))->addMonth()->endOfMonth()->toDateString()." 23:59:59";
 
-        $real_schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
+        $schedules = Schedule::join('courses', 'schedules.course_id', '=', 'courses.id')
             ->join('course_categories', 'courses.category_id', '=', 'course_categories.id')
             ->where('course_categories.serach_index', 'like', "%online")
             ->whereBetween('schedules.start', [$next_first_month_day, $next_last_month_day])
@@ -403,26 +409,29 @@ class InquiryController extends Controller
 
         $i = 0;
         $old_staff_id = 0;
-        foreach ($real_schedules as $real_schedule) {
-            $category = explode("-", $real_schedule->search_index);
+        foreach ($schedules as $schedule) {
+            $category = explode("-", $schedule->search_index);
 
-            if ($old_staff_id != $real_schedule->staff_id) {
+            if ($old_staff_id != $schedule->staff_id) {
                 $i = 0;
-                $old_staff_id = $real_schedule->staff_id;
+                $old_staff_id = $schedule->staff_id;
             }
 
             if ($category[1] != "online") {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = $category[1];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = $category[1];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
+
             } else {
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['course'] = $category[0];
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['style'] = "";
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['capacity'] = $real_schedule->capacity;
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $real_schedule->start);
-                $base_array["staff".$real_schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $real_schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['course'] = $category[0];
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['style'] = "";
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['capacity'] = $schedule->capacity;
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['start'] = str_replace(' ', 'T', $schedule->start);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['end'] = str_replace(' ', 'T', $schedule->end);
+                $base_array["staff".$schedule->staff_id]['class_info'][$i]['url'] =  route('user.classroom_reservation.create', $schedule->schedules_id);
             }
 
             $i = $i + 1;
