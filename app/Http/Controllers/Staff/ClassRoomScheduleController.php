@@ -43,8 +43,16 @@ class ClassRoomScheduleController extends Controller
     public function create()
     {
         $staff = Auth::user();
-        $courses = Course::where('staff_id', $staff->id)->get(['id', 'name']);
+        $courses = Course::join('course_categories', 'courses.category_id', '=', 'course_categories.id')
+            ->where('courses.staff_id', $staff->id)
+            ->where('course_categories.serach_index', 'like', "%real")
+            ->orderBy('courses.name')
+            ->get([
+                'courses.id as id',
+                'courses.name as name',
+            ]);
         $zoom_count = Zoom::where('staff_id', '=', '$staff->id')->count();
+        
         return view('staff.classroom_schedule.create', compact('courses', 'zoom_count'));
     }
 
@@ -95,7 +103,15 @@ class ClassRoomScheduleController extends Controller
     {
         $staff = Auth::user();
         $schedule = Schedule::find($id);
-        $courses = Course::where('staff_id', $staff->id)->get(['id', 'name']);
+        $courses = Course::join('course_categories', 'courses.category_id', '=', 'course_categories.id')
+            ->where('courses.staff_id', $staff->id)
+            ->where('course_categories.serach_index', 'like', "%real")
+            ->orderBy('courses.name')
+            ->get([
+                'courses.id as id',
+                'courses.name as name',
+        ]);
+
         return view('staff.classroom_schedule.edit', compact('schedule', 'courses'));
     }
 
