@@ -44,7 +44,7 @@ class BackupDatabaseCommand extends Command
     public function handle()
     {
         // ファイル名
-        $file_name = sprintf('%s_%s.sql', $this->db_name, date('YMDHis'));
+        $file_name = sprintf('%s_%s.sql', $this->db_name, date('Y-m-d-H_i_s'));
         // ファイルフルパス
         $file_path = sprintf('%s/%s', $this->store_path, $file_name);
 
